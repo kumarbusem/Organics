@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">TEKKR Organics</string>
+
+    <!--MAINTENANCE PAGE-->
+    <string name="maintenance_title">Under Maintenance</string>
+    <string name="maintenance_message_1">We\'re undergoing a bit of scheduled maintenance.</string>
+    <string name="maintenance_message_2">Sorry for the inconvenience,\n We\'ll be back up and running as fast as possible.</string>
+    <!--DEPRECATION PAGE-->
+    <string name="depreciation_title">Unsupported App Version</string>
+    <string name="depreciation_message_1">We no longer support this\n version of the application.</string>
+    <string name="depreciation_message_2">For more features and a better user experience,\nplease update the app from below links.</string>
+    <!--NO INTERNET PAGE-->
+    <string name="no_internet_message_1">Could not connect to the internet.</string>
+    <string name="no_internet_message_2">Please check your network settings.</string>
+    <!--ACCESS REVOKED PAGE-->
+
+
+    <!--LOGIN-->
+
+    <!--PROFILE-->
+    <string name="service_already_running">Service is already running</string>
+    <string name="service_start_successfully">Service start successfully</string>
+    <string name="gps_enable">GPS enable</string>
+    <string name="please_turn_on_gps">Please turn on GPS</string>
+    <string name="ok">Ok</string>
+</resources>

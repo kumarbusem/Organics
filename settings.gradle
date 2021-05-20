@@ -1,0 +1,3 @@
+rootProject.name='Organics'
+include ':app'
+include ':data'

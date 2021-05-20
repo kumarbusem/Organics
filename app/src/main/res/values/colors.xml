@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3ab54a</color>
+    <color name="colorPrimaryDark">@color/milky_green</color>
+    <color name="colorAccent">#3ab54a</color>
+    <color name="orangeRed">#FF5858</color>
+    <color name="white">#ffffff</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGrey300">#CDCDCD</color>
+    <color name="colorGrey500">#8E8E8E</color>
+    <color name="colorGrey700">#454545</color>
+    <color name="colorGrey900">#121a1c</color>
+
+    <color name="milky_white">#E7EBEF</color>
+    <color name="milky_green">#edfff1</color>
+</resources>

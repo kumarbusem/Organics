@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "172914487059",
+    "firebase_url": "https://tekkr-organics.firebaseio.com",
+    "project_id": "tekkr-organics",
+    "storage_bucket": "tekkr-organics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172914487059:android:8c5ca8f42554eee3da34e6",
+        "android_client_info": {
+          "package_name": "com.tekkr.data"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3hUXZ5NpRb_wzM1semx4TCZnj3uFbFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172914487059:android:9ecdc48fd08779e1da34e6",
+        "android_client_info": {
+          "package_name": "com.tekkr.organics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3hUXZ5NpRb_wzM1semx4TCZnj3uFbFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172914487059:android:9ecdc48fd08779e1da34e6",
+        "android_client_info": {
+          "package_name": "com.tekkr.organics.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3hUXZ5NpRb_wzM1semx4TCZnj3uFbFS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172914487059-o9m1qutvg9m7agsti6rilln0dg7cvrj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,65 @@
+package com.tekkr.organics.features.dialogs
+
+
+import android.app.Dialog
+import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import com.tekkr.organics.R
+import com.tekkr.organics.databinding.DialogHelpBinding
+
+
+class HelpDialog(val onCallSupportCLicked: () -> Unit) : DialogFragment() {
+
+    private lateinit var mBinding: DialogHelpBinding
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).apply {
+            setCanceledOnTouchOutside(true)
+            window?.apply {
+                attributes?.windowAnimations = R.style.DialogSideInOutAnimation
+                setBackgroundDrawableResource(android.R.color.transparent)
+                setGravity(Gravity.CENTER_VERTICAL)
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_help, container, false)
+        mBinding.lifecycleOwner = viewLifecycleOwner
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
+    }
+
+
+    private fun setupViews() {
+
+        mBinding.apply {
+
+            mcvPhone.setOnClickListener {
+                onCallSupportCLicked()
+                dialog?.dismiss()
+            }
+
+        }
+    }
+}
