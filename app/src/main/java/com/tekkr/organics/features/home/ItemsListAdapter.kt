@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tekkr.data.roomDatabase.Item
+import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.organics.databinding.ItemBinding
 
-class ItemsListAdapter(private val callback: ItemSelectionCallback) : ListAdapter<Item, ItemsListAdapter.ItemsViewHolder>(DIFF_UTILS) {
+class ItemsListAdapter(private val callback: ItemSelectionCallback) : ListAdapter<BigItem, ItemsListAdapter.ItemsViewHolder>(DIFF_UTILS) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
         return ItemsViewHolder(ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -25,25 +25,25 @@ class ItemsListAdapter(private val callback: ItemSelectionCallback) : ListAdapte
 
         }
 
-        fun bind(data: Item) {
+        fun bind(data: BigItem) {
             item.item = data
         }
     }
 
     interface ItemSelectionCallback {
-        fun onItemselected(Items: Item)
+        fun onItemselected(Items: BigItem)
     }
 
     companion object {
 
         val TAG: String = ItemsListAdapter::class.java.name
 
-        val DIFF_UTILS: DiffUtil.ItemCallback<Item> = object : DiffUtil.ItemCallback<Item>() {
-            override fun areItemsTheSame(old: Item, new: Item): Boolean {
+        val DIFF_UTILS: DiffUtil.ItemCallback<BigItem> = object : DiffUtil.ItemCallback<BigItem>() {
+            override fun areItemsTheSame(old: BigItem, new: BigItem): Boolean {
                 return old == new
             }
 
-            override fun areContentsTheSame(old: Item, new: Item): Boolean {
+            override fun areContentsTheSame(old: BigItem, new: BigItem): Boolean {
                 return old.id == new.id
             }
         }

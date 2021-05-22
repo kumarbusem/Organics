@@ -43,6 +43,6 @@ class Item(
         val vendor_name: String,
 
         @ColumnInfo(name = "priority")
-        val priority: Int
+        val priority: Int,
 
 )

@@ -1,19 +1,71 @@
 package com.tekkr.data.roomDatabase
 
+import android.util.Log
 import androidx.annotation.WorkerThread
+import com.tekkr.data.dataSources.definitions.DataSourceBasic
+import com.tekkr.data.dataSources.repos.RepoBasic
+import com.tekkr.data.internal.common.ApiException
 
-class TekkrRoomRepository(private val recentAddressDao: RecentAddressDao) {
+class TekkrRoomRepository(private val itemsDao: ItemDao) {
 
-    // Room executes all queries on a separate thread.
-    // Observed Flow will notify the observer when the data has changed.
-    val allRecentAddresses: List<Item> = recentAddressDao.getAlphabetizedWords()
+    val repoBasic: DataSourceBasic by lazy { RepoBasic() }
 
-    // By default Room runs suspend queries off the main thread, therefore, we don't need to
-    // implement anything else to ensure we're not doing long running database work
-    // off the main thread.
+    suspend fun getAllItems(): List<BigItem> {
+
+        lateinit var onlineItems: List<Item>
+        var message: String = ""
+
+        try {
+            repoBasic.getItems(){ onlineItems = it!! }
+        }catch (e: Exception){
+            message = e.message.toString()
+        }
+        val offlineItems = itemsDao.getAllItems()
+
+        if(onlineItems.isNullOrEmpty()){
+            if(offlineItems.isNullOrEmpty()){
+                throw ApiException("Items Not Available\n$message")
+            }
+            else{
+                return offlineItems
+            }
+        }else{
+
+            onlineItems.forEach {item ->
+
+                val items: List<BigItem?>? = itemsDao.getItemById(item.id)
+                if (items.isNullOrEmpty())
+                    itemsDao.insert(item.toBigItem())
+                else
+                    itemsDao.update(item)
+            }
+            return offlineItems
+        }
+
+        return itemsDao.getAllItems()
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(recentAddress: Item) {
-        recentAddressDao.insert(recentAddress)
+    suspend fun insert(item: BigItem) {
+        itemsDao.insert(item)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun update(item: Item) {
+        val items: List<BigItem?>? = itemsDao.getItemById(item.id)
+        if (items.isNullOrEmpty())
+            itemsDao.insert(item.toBigItem())
+        else
+            itemsDao.update(item)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun update(item: CartItem) {
+        Log.e("UPDATE::", "${item.id}, ${item.number}")
+        itemsDao.update(item)
+    }
+
 }

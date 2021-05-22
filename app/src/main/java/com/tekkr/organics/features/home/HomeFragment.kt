@@ -3,6 +3,7 @@ package com.tekkr.organics.features.home
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
@@ -46,6 +47,10 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.
             mViewModel.getItems()
         }
 
+        tvMangoPlus1.setOnClickListener {
+            mViewModel.updateItem(11, 2)
+        }
+
 
     }
 
@@ -66,8 +71,9 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.
 
     }
 
-    override fun onItemselected(Items: Item) {
 
+
+    override fun onItemselected(Items: BigItem) {
     }
 
 }

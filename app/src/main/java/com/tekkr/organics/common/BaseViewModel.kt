@@ -27,13 +27,13 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
 
     private val mJob: Job by lazy { Job() }
     protected val ioScope: CoroutineScope by lazy { CoroutineScope(Dispatchers.IO + mJob) }
+    val roomDatabase by lazy { TekkrRoomDatabase.getDatabase(context) }
 
     protected val repoPrefs: DataSourceSharedPreferences by lazy { RepoSharedPreferences() }
     protected val repoUser: DataSourceUser by lazy { RepoUser() }
     protected val repoBasic: DataSourceBasic by lazy { RepoBasic() }
     protected val repoImage: DataSourceImage by lazy { RepoImage() }
 
-    val roomDatabase by lazy { TekkrRoomDatabase.getDatabase(context) }
     val roomRepository by lazy { TekkrRoomRepository(roomDatabase.recentAddressDao()) }
 
     override fun onCleared() {
