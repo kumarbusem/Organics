@@ -43,12 +43,8 @@ class SplashFragment : BaseFragment() {
 
     private fun checkUserAuth() {
         val user = repoPrefs.getLoggedInUser()
-        Log.e("CHECK USE AUTH", user.toString())
-        if (user == null || user.token.isNullOrEmpty()) {
-            navigateById(R.id.action_splashFragment_to_loginFragment)
-        } else {
-            navigateById(R.id.action_splashFragment_to_loginFragment)
-        }
+            navigateById(R.id.action_splashFragment_to_homeFragment)
+
     }
 
     companion object {

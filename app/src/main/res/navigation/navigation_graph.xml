@@ -5,28 +5,42 @@
     app:startDestination="@id/splashFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
+        android:id="@+id/webViewFragment"
         android:name="com.tekkr.organics.features.webView.WebViewFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_web_view">
+        android:label="WebViewFragment"
+        tools:layout="@layout/fragment_web_view"/>
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tekkr.organics.features.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 
-    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.tekkr.organics.features.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
 
+
         <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"  />
+        <action
+            android:id="@+id/action_splashFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"  />
 
 
     </fragment>

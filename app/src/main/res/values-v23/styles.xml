@@ -19,7 +19,7 @@
     </style>
 
     <style name="Text.B2" parent="Text.B1">
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">23dp</item>
     </style>
 
     <style name="Text.B3" parent="Text.B1">
@@ -51,7 +51,9 @@
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
-
+    <style name="Text.M2" parent="Text.M1">
+        <item name="android:textSize">23dp</item>
+    </style>
     <style name="Text.M3" parent="Text.M1">
         <item name="android:textSize">15dp</item>
     </style>

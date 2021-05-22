@@ -32,10 +32,8 @@ interface MyApi {
             @Header("Authorization") token: String?
     ): Response<List<Order>>
 
-    @GET("api/v1/fps_orders_list_api/")
-    suspend fun getRations(
-            @Header("Authorization") token: String?
-    ): Response<List<Ration>>
+    @GET("api/items")
+    suspend fun getItems(    ): Response<List<Item>>
 
     @GET("api/v1/search_ration_id/")
     suspend fun getOrder(

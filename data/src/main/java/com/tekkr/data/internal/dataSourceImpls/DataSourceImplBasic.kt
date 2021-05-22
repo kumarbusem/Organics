@@ -1,13 +1,13 @@
 package com.tekkr.data.internal.dataSourceImpls
 
-import com.tekkr.data.dataSources.definitions.DataSourceRunsheet
+import com.tekkr.data.dataSources.definitions.DataSourceBasic
 import com.tekkr.data.models.Order
 import com.tekkr.data.models.OrderResponse
-import com.tekkr.data.models.Ration
+import com.tekkr.data.models.Item
 import com.tekkr.data.models.SimpleResponse
 import okhttp3.RequestBody
 
-internal class DataSourceImplRunsheet : DataSourceRunsheet() {
+internal class DataSourceImplBasic : DataSourceBasic() {
 
 
     override suspend fun getOrders(res: (List<Order>?) -> Unit) {
@@ -18,8 +18,8 @@ internal class DataSourceImplRunsheet : DataSourceRunsheet() {
         res(apiRequest { API.getFpsOrders(repoPrefs.getLoggedInUser()?.token) })
     }
 
-    override suspend fun getRations(res: (List<Ration>?) -> Unit) {
-        res(apiRequest { API.getRations(repoPrefs.getLoggedInUser()?.token) })
+    override suspend fun getItems(res: (List<Item>?) -> Unit) {
+        res(apiRequest { API.getItems() })
     }
 
     override suspend fun changePassword(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) {

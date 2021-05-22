@@ -38,7 +38,7 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
             })
             isUserLogout.observe(viewLifecycleOwner, Observer {
                 if (it == true) {
-                    navigateById(R.id.loginFragment)
+                    navigateById(R.id.splashFragment)
                 }
             })
 

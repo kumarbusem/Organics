@@ -13,5 +13,5 @@ const val BUILD_TYPE_DEBUG: String = "debug"
 //val baseUrl = if(BuildConfig.BUILD_TYPE == BUILD_TYPE_RELEASE) "http://cms.cashtek.in"
 //else "http://test.cms.cashtek.in"
 
-val baseUrl = if (BuildConfig.BUILD_TYPE == BUILD_TYPE_RELEASE) "http://165.22.214.54:9000"
-else "http://165.22.214.54:9000"
+val baseUrl = if (BuildConfig.BUILD_TYPE == BUILD_TYPE_RELEASE) "http://3.108.36.134"
+else "http://3.108.36.134"
