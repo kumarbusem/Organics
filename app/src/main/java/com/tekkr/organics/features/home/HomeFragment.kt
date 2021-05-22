@@ -3,14 +3,11 @@ package com.tekkr.organics.features.home
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tekkr.data.models.Item
+import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
 import com.tekkr.organics.common.ViewModelFactory
-import com.tekkr.organics.common.toast
 import com.tekkr.organics.databinding.FragmentHomeBinding
-import com.tekkr.organics.databinding.FragmentWebViewBinding
-import java.net.URLEncoder
 
 class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home), ItemsListAdapter.ItemSelectionCallback {
 

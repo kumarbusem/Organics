@@ -1,4 +1,4 @@
-package com.tekkr.data.models
+package com.tekkr.data.roomDatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

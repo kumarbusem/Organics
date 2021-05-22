@@ -2,12 +2,10 @@ package com.tekkr.organics.features.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tekkr.data.models.Item
+import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.databinding.ItemBinding
 
 class ItemsListAdapter(private val callback: ItemSelectionCallback) : ListAdapter<Item, ItemsListAdapter.ItemsViewHolder>(DIFF_UTILS) {

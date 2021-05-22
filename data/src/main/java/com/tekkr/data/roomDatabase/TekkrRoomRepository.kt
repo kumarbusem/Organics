@@ -1,7 +1,6 @@
 package com.tekkr.data.roomDatabase
 
 import androidx.annotation.WorkerThread
-import com.tekkr.data.models.Item
 
 class TekkrRoomRepository(private val recentAddressDao: RecentAddressDao) {
 

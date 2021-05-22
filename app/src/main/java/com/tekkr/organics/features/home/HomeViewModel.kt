@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
-import com.tekkr.data.models.Item
+import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.common.BaseViewModel
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
