@@ -39,7 +39,6 @@
             android:layout_height="45dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/grad2"
-            android:elevation="20dp"
             android:id="@+id/mcvCart"
             android:outlineAmbientShadowColor="@color/colorPrimary"
             android:outlineSpotShadowColor="@color/colorPrimary"
@@ -57,6 +56,30 @@
                 android:src="@drawable/basket"
                 app:tint="@color/white" />
         </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            app:cardElevation="20dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/colorPrimary"
+            app:cardCornerRadius="9dp"
+            app:layout_constraintTop_toTopOf="@id/mcvCart"
+            app:layout_constraintEnd_toEndOf="@id/mcvCart"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:minWidth="18dp"
+                tools:text="2"
+                android:text="@{Integer.toString(viewModel.obsCartCount)}"
+                android:paddingHorizontal="3dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                style="@style/Text.B3"
+                android:textSize="10dp"
+                android:background="@color/white"
+                android:layout_height="18dp"/>
+        </com.google.android.material.card.MaterialCardView>
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="45dp"
@@ -64,11 +87,10 @@
             android:layout_marginEnd="16dp"
             android:id="@+id/mcvProfile"
             android:background="@drawable/grad2"
-            android:elevation="20dp"
+            app:cardElevation="20dp"
             android:outlineAmbientShadowColor="@color/colorPrimary"
             android:outlineSpotShadowColor="@color/colorPrimary"
             app:cardCornerRadius="18dp"
-            app:cardElevation="20dp"
             app:layout_constraintBottom_toBottomOf="@id/tvName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvName">
@@ -105,17 +127,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tvPopular"
-                        style="@style/Text.B3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Popular"
-                        android:textColor="@color/colorGrey900"
-                        android:textSize="17dp"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cvMango1"
@@ -127,258 +138,44 @@
                         android:outlineSpotShadowColor="@color/colorPrimary"
                         app:cardCornerRadius="14dp"
                         app:cardElevation="10dp"
-                        app:layout_constraintTop_toBottomOf="@id/tvPopular">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/ivMango1"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
-                                android:adjustViewBounds="true"
-                                android:layout_marginStart="4dp"
-                                android:src="@drawable/mangos"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            android:background="@drawable/banner1"
+                            android:layout_height="200dp">
 
                             <TextView
-                                android:id="@+id/tvMango1"
-                                style="@style/Text.B3"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="6dp"
-                                android:text="Organic Banaganapalli Mangoes Mini Pack (3Kg)"
-                                android:textColor="@color/colorGrey900"
-                                android:textSize="13dp"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoPrice1"
-                                app:layout_constraintStart_toEndOf="@id/ivMango1"
-                                app:layout_constraintEnd_toStartOf="@id/tvMangoMinus1"
-                                app:layout_constraintTop_toTopOf="@id/ivMango1"
-                                app:layout_constraintVertical_chainStyle="packed" />
-
-                            <TextView
-                                android:id="@+id/tvMangoPrice1"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_marginTop="6dp"
+                                android:textColor="@color/white"
+                                android:layout_marginEnd="20dp"
                                 style="@style/Text.M3"
-                                android:text="₹599"
-                                android:textColor="@color/colorGrey700"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/ivMango1"
-                                app:layout_constraintTop_toBottomOf="@id/tvMango1" />
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/tvMangoPlus1"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:layout_marginEnd="14dp"
-                                app:cardCornerRadius="12dp"
-                                android:layout_marginTop="12dp"
-                                app:cardElevation="0dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoCount1"
+                                android:textSize="17dp"
+                                android:layout_marginTop="20dp"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/colorPrimary"
-                                    android:padding="5dp"
-                                    android:src="@drawable/ic_baseline_add_24"
-                                    app:tint="@color/white" />
-                            </androidx.cardview.widget.CardView>
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:textAlignment="textEnd"
+                                android:text="Banaganapalli Mangoes"
+                                android:layout_height="wrap_content"/>
 
                             <TextView
-                                android:id="@+id/tvMangoCount1"
-                                style="@style/Text.B2"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="3"
-                                android:textColor="@color/colorGrey900"
-                                android:textSize="16dp"
-                                android:padding="3dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintTop_toBottomOf="@id/tvMangoPlus1"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoMinus1"
-                                app:layout_constraintEnd_toEndOf="@id/tvMangoPlus1"
-                                app:layout_constraintStart_toStartOf="@id/tvMangoPlus1"/>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/tvMangoMinus1"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:elevation="0dp"
-                                app:cardCornerRadius="12dp"
-                                android:layout_marginEnd="14dp"
-                                android:layout_marginBottom="12dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintTop_toBottomOf="@id/tvMangoCount1"
-                                app:cardElevation="0dp"
+                                android:textColor="@color/milky_green"
+                                android:layout_marginEnd="20dp"
+                                style="@style/Text.R3"
+                                android:textSize="17dp"
+                                android:lineSpacingExtra="8dp"
+                                android:layout_marginBottom="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/milky_green"
-                                    android:padding="5dp"
-                                    android:src="@drawable/ic_baseline_remove_24"
-                                    app:tint="@color/colorPrimary" />
-                            </androidx.cardview.widget.CardView>
+                                android:textAlignment="textEnd"
+                                android:text="Carbide free\n100% organic\nFresh from farm\nHandpicked in each box"
+                                android:layout_height="wrap_content"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cvMango2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp"
-                        android:elevation="10dp"
-                        android:outlineAmbientShadowColor="@color/colorPrimary"
-                        android:outlineSpotShadowColor="@color/colorPrimary"
-                        app:cardCornerRadius="14dp"
-                        app:cardElevation="10dp"
-                        app:layout_constraintTop_toBottomOf="@id/cvMango1">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <ImageView
-                                android:id="@+id/ivMango2"
-                                android:layout_width="90dp"
-                                android:layout_height="90dp"
-                                android:adjustViewBounds="true"
-                                android:layout_marginStart="4dp"
-                                android:src="@drawable/mangos"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                            <TextView
-                                android:id="@+id/tvMango2"
-                                style="@style/Text.B3"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:text="Organic Banaganapalli Mangoes Jumbo Pack (5Kg)"
-                                android:textColor="@color/colorGrey900"
-                                android:textSize="13dp"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoPrice2"
-                                app:layout_constraintStart_toEndOf="@id/ivMango2"
-                                app:layout_constraintEnd_toStartOf="@id/tvMangoMinus2"
-                                app:layout_constraintTop_toTopOf="@id/ivMango2"
-                                app:layout_constraintVertical_chainStyle="packed" />
-
-                            <TextView
-                                android:id="@+id/tvMangoPrice2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_marginTop="6dp"
-                                android:text="₹599"
-                                style="@style/Text.M3"
-                                android:textColor="@color/colorGrey700"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/ivMango2"
-                                app:layout_constraintTop_toBottomOf="@id/tvMango2" />
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/tvMangoPlus2"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:layout_marginEnd="14dp"
-                                app:cardCornerRadius="12dp"
-                                android:layout_marginTop="12dp"
-                                app:cardElevation="0dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoCount2"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/colorPrimary"
-                                    android:padding="5dp"
-                                    android:src="@drawable/ic_baseline_add_24"
-                                    app:tint="@color/white" />
-                            </androidx.cardview.widget.CardView>
-
-                            <TextView
-                                android:id="@+id/tvMangoCount2"
-                                style="@style/Text.B2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="3"
-                                android:textColor="@color/colorGrey900"
-                                android:textSize="16dp"
-                                android:padding="3dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintTop_toBottomOf="@id/tvMangoPlus2"
-                                app:layout_constraintBottom_toTopOf="@id/tvMangoMinus2"
-                                app:layout_constraintEnd_toEndOf="@id/tvMangoPlus2"
-                                app:layout_constraintStart_toStartOf="@id/tvMangoPlus2"/>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/tvMangoMinus2"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:elevation="0dp"
-                                app:cardCornerRadius="12dp"
-                                android:layout_marginEnd="14dp"
-                                android:layout_marginBottom="12dp"
-                                app:layout_constraintVertical_chainStyle="packed"
-                                app:layout_constraintTop_toBottomOf="@id/tvMangoCount2"
-                                app:cardElevation="0dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/milky_green"
-                                    android:padding="5dp"
-                                    android:src="@drawable/ic_baseline_remove_24"
-                                    app:tint="@color/colorPrimary" />
-                            </androidx.cardview.widget.CardView>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
-                        android:id="@+id/tvVegetables"
-                        style="@style/Text.B3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="14dp"
-                        android:text="Vegetables"
-                        android:textColor="@color/colorGrey900"
-                        android:textSize="17dp"
-                        app:layout_constraintTop_toBottomOf="@id/cvMango2" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvVegetables"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:layout_constraintTop_toBottomOf="@id/tvVegetables"
-                        app:spanCount="2"
-                        tools:itemCount="1"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:listitem="@layout/item" />
                     <TextView
                         android:id="@+id/tvFruits"
                         style="@style/Text.B3"
@@ -389,20 +186,75 @@
                         android:text="Fruits"
                         android:textColor="@color/colorGrey900"
                         android:textSize="17dp"
-                        app:layout_constraintTop_toBottomOf="@id/rvVegetables" />
+                        app:layout_constraintTop_toBottomOf="@id/cvMango1" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvFruits"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/cvFruits"
+                        app:layout_constraintTop_toBottomOf="@id/tvFruits"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:padding="50dp"
+                            android:id="@+id/ivFruits"
+                            android:src="@drawable/logo_fresh"
+                            android:layout_height="200dp"
+                            app:tint="#D5EFDB" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvFruits"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:nestedScrollingEnabled="false"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            tools:itemCount="1"
+                            tools:layout_editor_absoluteX="-1dp"
+                            tools:listitem="@layout/item" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tvVegetables"
+                        style="@style/Text.B3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:layout_constraintTop_toBottomOf="@id/tvFruits"
-                        app:spanCount="2"
-                        tools:itemCount="1"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:listitem="@layout/item" />
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="14dp"
+                        android:text="Vegetables"
+                        android:textColor="@color/colorGrey900"
+                        android:textSize="17dp"
+                        app:layout_constraintTop_toBottomOf="@id/cvFruits" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/cvVegetables"
+                        app:layout_constraintTop_toBottomOf="@id/tvVegetables"
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvVegetables"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:nestedScrollingEnabled="false"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            tools:itemCount="1"
+                            tools:layout_editor_absoluteX="-1dp"
+                            tools:listitem="@layout/item" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:padding="50dp"
+                            android:id="@+id/ivVegetables"
+                            android:src="@drawable/logo_fresh"
+                            android:layout_height="200dp"
+                            app:tint="#D5EFDB" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
                     <TextView
                         android:id="@+id/tvMeat"
                         style="@style/Text.B3"
@@ -413,20 +265,35 @@
                         android:text="Meat"
                         android:textColor="@color/colorGrey900"
                         android:textSize="17dp"
-                        app:layout_constraintTop_toBottomOf="@id/rvFruits" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvMeat"
+                        app:layout_constraintTop_toBottomOf="@id/cvVegetables" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        android:id="@+id/cvMeat"
                         app:layout_constraintTop_toBottomOf="@id/tvMeat"
-                        app:spanCount="2"
-                        tools:itemCount="1"
-                        tools:layout_editor_absoluteX="-1dp"
-                        tools:listitem="@layout/item" />
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvMeat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginHorizontal="10dp"
+                            android:visibility="gone"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            tools:itemCount="1"
+                            tools:layout_editor_absoluteX="-1dp"
+                            tools:listitem="@layout/item" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:padding="50dp"
+                            android:id="@+id/ivMeat"
+                            android:src="@drawable/logo_fresh"
+                            android:layout_height="200dp"
+                            app:tint="#D5EFDB" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

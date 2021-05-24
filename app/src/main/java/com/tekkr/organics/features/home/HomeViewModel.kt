@@ -14,6 +14,7 @@ import java.net.SocketTimeoutException
 
 class HomeViewModel(context: Application) : BaseViewModel(context) {
 
+    val obsCartCount: MutableLiveData<Int> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
     val obsFruitsList: MutableLiveData<List<BigItem>> = MutableLiveData()
     val obsVegetablesList: MutableLiveData<List<BigItem>> = MutableLiveData()
@@ -29,20 +30,21 @@ class HomeViewModel(context: Application) : BaseViewModel(context) {
             try {
                 val items = roomRepository.getAllItems()
 
-
                 var fruits: ArrayList<BigItem> = ArrayList()
                 var vegetables: ArrayList<BigItem> = ArrayList()
                 var meat: ArrayList<BigItem> = ArrayList()
+                var cartCount = 0
 
-                items?.forEach {
+                items.forEach {
                     when (it.category) {
                         1 -> fruits.add(it)
                         2 -> vegetables.add(it)
                         3 -> meat.add(it)
                     }
+                    cartCount += it.number
                 }
 
-                Log.e("Room Items::", roomRepository.getAllItems().toString())
+                obsCartCount.postValue(cartCount)
 
                 obsItemsList.postValue(items)
                 obsFruitsList.postValue(fruits)
@@ -74,11 +76,18 @@ class HomeViewModel(context: Application) : BaseViewModel(context) {
 
     }
 
-    fun updateItem(id: Int, number: Int) {
 
+    fun updateItemNumber(cartItem: CartItem, type: Boolean) {
         ioScope.launch {
-            roomRepository.update(CartItem(id, number))
+            roomRepository.update(cartItem)
+            var count: Int = obsCartCount.value!!
+            if(type){
+                count ++
+                obsCartCount.postValue(count)
+            }else{
+                count --
+                obsCartCount.postValue(count)
+            }
         }
-
     }
 }

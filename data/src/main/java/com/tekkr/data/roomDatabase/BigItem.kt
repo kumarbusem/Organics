@@ -46,7 +46,7 @@ class BigItem(
         val priority: Int,
 
         @ColumnInfo(name = "number")
-        val number: Int
+        var number: Int
 
 )
 

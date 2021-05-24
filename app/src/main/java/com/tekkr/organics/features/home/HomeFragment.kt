@@ -4,13 +4,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tekkr.data.roomDatabase.BigItem
+import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
 import com.tekkr.organics.common.ViewModelFactory
+import com.tekkr.organics.common.hide
+import com.tekkr.organics.common.show
 import com.tekkr.organics.databinding.FragmentHomeBinding
 
-class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home), ItemsListAdapter.ItemSelectionCallback {
+class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home), ItemsListAdapter.ItemCallback {
 
 
     private val mVegetablesAdapter: ItemsListAdapter by lazy {
@@ -47,10 +50,6 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.
             mViewModel.getItems()
         }
 
-        tvMangoPlus1.setOnClickListener {
-            mViewModel.updateItem(11, 2)
-        }
-
 
     }
 
@@ -58,22 +57,46 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(R.
     override fun setupObservers(): HomeViewModel.() -> Unit = {
 
         obsVegetablesList.observe(viewLifecycleOwner, Observer {
-            mVegetablesAdapter.submitList(it)
+            if(it.isNullOrEmpty()){
+                mBinding.ivVegetables.show()
+                mBinding.rvVegetables.hide()
+            }else{
+                mBinding.ivVegetables.hide()
+                mBinding.rvVegetables.show()
+                mVegetablesAdapter.submitList(it)
+            }
             mBinding.swipeRefreshLayout.isRefreshing = false
+
         })
         obsFruitsList.observe(viewLifecycleOwner, Observer {
-            mFruitsAdapter.submitList(it)
+            if(it.isNullOrEmpty()){
+                mBinding.ivFruits.show()
+                mBinding.rvFruits.hide()
+            }else{
+                mBinding.ivFruits.hide()
+                mBinding.rvFruits.show()
+                mFruitsAdapter.submitList(it)
+            }
+
         })
         obsMeatList.observe(viewLifecycleOwner, Observer {
-            mMeatAdapter.submitList(it)
+            if(it.isNullOrEmpty()){
+                mBinding.ivMeat.show()
+                mBinding.rvMeat.hide()
+            }else{
+                mBinding.ivMeat.hide()
+                mBinding.rvMeat.show()
+                mMeatAdapter.submitList(it)
+            }
+
         })
 
 
     }
 
-
-
-    override fun onItemselected(Items: BigItem) {
+    override fun onItemChanged(cartItem: CartItem, type: Boolean) {
+        mViewModel.updateItemNumber(cartItem, type)
     }
+
 
 }
