@@ -13,7 +13,7 @@ class OrganicsApplication : Application() {
         application = this
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(CalligraphyInterceptor(CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/WorkSans-Regular.ttf")
+                        .setDefaultFontPath("fonts/Metropolis-Regular.otf")
                         .setFontAttrId(R.attr.fontPath)
                         .build())
                 ).build())

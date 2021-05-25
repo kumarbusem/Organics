@@ -1,21 +1,11 @@
 package com.tekkr.organics.features.splash
 
-import android.content.Intent
-import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.snackbar.Snackbar
-import com.tekkr.organics.BuildConfig.APPLICATION_ID
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseFragment
-import com.tekkr.organics.common.PermissionManager
-import com.tekkr.organics.common.PermissionManager.Companion.PERMISSION_REQUEST_CODE
-import com.tekkr.organics.common.PermissionManager.Companion.REQUEST_PERMISSIONS_REQUEST_CODE
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -43,7 +33,7 @@ class SplashFragment : BaseFragment() {
 
     private fun checkUserAuth() {
         val user = repoPrefs.getLoggedInUser()
-            navigateById(R.id.action_splashFragment_to_homeFragment)
+            navigateById(R.id.action_splashFragment_to_shopFragment)
 
     }
 

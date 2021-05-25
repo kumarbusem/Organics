@@ -9,10 +9,7 @@
             name="item"
             type="com.tekkr.data.roomDatabase.BigItem" />
 
-
-
     </data>
-
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -29,8 +26,9 @@
 
             <ImageView
                 android:layout_width="120dp"
-                android:src="@drawable/mangos"
+                app:setItemImage='@{item}'
                 android:id="@+id/ivMango1"
+                tools:src="@drawable/pineapple"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +37,11 @@
             <TextView
                 android:layout_width="0dp"
                 android:id="@+id/tvMango1"
-                tools:text="Mangoes (3Kg)"
+                tools:text="Organic Alphonso Mangoes For BEST Chpise of NydefagsdMangoes (3Kg)"
                 android:text="@{item.name + '('  + item.quantity + item.unit + ')'}"
-                style="@style/Text.B3"
+                style="@style/Text.M3"
                 android:textSize="13dp"
+                android:lineSpacingExtra="3dp"
                 android:gravity="center"
                 android:layout_marginHorizontal="14dp"
                 android:textColor="@color/colorGrey900"
@@ -53,10 +52,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/tvMangoPrice1"
-                style="@style/Text.M3"
+                style="@style/Text.R3"
                 tools:text="₹599"
-                android:text="@{'₹'  + item.item_price}"
-                android:textColor="@color/colorGrey700"
+                android:layout_marginTop="5dp"
+                android:text="@{'₹'  + Integer.toString(item.item_price)}"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/tvMango1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                 app:cardCornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="16dp"
-                app:cardElevation="10dp"
+                app:cardElevation="5dp"
                 android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:outlineSpotShadowColor="@color/colorPrimary"
                 android:id="@+id/tvMangoPlus1"
@@ -107,7 +107,7 @@
                 android:id="@+id/tvMangoMinus1"
                 android:elevation="0dp"
                 android:foreground="?selectableItemBackground"
-                app:cardElevation="10dp"
+                app:cardElevation="5dp"
                 android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:outlineSpotShadowColor="@color/colorPrimary"
                 app:layout_constraintHorizontal_chainStyle="packed"

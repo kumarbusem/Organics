@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TEKKR Organics</string>
+    <string name="app_name">Fresh</string>
 
     <!--MAINTENANCE PAGE-->
     <string name="maintenance_title">Under Maintenance</string>
@@ -23,4 +23,6 @@
     <string name="gps_enable">GPS enable</string>
     <string name="please_turn_on_gps">Please turn on GPS</string>
     <string name="ok">Ok</string>
+    <string name="item">Item   |</string>
+    <string name="items">Items   |</string>
 </resources>

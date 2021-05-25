@@ -8,6 +8,9 @@ interface ItemDao {
     @Query("SELECT * FROM items_table")
     fun getAllItems(): List<BigItem>
 
+    @Query("SELECT * FROM items_table WHERE number != 0")
+    fun getCartItems(): List<BigItem>
+
     @Query("SELECT * from items_table WHERE id= :id")
     fun getItemById(id: Int): List<BigItem?>?
 

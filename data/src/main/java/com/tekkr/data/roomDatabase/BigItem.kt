@@ -31,7 +31,7 @@ class BigItem(
         val unit: String,
 
         @ColumnInfo(name = "item_price")
-        val item_price: String,
+        val item_price: Int,
 
         @ColumnInfo(name = "is_in_stock")
         val is_in_stock: Boolean,

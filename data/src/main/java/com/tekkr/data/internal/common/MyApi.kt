@@ -48,17 +48,16 @@ interface MyApi {
             @Header("Authorization") token: String?
     ): Response<SimpleResponse>
 
-    @GET("riders/profile_otp/")
+    @GET("api/sendotp")
     suspend fun sendOtp(
-            @Query("ph_num") phone: String?,
-            @Header("Authorization") token: String?
+            @Query("phone_number") phone_number: String?
     ): Response<SimpleResponse>
 
-    @POST("riders/verify_profile_otp/")
+    @GET("api/verifyotp")
     suspend fun verifyOtp(
-            @Body request: RequestBody,
-            @Header("Authorization") token: String?
-    ): Response<SimpleResponse>
+            @Query("phone_number") phone_number: String?,
+            @Query("otp") otp: String?
+    ): Response<User>
 
     @POST("spanel/pickup_otp/")
     suspend fun updatePickupOTP(

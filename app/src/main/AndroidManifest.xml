@@ -5,15 +5,6 @@
 
 
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.any"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
 
     <application
         android:name="com.tekkr.organics.OrganicsApplication"
@@ -50,33 +41,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver
-            android:name="com.tekkr.organics.location.RestartBackgroundService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name="com.tekkr.organics.location.LocationService"
-            android:enabled="true"
-            android:exported="true" />
-
-
     </application>
-    <queries>
-        <!-- Browser -->
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="http" />
-        </intent>
 
-        <!-- Camera -->
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
-        </intent>
-
-        <!-- Gallery -->
-        <intent>
-            <action android:name="android.intent.action.GET_CONTENT" />
-        </intent>
-    </queries>
 </manifest>

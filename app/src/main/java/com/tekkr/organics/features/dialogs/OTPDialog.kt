@@ -2,6 +2,7 @@ package com.tekkr.organics.features.dialogs
 
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -13,20 +14,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.tekkr.data.models.SimpleResponse
+import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.organics.R
-import com.tekkr.organics.common.disable
-import com.tekkr.organics.common.enableIf
-import com.tekkr.organics.common.hide
-import com.tekkr.organics.common.show
+import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.DialogOtpBinding
 import kotlinx.android.synthetic.main.dialog_otp.*
+import java.lang.Exception
 
 
-class OTPDialog(val onSendOTPCLicked: () -> Unit, val onSubmitOTPCLicked: (String) -> Unit) : DialogFragment() {
+class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: (String, String) -> Unit) : DialogFragment() {
 
     private lateinit var mBinding: DialogOtpBinding
+
     var cTimer: CountDownTimer? = null
-    var phoneNumber: String = ""
+    var isOtpSent: MutableLiveData<SimpleResponse> = MutableLiveData()
+    var isOtpVerified: MutableLiveData<SimpleResponse> = MutableLiveData()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
@@ -55,69 +60,120 @@ class OTPDialog(val onSendOTPCLicked: () -> Unit, val onSubmitOTPCLicked: (Strin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.e("OTP DIALOG CREATED:::", "00000000")
         setupViews()
-        setUpTimer()
     }
 
     private fun setUpTimer() {
         tvResend.hide()
-        cTimer = object : CountDownTimer(30000, 1000) {
+        cTimer = object : CountDownTimer(6000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                tvTimer.setText("You can resend OTP in " + millisUntilFinished / 1000 + " sec")
-
+                try {
+                    tvTimer.setText("You can resend OTP in " + millisUntilFinished / 1000 + " sec")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
             override fun onFinish() {
-                tvTimer.setText("Click here to")
-                tvResend.show()
-                cTimer?.cancel()
+                try {
+                    tvTimer.setText("Click here to")
+                    tvResend.show()
+                    cTimer?.cancel()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }.start()
     }
 
     //cancel timer
     fun cancelTimer() {
-        if (cTimer != null) cTimer!!.cancel()
+        if (cTimer != null) {
+            Log.e("TIMER", "CANCELLED")
+            cTimer!!.cancel()
+        }
     }
 
-    override fun onDestroy() {
+
+    override fun onDismiss(dialog: DialogInterface) {
         mBinding.etOTP.setText("")
         cancelTimer()
-        super.onDestroy()
-    }
-
-    override fun onDetach() {
-        mBinding.etOTP.setText("")
-        super.onDetach()
+        mBinding.btnSubmitOTP.disable()
+        mBinding.btnSubmitPhone.disable()
+        mBinding.cvVerifyOtp.hide()
+        isOtpVerified.postValue(SimpleResponse("failed", ""))
+        isOtpSent.postValue(SimpleResponse("failed", ""))
+        mBinding.tvError.hide()
+        super.onDismiss(dialog)
     }
 
     private fun setupViews() {
 
         mBinding.apply {
 
-            tvPhone.text = "OTP sent to ${phoneNumber}"
+            btnSubmitOTP.disable()
+            btnSubmitPhone.disable()
+            cvVerifyOtp.hide()
 
             btnClose.setOnClickListener {
                 dialog?.dismiss()
             }
 
-            btnSubmitOTP.disable()
-
             tvResend.setOnClickListener {
-                onSendOTPCLicked()
+                onSendOTPCLicked(mBinding.etPhone.text.toString().trim())
                 setUpTimer()
             }
 
-            btnSubmitOTP.setOnClickListener {
+            isOtpSent.observe(viewLifecycleOwner, Observer {
+                Log.e("IS OTP SENT::", "$it")
+                mBinding.loginProgress.hide()
+                mBinding.btnSubmitPhone.enable()
+                if (it != null && it.status.isStatusSuccess()) {
+                    mBinding.tvPhone.text = "OTP sent to ${mBinding.etPhone.text.toString().trim()}"
+                    mBinding.cvSendOtp.hide()
+                    mBinding.cvVerifyOtp.show()
+                    setUpTimer()
+                } else {
+                    mBinding.tvError.text = it.message.trim()
+                    mBinding.tvError.show()
+                }
+            })
+            isOtpVerified.observe(viewLifecycleOwner, Observer {
+                Log.e("IS OTP VERIFIED::", "$it")
+                mBinding.loginProgress.hide()
+                mBinding.btnSubmitOTP.enable()
+                if (it != null && it.status.isStatusSuccess()) {
+                    dialog?.dismiss()
+                } else {
+                    mBinding.tvError.text = it.message.trim()
+                    mBinding.tvError.show()
+                }
+            })
 
-                onSubmitOTPCLicked(mBinding.etOTP.text.toString().trim())
-                mBinding.etOTP.setText("")
+            btnSubmitPhone.setOnClickListener {
+                onSendOTPCLicked(mBinding.etPhone.text.toString().trim())
+                mBinding.btnSubmitPhone.disable()
+                mBinding.tvError.hide()
+                mBinding.loginProgress.show()
             }
+
+            btnSubmitOTP.setOnClickListener {
+                onSubmitOTPCLicked(mBinding.etPhone.text.toString().trim(), mBinding.etOTP.text.toString().trim())
+                mBinding.btnSubmitOTP.disable()
+                mBinding.tvError.hide()
+                mBinding.loginProgress.show()
+            }
+
+
 
             etOTP.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitOTP.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 4)
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+            })
+
+            etPhone.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitPhone.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 10)
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
             })

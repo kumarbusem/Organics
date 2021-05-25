@@ -81,6 +81,8 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../data/build/generated/source/kaptKotlin/debugAndroidTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../data/build/generated/source/kaptKotlin/debugUnitTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../data/build/generated/source/kapt/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../data/build/generated/source/kaptKotlin/debugAndroidTest" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../data/build/generated/source/kaptKotlin/debugUnitTest" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../data/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../data/build" />
     </content>

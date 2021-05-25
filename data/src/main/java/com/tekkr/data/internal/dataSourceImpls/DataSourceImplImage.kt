@@ -13,16 +13,7 @@ import retrofit2.Call
 
 internal class DataSourceImplImage : DataSourceImage() {
 
-    override suspend fun uploadProfilePic(requestBody: RequestBody, res: (ProfilePicResponse?) -> Unit) {
-        res(baseImageUpload(API.uploadProfilePic(requestBody, repoPrefs.getLoggedInUser()?.token)))
-    }
 
-    override suspend fun updateOrder(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) {
-        if (repoPrefs.getLoggedInUser()?.rider_type == User.RIDER_TYPE_RIDER)
-            res(baseImageUpload(API.updateOrder(requestBody, repoPrefs.getLoggedInUser()?.token)))
-        else
-            res(baseImageUpload(API.updateOrderFps(requestBody, repoPrefs.getLoggedInUser()?.token)))
-    }
 
     private fun <T : Any> baseImageUpload(call: Call<T>): T? {
 

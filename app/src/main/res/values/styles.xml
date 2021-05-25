@@ -14,7 +14,7 @@
     <!--BOLD FONTS-->
 
     <style name="Text.B1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Bold.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Bold.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
@@ -37,25 +37,32 @@
     <!--REGULAR FONTS-->
 
     <style name="Text.R1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Regular.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
+
     <style name="Text.R3" parent="Text.R1">
         <item name="android:textSize">15dp</item>
     </style>
 
+    <style name="Text.R4" parent="Text.R1">
+        <item name="android:textSize">12dp</item>
+    </style>
+
     <!--TABLET FONTS-->
     <style name="Text.M1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Medium.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Medium.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
-    <style name="Text.M2" parent="Text.M1">
-        <item name="android:textSize">23dp</item>
-    </style>
+
     <style name="Text.M3" parent="Text.M1">
         <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="Text.M2" parent="Text.M1">
+        <item name="android:textSize">23dp</item>
     </style>
 
     <style name="Text.M4" parent="Text.M1">
@@ -73,5 +80,19 @@
         <item name="android:windowExitAnimation">@anim/exit_to_bottom</item>
     </style>
 
+
+    <style name="SideCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
 
 </resources>

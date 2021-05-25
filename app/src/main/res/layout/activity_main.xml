@@ -22,11 +22,6 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/plNoGPS"
-        layout="@layout/partial_no_gps"
-        android:visibility="gone" />
-
-    <include
         android:id="@+id/plUnderMaintenance"
         layout="@layout/partial_under_maintenance"
         android:visibility="gone" />

@@ -38,7 +38,6 @@ open class BaseFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    protected fun startLocationTracking() = mActivity.startLocationService()
 
     protected fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()

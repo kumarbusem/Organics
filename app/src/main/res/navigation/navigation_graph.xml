@@ -4,17 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/splashFragment">
 
-    <fragment
-        android:id="@+id/webViewFragment"
-        android:name="com.tekkr.organics.features.webView.WebViewFragment"
-        android:label="WebViewFragment"
-        tools:layout="@layout/fragment_web_view"/>
+
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.tekkr.organics.features.home.HomeFragment"
+        android:id="@+id/shopFragment"
+        android:name="com.tekkr.organics.features.shop.ShopFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_shop">
+        <action
+            android:id="@+id/action_shopFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.tekkr.organics.features.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"/>
 
     <fragment
         android:id="@+id/splashFragment"
@@ -24,17 +36,8 @@
 
 
         <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/enter_from_right"
-            app:exitAnim="@anim/exit_to_left"
-            app:popEnterAnim="@anim/enter_from_left"
-            app:popExitAnim="@anim/exit_to_right"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"  />
-        <action
-            android:id="@+id/action_splashFragment_to_webViewFragment"
-            app:destination="@id/webViewFragment"
+            android:id="@+id/action_splashFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"

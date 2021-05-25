@@ -45,6 +45,12 @@ class TekkrRoomRepository(private val itemsDao: ItemDao) {
         return itemsDao.getAllItems()
     }
 
+    suspend fun getCartItems(): List<BigItem>{
+
+        return itemsDao.getCartItems()
+
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(item: BigItem) {

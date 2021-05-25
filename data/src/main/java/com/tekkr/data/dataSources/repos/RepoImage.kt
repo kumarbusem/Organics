@@ -10,7 +10,5 @@ class RepoImage : DataSourceImage() {
 
     private val mImageDataSource: DataSourceImage by lazy { DataSourceImplImage() }
 
-    override suspend fun uploadProfilePic(requestBody: RequestBody, res: (ProfilePicResponse?) -> Unit) = mImageDataSource.uploadProfilePic(requestBody, res)
-    override suspend fun updateOrder(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) = mImageDataSource.updateOrder(requestBody, res)
 
 }

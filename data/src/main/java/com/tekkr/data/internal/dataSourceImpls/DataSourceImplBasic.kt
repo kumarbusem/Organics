@@ -10,24 +10,8 @@ import okhttp3.RequestBody
 internal class DataSourceImplBasic : DataSourceBasic() {
 
 
-    override suspend fun getOrders(res: (List<Order>?) -> Unit) {
-        res(apiRequest { API.getOrders(repoPrefs.getLoggedInUser()?.token) })
-    }
-
-    override suspend fun getFpsOrders(res: (List<Order>?) -> Unit) {
-        res(apiRequest { API.getFpsOrders(repoPrefs.getLoggedInUser()?.token) })
-    }
-
     override suspend fun getItems(res: (List<Item>?) -> Unit) {
         res(apiRequest { API.getItems() })
-    }
-
-    override suspend fun changePassword(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) {
-        res(apiRequest { API.changePassword(requestBody, repoPrefs.getLoggedInUser()?.token) })
-    }
-
-    override suspend fun getOrder(rationId: String, res: (OrderResponse?) -> Unit) {
-        res(apiRequest { API.getOrder(rationId, repoPrefs.getLoggedInUser()?.token) })
     }
 
 }

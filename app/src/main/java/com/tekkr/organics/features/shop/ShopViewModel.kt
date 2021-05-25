@@ -1,20 +1,19 @@
-package com.tekkr.organics.features.home
+package com.tekkr.organics.features.shop
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
-import com.tekkr.data.roomDatabase.Item
 import com.tekkr.organics.common.BaseViewModel
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 
-class HomeViewModel(context: Application) : BaseViewModel(context) {
+class ShopViewModel(context: Application) : BaseViewModel(context) {
 
     val obsCartCount: MutableLiveData<Int> = MutableLiveData()
+    val obsCartPrice: MutableLiveData<Int> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
     val obsFruitsList: MutableLiveData<List<BigItem>> = MutableLiveData()
     val obsVegetablesList: MutableLiveData<List<BigItem>> = MutableLiveData()
@@ -34,6 +33,7 @@ class HomeViewModel(context: Application) : BaseViewModel(context) {
                 var vegetables: ArrayList<BigItem> = ArrayList()
                 var meat: ArrayList<BigItem> = ArrayList()
                 var cartCount = 0
+                var cartPrice = 0
 
                 items.forEach {
                     when (it.category) {
@@ -42,9 +42,11 @@ class HomeViewModel(context: Application) : BaseViewModel(context) {
                         3 -> meat.add(it)
                     }
                     cartCount += it.number
+                    cartPrice += (it.number * it.item_price)
                 }
 
                 obsCartCount.postValue(cartCount)
+                obsCartPrice.postValue(cartPrice)
 
                 obsItemsList.postValue(items)
                 obsFruitsList.postValue(fruits)
@@ -77,16 +79,21 @@ class HomeViewModel(context: Application) : BaseViewModel(context) {
     }
 
 
-    fun updateItemNumber(cartItem: CartItem, type: Boolean) {
+    fun updateItemNumber(cartItem: CartItem, itemPrice: Int, type: Boolean) {
         ioScope.launch {
             roomRepository.update(cartItem)
             var count: Int = obsCartCount.value!!
+            var cartPrice: Int = obsCartPrice.value!!
             if(type){
                 count ++
+                cartPrice += itemPrice
                 obsCartCount.postValue(count)
+                obsCartPrice.postValue(cartPrice)
             }else{
                 count --
+                cartPrice -= itemPrice
                 obsCartCount.postValue(count)
+                obsCartPrice.postValue(cartPrice)
             }
         }
     }

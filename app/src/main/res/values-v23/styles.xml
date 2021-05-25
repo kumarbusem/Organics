@@ -13,13 +13,13 @@
 
     <!--BOLD FONTS-->
     <style name="Text.B1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Bold.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Bold.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
 
     <style name="Text.B2" parent="Text.B1">
-        <item name="android:textSize">23dp</item>
+        <item name="android:textSize">26dp</item>
     </style>
 
     <style name="Text.B3" parent="Text.B1">
@@ -36,7 +36,7 @@
     <!--REGULAR FONTS-->
 
     <style name="Text.R1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Regular.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Regular.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
@@ -45,17 +45,23 @@
         <item name="android:textSize">15dp</item>
     </style>
 
+    <style name="Text.R4" parent="Text.R1">
+        <item name="android:textSize">12dp</item>
+    </style>
+
     <!--TABLET FONTS-->
     <style name="Text.M1" parent="AppTheme">
-        <item name="fontPath">fonts/WorkSans-Medium.ttf</item>
+        <item name="fontPath">fonts/Metropolis-Medium.otf</item>
         <item name="android:textSize">40dp</item>
         <item name="android:textColor">@color/colorGrey500</item>
     </style>
-    <style name="Text.M2" parent="Text.M1">
-        <item name="android:textSize">23dp</item>
-    </style>
+
     <style name="Text.M3" parent="Text.M1">
         <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="Text.M2" parent="Text.M1">
+        <item name="android:textSize">30dp</item>
     </style>
 
     <style name="Text.M4" parent="Text.M1">
