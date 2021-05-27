@@ -12,219 +12,232 @@
     </data>
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="16dp"
-        app:cardUseCompatPadding="true"
-        app:strokeColor="@color/colorPrimary"
-        app:strokeWidth="2dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="32dp"
-            android:paddingBottom="32dp"
-            tools:ignore="ContentDescription,UnusedAttribute">
-
-            <ImageView
-                android:id="@+id/ivFruitBowl"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="22dp"
-                android:src="@drawable/fruit_bowl"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvLogin"
-                style="@style/Text.B2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:gravity="start"
-                android:text="Login here"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@id/ivFruitBowl" />
-            <TextView
-                android:id="@+id/tvError"
-                style="@style/Text.M4"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Something went wrong, please try again"
-                android:textColor="@color/orangeRed"
-                android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLogin"/>
-
-
-            <ProgressBar
-                android:layout_width="26dp"
-                android:id="@+id/loginProgress"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="@id/tvLogin"
-                app:layout_constraintBottom_toBottomOf="@id/tvLogin"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="30dp"
-                android:layout_height="26dp"/>
-
-            <ImageView
-                android:id="@+id/btnClose"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:foreground="?selectableItemBackground"
-                android:paddingStart="16dp"
-                android:paddingTop="24dp"
-                android:paddingEnd="24dp"
-                android:paddingBottom="16dp"
-                android:src="@drawable/ic_baseline_close_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorGrey500" />
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="16dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cvSendOtp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tvLogin">
+                android:paddingStart="32dp"
+                android:paddingBottom="32dp"
+                tools:ignore="ContentDescription,UnusedAttribute">
 
-                <TextView
-                    android:id="@+id/tvEnterPhone"
-                    style="@style/Text.M4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Please enter phone number"
-                    android:textColor="@color/colorGrey900"
-                    android:textSize="13dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-
-                <EditText
-                    android:id="@+id/etPhone"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="32dp"
-                    android:background="@drawable/edit_text_round_gray_empty_background"
-                    android:backgroundTint="#D2DDDD"
-                    android:gravity="center"
-                    android:hint="Phone Number"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:paddingVertical="16dp"
-                    android:textColor="@color/colorGrey700"
-                    android:textSize="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvEnterPhone" />
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSubmitPhone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="32dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:paddingVertical="20dp"
-                    android:text="Send OTP"
-                    app:cornerRadius="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etPhone" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cvVerifyOtp"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tvLogin">
-
-                <TextView
-                    android:id="@+id/tvPhone"
-                    style="@style/Text.M4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="OTP sent to entered phone number"
-                    android:textColor="@color/colorGrey900"
-                    android:textSize="13dp"
+                <ImageView
+                    android:id="@+id/ivFruitBowl"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="22dp"
+                    android:src="@drawable/fruit_bowl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvTimer"
-                    style="@style/Text.M4"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvLogin"
+                    style="@style/Text.B2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="You can resend OTP in 20Sec"
-                    android:textColor="@color/colorGrey900"
-                    android:textSize="13dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvPhone" />
-
-                <TextView
-                    android:id="@+id/tvResend"
-                    style="@style/Text.B3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:foreground="?selectableItemBackground"
-                    android:padding="8dp"
-                    android:text="Resend"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="start"
+                    android:text="Login here"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tvTimer"
-                    app:layout_constraintStart_toEndOf="@id/tvTimer"
-                    app:layout_constraintTop_toTopOf="@id/tvTimer" />
-
-                <EditText
-                    android:id="@+id/etOTP"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="32dp"
-                    android:background="@drawable/edit_text_round_gray_empty_background"
-                    android:backgroundTint="#D2DDDD"
-                    android:gravity="center"
-                    android:hint="Enter OTP"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:paddingVertical="16dp"
-                    android:textColor="@color/colorGrey700"
-                    android:textSize="23dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSubmitOTP"
-                    android:layout_width="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/ivFruitBowl" />
+                <TextView
+                    android:id="@+id/tvError"
+                    style="@style/Text.M4"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="32dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:paddingVertical="20dp"
-                    android:text="Submit otp"
-                    app:cornerRadius="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Something went wrong, please try again"
+                    android:textColor="@color/orangeRed"
+                    android:textSize="12dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etOTP" />
+                    app:layout_constraintTop_toBottomOf="@id/tvLogin"/>
+
+
+                <ProgressBar
+                    android:layout_width="26dp"
+                    android:id="@+id/loginProgress"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="@id/tvLogin"
+                    app:layout_constraintBottom_toBottomOf="@id/tvLogin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="30dp"
+                    android:layout_height="26dp"/>
+
+                <ImageView
+                    android:id="@+id/btnClose"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingStart="16dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="16dp"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorGrey500" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cvSendOtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvError">
+
+                    <TextView
+                        android:id="@+id/tvEnterPhone"
+                        style="@style/Text.M4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Please enter phone number"
+                        android:textColor="@color/colorGrey900"
+                        android:textSize="13dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                    <EditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="#D2DDDD"
+                        android:gravity="center"
+                        android:hint="Phone Number"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:paddingVertical="14dp"
+                        android:textColor="@color/colorGrey700"
+                        android:textSize="17dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvEnterPhone" />
+
+
+                    <TextView
+                        android:id="@+id/btnSubmitPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="@color/colorAccent"
+                        android:paddingVertical="16dp"
+                        android:text="Send OTP"
+                        android:textAllCaps="true"
+                        style="@style/Text.B3"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        app:cornerRadius="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cvVerifyOtp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvError">
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        style="@style/Text.M4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="OTP sent to entered phone number"
+                        android:textColor="@color/colorGrey900"
+                        android:textSize="13dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTimer"
+                        style="@style/Text.M4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="You can resend OTP in 20Sec"
+                        android:textColor="@color/colorGrey900"
+                        android:textSize="13dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvPhone" />
+
+                    <TextView
+                        android:id="@+id/tvResend"
+                        style="@style/Text.B3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:foreground="?selectableItemBackground"
+                        android:padding="8dp"
+                        android:text="Resend"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTimer"
+                        app:layout_constraintStart_toEndOf="@id/tvTimer"
+                        app:layout_constraintTop_toTopOf="@id/tvTimer" />
+
+                    <EditText
+                        android:id="@+id/etOTP"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="#D2DDDD"
+                        android:gravity="center"
+                        android:hint="Enter OTP"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:paddingVertical="14dp"
+                        android:textColor="@color/colorGrey700"
+                        android:textSize="21dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTimer" />
+
+
+                    <TextView
+                        android:id="@+id/btnSubmitOTP"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="@color/colorAccent"
+                        android:paddingVertical="16dp"
+                        android:text="Submit otp"
+                        android:textAllCaps="true"
+                        style="@style/Text.B3"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        app:cornerRadius="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/etOTP" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </com.google.android.material.card.MaterialCardView>
+
 
 </layout>

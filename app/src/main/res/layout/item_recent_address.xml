@@ -5,60 +5,64 @@
 
     <data>
 
+        <import type="com.tekkr.data.roomDatabase.Address" />
 
+        <variable
+            name="data"
+            type="com.tekkr.data.roomDatabase.Address" />
     </data>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_recent_address"
-            android:background="@color/white"
-            android:paddingHorizontal="10dp"
-            android:foreground="?selectableItemBackground"
-            android:paddingVertical="10dp"
-            android:orientation="horizontal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_recent_address"
+        android:background="@color/white"
+        android:paddingHorizontal="14dp"
+        android:foreground="?selectableItemBackground"
+        android:paddingVertical="13dp"
+        android:orientation="horizontal">
 
-           <ImageView
-               android:layout_width="24dp"
-               android:id="@+id/ivRecentAddressItem"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintBottom_toBottomOf="parent"
-               android:src="@drawable/location"
-               android:layout_height="24dp"
-               app:tint="@color/colorGrey700" />
+        <ImageView
+            android:layout_width="24dp"
+            android:id="@+id/ivRecentAddressItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/location"
+            android:layout_height="24dp"
+            app:tint="@color/colorGrey700" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:id="@+id/tvRecentAddressItemTitle"
-                tools:text="Next galleria Mall Panjagutta"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Text.M3"
-                android:textSize="13dp"
-                android:text="Next galleria Mall Panjagutta"
-                android:textColor="@color/colorGrey900"
-                android:layout_marginStart="10dp"
-                app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="0dp"
-                android:id="@+id/tvRecentAddressItemTag"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Text.R4"
-                android:textSize="11dp"
-                android:maxLines="1"
-                android:textColor="@color/colorGrey500"
-                android:layout_marginStart="10dp"
-                android:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
-                app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
-                app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_height="wrap_content"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/tvRecentAddressItemTitle"
+            tools:text="Next galleria Mall Panjagutta"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Text.R3"
+            android:textSize="15sp"
+            android:text="@{data.name}"
+            android:textColor="@color/colorGrey900"
+            android:layout_marginStart="8sp"
+            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/tvRecentAddressItemTag"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Text.R4"
+            android:text="@{data.address}"
+            android:maxLines="1"
+            android:textColor="@color/colorGrey600"
+            android:layout_marginStart="8sp"
+            tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
+            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+            app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

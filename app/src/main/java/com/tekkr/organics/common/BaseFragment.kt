@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.dataSources.repos.RepoSharedPreferences
 import com.tekkr.organics.MainActivity
+import com.tekkr.organics.features.dialogs.OTPDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -62,4 +63,5 @@ open class BaseFragment : Fragment() {
         super.onDestroy()
         if (this::mJob.isLazyInitialized) mJob.cancel()
     }
+
 }

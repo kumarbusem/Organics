@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = arrayOf(BigItem::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(BigItem::class, Address::class), version = 1, exportSchema = false)
 public abstract class TekkrRoomDatabase : RoomDatabase() {
 
-    abstract fun recentAddressDao(): ItemDao
+    abstract fun itemsDao(): ItemDao
+    abstract fun addressesDao(): AddressDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

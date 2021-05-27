@@ -21,6 +21,7 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
 
     init {
         getItems()
+        getUser()
     }
 
     fun getItems() {
@@ -81,7 +82,7 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
 
     fun updateItemNumber(cartItem: CartItem, itemPrice: Int, type: Boolean) {
         ioScope.launch {
-            roomRepository.update(cartItem)
+            roomRepository.updateCartItem(cartItem)
             var count: Int = obsCartCount.value!!
             var cartPrice: Int = obsCartPrice.value!!
             if(type){

@@ -10,6 +10,7 @@ import com.tekkr.organics.common.ViewModelFactory
 import com.tekkr.organics.common.hide
 import com.tekkr.organics.common.show
 import com.tekkr.organics.databinding.FragmentShopBinding
+import com.tekkr.organics.features.cart.CartFragment
 
 class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.layout.fragment_shop), ItemsListAdapter.ItemCallback {
 
@@ -48,6 +49,14 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
         }
 
         cvCart.setOnClickListener { navigateById(R.id.action_shopFragment_to_cartFragment) }
+
+        mcvProfile.setOnClickListener {
+            if(mViewModel.obsIsUserAuthenticated.value == true){
+                navigateById(R.id.action_shopFragment_to_profileFragment)
+            }else{
+                loginOTPDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
+            }
+        }
 
     }
 

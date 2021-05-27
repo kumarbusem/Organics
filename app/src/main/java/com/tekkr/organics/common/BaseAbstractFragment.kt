@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.location.*
 import com.tekkr.organics.BR
 import com.tekkr.organics.R
+import com.tekkr.organics.features.dialogs.OTPDialog
 
 abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
 (@LayoutRes private val layoutId: Int) : BaseFragment() {
@@ -21,7 +22,15 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     protected lateinit var mBinding: BT
     protected val mViewModel: VT by lazy { setViewModel() }
-
+    protected val loginOTPDialog: OTPDialog by lazy {
+        OTPDialog(
+                onSendOTPCLicked = { phone ->
+                    sendOtp(phone)
+                },
+                onSubmitOTPCLicked = { phone, otp ->
+                    verifyOtp(phone, otp)
+                })
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         mBinding.apply {
@@ -84,6 +93,22 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.apply { setupViews().invoke(mBinding) }
+    }
+
+    private fun verifyOtp(phone: String, otp: String) {
+
+        mViewModel.verifyOtp(phone, otp){
+            loginOTPDialog.isOtpVerified.postValue(it)
+        }
+
+    }
+
+    private fun sendOtp(phone: String) {
+
+        mViewModel.sendOtp(phone){
+            loginOTPDialog.isOtpSent.postValue(it)
+        }
+
     }
 
 

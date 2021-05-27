@@ -15,7 +15,7 @@ interface ItemDao {
     fun getItemById(id: Int): List<BigItem?>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(recentAddress: BigItem)
+    suspend fun insert(item: BigItem)
 
     @Update(entity = BigItem::class)
     suspend fun update(obj: Item)

@@ -15,4 +15,5 @@
 
     <color name="milky_white">#E7EBEF</color>
     <color name="milky_green">#edfff1</color>
+    <color name="blur_white">#C4FFFFFF</color>
 </resources>

@@ -18,15 +18,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
     private val mCartAdapter: CartListAdapter by lazy {
         CartListAdapter(this@CartFragment)
     }
-    private val loginOTPDialog: OTPDialog by lazy {
-        OTPDialog(
-                onSendOTPCLicked = { phone ->
-                    sendOtp(phone)
-                },
-                onSubmitOTPCLicked = { phone, otp ->
-                    verifyOtp(phone, otp)
-                })
-    }
+
 
     override fun setViewModel(): CartViewModel =
             ViewModelProvider(this@CartFragment, ViewModelFactory {
@@ -47,8 +39,11 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
         btnBack.setOnClickListener {
             navigateBack()
         }
-        tvPlaceOrder.setOnClickListener {
+        cvLogin.setOnClickListener {
             loginOTPDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
+        }
+        cvAddress.setOnClickListener {
+            navigateById(R.id.action_cartFragment_to_selectAddressFragment)
         }
     }
 
@@ -67,21 +62,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
         })
     }
-    private fun verifyOtp(phone: String, otp: String) {
 
-        mViewModel.verifyOtp(phone, otp){
-            loginOTPDialog.isOtpVerified.postValue(it)
-        }
-
-    }
-
-    private fun sendOtp(phone: String) {
-
-        mViewModel.sendOtp(phone){
-            loginOTPDialog.isOtpSent.postValue(it)
-        }
-
-    }
     override fun onItemChanged(cartItem: CartItem, price: Int, type: Boolean) {
         mViewModel.updateItemNumber(cartItem, price, type)
     }

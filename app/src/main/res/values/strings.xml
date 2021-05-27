@@ -25,4 +25,6 @@
     <string name="ok">Ok</string>
     <string name="item">Item   |</string>
     <string name="items">Items   |</string>
+    <string name="itemi">Items :</string>
+    <string name="api_key">AIzaSyBBLsUXHsJE6kru8h4_6WH6PBDTBGoCulY</string>
 </resources>

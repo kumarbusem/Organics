@@ -62,7 +62,7 @@ fun View.enable() {
 fun View.disable() {
     isEnabled = false
     isClickable = false
-    alpha = 0.4f
+    alpha = 0.7f
 }
 
 fun Context.toast(message: String) {
