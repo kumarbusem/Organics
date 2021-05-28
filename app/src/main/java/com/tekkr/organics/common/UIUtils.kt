@@ -11,12 +11,8 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.github.chrisbanes.photoview.PhotoView
 import com.google.android.material.textfield.TextInputEditText
 import com.tekkr.organics.R
-import de.hdodenhof.circleimageview.CircleImageView
-import soup.neumorphism.NeumorphCardView
 
 /** View extensions */
 
@@ -28,12 +24,6 @@ fun View.show() {
 fun View.hide() {
     if (visibility != View.GONE)
         visibility = View.GONE
-}
-
-fun CircleImageView.setProfilePic(link: String?, projectsListFragment: Fragment) {
-    if (!link.isNullOrEmpty()) {
-        Glide.with(projectsListFragment).load(link).into(this)
-    }
 }
 
 
@@ -131,35 +121,10 @@ fun TextInputEditText.getIntText(): Int {
     return this.text.toString().toIntOrNull() ?: 0
 }
 
-@BindingAdapter("app:setImageFrom")
-fun CircleImageView.setImageFrom(url: String?) {
-    if (!url.isNullOrEmpty()) {
-        Glide.with(this).load(url).into(this)
-    }
-}
-
-@BindingAdapter("app:setImageFrom")
-fun ImageView.setImageFrom(url: String?) {
-    if (!url.isNullOrEmpty()) {
-        Glide.with(this).load(url).into(this)
-    }
-}
-
-@BindingAdapter("app:setPressedState")
-fun NeumorphCardView.setPressableButton(url: String?) {
-
-    if (this.isPressed) this.setShapeType(1)
-    else this.setShapeType(0)
-
-}
 
 
-@BindingAdapter("app:setImageFrom")
-fun PhotoView.setImageFrom(url: String?) {
-    if (!url.isNullOrEmpty()) {
-        Glide.with(this).load(url).into(this)
-    }
-}
+
+
 
 @BindingAdapter("app:setSProjectStatusColor")
 fun TextView.setSProjectStatusColor(status: String?) {

@@ -225,12 +225,73 @@
                 android:background="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ll3"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="1dp"/>
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:id="@+id/ivContact"
+                    android:paddingVertical="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll3"
+                    android:src="@drawable/ic_person_black_24dp"
+                    android:layout_height="52dp"
+                    app:tint="@color/colorGrey500" />
+                <EditText
+                    android:id="@+id/etname"
+                    style="@style/Text.B3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:paddingEnd="5dp"
+                    android:background="@color/white"
+                    android:hint="Contact Name"
+                    android:lines="1"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorGrey700"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivContact"
+                    app:layout_constraintEnd_toStartOf="@id/etPhone"
+                    app:layout_constraintStart_toEndOf="@id/ivContact"
+                    app:layout_constraintTop_toTopOf="@id/ivContact" />
+                <EditText
+                    android:id="@+id/etPhone"
+                    style="@style/Text.B3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:hint="Phone Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:lines="1"
+                    android:paddingHorizontal="5dp"
+                    android:textColor="@color/colorGrey700"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivContact"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/etname"
+                    app:layout_constraintTop_toTopOf="@id/ivContact" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ll2"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/ivContact"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="1dp"/>
+
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_marginStart="12dp"
                     android:id="@+id/ivRecentAddressItem"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/ic_baseline_apartment_24"
                     android:layout_height="20dp"
@@ -250,7 +311,7 @@
                     android:textColor="@color/colorGrey900"
                     android:layout_marginStart="12dp"
                     app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll2"
                     app:layout_constraintVertical_chainStyle="packed"
                     app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
                     android:layout_height="wrap_content"/>
@@ -271,24 +332,26 @@
                     app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_height="wrap_content"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/colorPrimary"
-                    android:layout_height="1dp"/>
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvPlaceOrder"
                 style="@style/Text.B3"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
                 android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@id/cvAddress"
+                android:alpha='@{viewModel.obsDeliveryAddress.name == null ? 0.45f : 1f}'
+                android:clickable='@{viewModel.obsDeliveryAddress.name == null ? false : true}'
+                android:background="@color/colorPrimary"
+                android:foreground="?selectableItemBackground"
                 android:gravity="center"
                 android:text="Place Order"
                 android:textAllCaps="true"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/cvAddress"
+                tools:layout_editor_absoluteX="0dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

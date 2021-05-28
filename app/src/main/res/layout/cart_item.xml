@@ -15,10 +15,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:padding="5dp"
         android:background="@color/white"
         tools:ignore="ContentDescription,UnusedAttribute">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            app:setItemImage='@{item}'
+            android:id="@+id/ivMango1"
+            android:adjustViewBounds="true"
+            tools:src="@drawable/pineapple"
+            app:layout_constraintTop_toTopOf="@id/tvMango1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvMangoPrice1"
+            android:layout_height="0dp"/>
 
         <TextView
             android:id="@+id/tvMango1"
@@ -26,6 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:paddingTop="5dp"
+            android:layout_marginStart="5dp"
             android:text="@{item.name + '('  + item.quantity + item.unit + ')'}"
             android:textColor="@color/colorGrey900"
             android:textSize="13dp"
@@ -33,18 +45,20 @@
             android:paddingEnd="5dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/mcvButtons"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivMango1"
             tools:text="Mangoes (3Kg)" />
 
         <TextView
             android:id="@+id/tvMangoPrice1"
             style="@style/Text.R3"
             android:textSize="13dp"
+            android:layout_marginStart="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{'₹'  + Integer.toString(item.item_price)}"
             android:textColor="@color/colorGrey600"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivMango1"
             app:layout_constraintTop_toBottomOf="@id/tvMango1"
             tools:text="₹599" />
 
@@ -52,6 +66,7 @@
             android:layout_width="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:strokeWidth="2px"
             android:id="@+id/mcvButtons"
             app:cardCornerRadius="8dp"

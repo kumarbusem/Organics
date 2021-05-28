@@ -4,7 +4,7 @@
     tools:context="com.tekkr.organics.features.dialogs.OTPDialog">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="item"
             type="com.tekkr.data.roomDatabase.BigItem" />
@@ -62,67 +62,88 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"/>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:cardCornerRadius="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="5dp"
-                android:outlineAmbientShadowColor="@color/colorPrimary"
-                android:outlineSpotShadowColor="@color/colorPrimary"
-                android:id="@+id/tvMangoPlus1"
-                android:foreground="?selectableItemBackground"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                android:layout_marginTop="14dp"
-                app:layout_constraintStart_toEndOf="@id/tvMangoCount1"
-                app:layout_constraintTop_toBottomOf="@id/tvMangoPrice1"
-                app:layout_constraintEnd_toEndOf="parent">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:padding="6dp"
-                    android:background="@color/colorPrimary"
-                    android:src="@drawable/ic_baseline_add_24"
-                    android:layout_height="match_parent"
-                    app:tint="@color/white" />
-            </androidx.cardview.widget.CardView>
             <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tvMangoCount1"
-                tools:text="0"
-                style="@style/Text.B2"
-                android:textSize="16dp"
-                android:textColor="@color/colorGrey900"
-                android:paddingHorizontal="12dp"
-                android:text="@{Integer.toString(item.number)}"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="@id/tvMangoPlus1"
-                app:layout_constraintStart_toEndOf="@id/tvMangoMinus1"
-                app:layout_constraintBottom_toBottomOf="@id/tvMangoPlus1"
-                app:layout_constraintEnd_toStartOf="@id/tvMangoPlus1"
-                android:layout_height="match_parent"/>
-            <androidx.cardview.widget.CardView
-                android:layout_width="28dp"
-                app:cardCornerRadius="12dp"
-                android:id="@+id/tvMangoMinus1"
-                android:elevation="0dp"
-                android:foreground="?selectableItemBackground"
-                app:cardElevation="5dp"
-                android:outlineAmbientShadowColor="@color/colorPrimary"
-                android:outlineSpotShadowColor="@color/colorPrimary"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="@id/tvMangoPlus1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvMangoCount1"
-                android:layout_height="28dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:padding="6dp"
-                    android:background="#D2EDD9"
-                    android:src="@drawable/ic_baseline_remove_24"
-                    android:layout_height="match_parent"
-                    app:tint="@color/colorPrimary" />
-            </androidx.cardview.widget.CardView>
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMangoPrice1"
+                android:text="Out of Stock"
+                android:gravity="center"
+                tools:visibility="gone"
+                android:visibility='@{item._in_stock == true ? View.GONE : View.VISIBLE}'
+                style="@style/Text.M3"
+                android:textColor="@color/colorGrey500"
+                android:paddingVertical="14dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:visibility='@{item._in_stock == true ? View.VISIBLE : View.GONE}'
+                app:layout_constraintTop_toBottomOf="@id/tvMangoPrice1"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+                    app:cardElevation="5dp"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:outlineSpotShadowColor="@color/colorPrimary"
+                    android:id="@+id/tvMangoPlus1"
+                    android:layout_marginTop="14dp"
+                    android:foreground="?selectableItemBackground"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/tvMangoCount1"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:padding="6dp"
+                        android:background="@color/colorPrimary"
+                        android:src="@drawable/ic_baseline_add_24"
+                        android:layout_height="match_parent"
+                        app:tint="@color/white" />
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tvMangoCount1"
+                    tools:text="0"
+                    style="@style/Text.B2"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorGrey900"
+                    android:paddingHorizontal="12dp"
+                    android:text="@{Integer.toString(item.number)}"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="@id/tvMangoPlus1"
+                    app:layout_constraintStart_toEndOf="@id/tvMangoMinus1"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMangoPlus1"
+                    app:layout_constraintEnd_toStartOf="@id/tvMangoPlus1"
+                    android:layout_height="match_parent"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="28dp"
+                    app:cardCornerRadius="12dp"
+                    android:id="@+id/tvMangoMinus1"
+                    android:elevation="0dp"
+                    android:foreground="?selectableItemBackground"
+                    app:cardElevation="5dp"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:outlineSpotShadowColor="@color/colorPrimary"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="@id/tvMangoPlus1"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMangoPlus1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvMangoCount1"
+                    android:layout_height="28dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:padding="6dp"
+                        android:background="#D2EDD9"
+                        android:src="@drawable/ic_baseline_remove_24"
+                        android:layout_height="match_parent"
+                        app:tint="@color/colorPrimary" />
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

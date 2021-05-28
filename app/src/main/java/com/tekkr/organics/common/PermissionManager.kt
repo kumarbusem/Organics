@@ -23,22 +23,13 @@ class PermissionManager(private val host: Fragment) {
     }
 
     private fun checkPermissions(): Boolean {
-        return !(checkSelfPermission(host.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(host.requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(host.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(host.requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(host.requireContext(), Manifest.permission.RECEIVE_BOOT_COMPLETED) != PackageManager.PERMISSION_GRANTED ||
+        return !(
                 checkSelfPermission(host.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 checkSelfPermission(host.requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
     }
 
     private fun takePermissions() {
         host.requestPermissions(arrayOf(
-                Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED,
-                Manifest.permission.CALL_PHONE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_REQUEST_CODE)
     }

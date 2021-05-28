@@ -5,16 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
-import com.tekkr.organics.common.BaseAbstractFragment
-import com.tekkr.organics.common.ViewModelFactory
-import com.tekkr.organics.common.hide
-import com.tekkr.organics.common.show
+import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.FragmentCartBinding
 import com.tekkr.organics.features.dialogs.OTPDialog
 
 class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback {
 
 
+    private val mPermissionManager: PermissionManager by lazy { PermissionManager(this@CartFragment) }
     private val mCartAdapter: CartListAdapter by lazy {
         CartListAdapter(this@CartFragment)
     }
@@ -43,8 +41,30 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
             loginOTPDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
         }
         cvAddress.setOnClickListener {
-            navigateById(R.id.action_cartFragment_to_selectAddressFragment)
+            if(mPermissionManager.areAllPermissionsGranted())
+                navigateById(R.id.action_cartFragment_to_selectAddressFragment)
+            else
+                mPermissionManager.requestAllPermissions()
         }
+        tvPlaceOrder.setOnClickListener {
+            placeOrder()
+        }
+    }
+
+    private fun placeOrder() {
+
+        if(mBinding.etPhone.text.toString().isNullOrEmpty() || mBinding.etname.text.toString().isNullOrEmpty())
+            showToast("Please enter contact details")
+        else if(repoPrefs.getAddress() == null || repoPrefs.getAddress()?.address.isNullOrEmpty())
+            showToast("Please select address")
+        else{
+
+            repoPrefs.clearTempAddress()
+            repoPrefs.clearAddress()
+
+            navigateBack()
+        }
+
     }
 
 

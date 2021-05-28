@@ -94,5 +94,9 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
         obsDeliveryAddress.postValue(repoPrefs.getAddress())
     }
 
+    fun placeOrder() {
+
+    }
+
 
 }

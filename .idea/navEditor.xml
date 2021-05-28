@@ -13,8 +13,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="382" />
-                            <option name="y" value="397" />
+                            <option name="x" value="345" />
+                            <option name="y" value="502" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -34,9 +34,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="798" />
-                            <option name="y" value="380" />
+                            <option name="x" value="926" />
+                            <option name="y" value="559" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_newAddressFragment_to_cartFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -58,9 +67,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="581" />
-                            <option name="y" value="392" />
+                            <option name="x" value="610" />
+                            <option name="y" value="311" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_selectAddressFragment_to_newAddressFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
