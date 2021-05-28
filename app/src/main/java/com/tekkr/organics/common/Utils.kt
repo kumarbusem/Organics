@@ -1,10 +1,13 @@
 package com.tekkr.organics.common
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.view.Display
+import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.reflect.KProperty0
@@ -67,4 +70,14 @@ public fun getTimeInServerFormat(): String {
 
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
     return simpleDateFormat.format(Date())
+}
+
+@SuppressLint("MissingPermission")
+fun getLocation(context: Context, res: (Location?) -> Unit) {
+    LocationServices.getFusedLocationProviderClient(context).lastLocation
+            .addOnSuccessListener { location: Location? ->
+                res(location)
+            }.addOnFailureListener {
+                res(null)
+            }
 }

@@ -4,6 +4,7 @@ import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.dataSourceImpls.DataSourceImplSharedPreferences
 import com.tekkr.data.models.Order
 import com.tekkr.data.models.User
+import com.tekkr.data.roomDatabase.Address
 
 class RepoSharedPreferences : DataSourceSharedPreferences() {
 
@@ -12,6 +13,14 @@ class RepoSharedPreferences : DataSourceSharedPreferences() {
     override fun saveLoggedInUser(user: User) = mSpDS.saveLoggedInUser(user)
     override fun getLoggedInUser(): User? = mSpDS.getLoggedInUser()
     override fun clearLoggedInUser() = mSpDS.clearLoggedInUser()
+
+    override fun saveAddress(address: Address) =  mSpDS.saveAddress(address)
+    override fun getAddress(): Address? = mSpDS.getAddress()
+    override fun clearAddress() = mSpDS.clearAddress()
+
+    override fun saveTempAddress(address: Address) =  mSpDS.saveTempAddress(address)
+    override fun getTempAddress(): Address? = mSpDS.getTempAddress()
+    override fun clearTempAddress() = mSpDS.clearTempAddress()
 
     override fun saveSelectedRunsheetId(runsheetId: String) = mSpDS.saveSelectedRunsheetId(runsheetId)
     override fun clearSelectedRunsheetId() = mSpDS.clearSelectedRunsheetId()

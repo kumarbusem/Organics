@@ -34,6 +34,12 @@ class SelectAddressFragment :  BaseAbstractFragment<SelectAddressViewModel, Frag
             adapter = mAdapter
         }
 
+        cvSelectFromMap.setOnClickListener {
+            repoPrefs.clearAddress()
+            repoPrefs.clearTempAddress()
+            navigateById(R.id.action_selectAddressFragment_to_newAddressFragment)
+        }
+
         ivBack.setOnClickListener { navigateBack() }
         initPlaceAutoComplete()
 
@@ -52,9 +58,9 @@ class SelectAddressFragment :  BaseAbstractFragment<SelectAddressViewModel, Frag
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-
-                mViewModel.setSavedAddress(place)
-                navigateBack()
+                repoPrefs.saveTempAddress(Address(place.name.toString(), place.address.toString(), latitude = place.latLng?.latitude!!, longitude = place.latLng?.longitude!!))
+                repoPrefs.clearAddress()
+                navigateById(R.id.action_selectAddressFragment_to_newAddressFragment)
             }
 
             override fun onError(status: Status) {
@@ -72,6 +78,7 @@ class SelectAddressFragment :  BaseAbstractFragment<SelectAddressViewModel, Frag
        })
     }
     override fun onAddressSelected(recentAddress: Address) {
+        repoPrefs.saveAddress(recentAddress)
         navigateBack()
     }
 }

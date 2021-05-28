@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
+import com.tekkr.data.roomDatabase.Address
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.common.BaseViewModel
@@ -14,6 +15,7 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
 
     val obsCartCount: MutableLiveData<Int> = MutableLiveData()
     val obsCartPrice: MutableLiveData<Int> = MutableLiveData()
+    val obsDeliveryAddress: MutableLiveData<Address> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
 
     init {
@@ -86,6 +88,10 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
                 obsCartPrice.postValue(cartPrice)
             }
         }
+    }
+
+    fun getDeliveryAddress() {
+        obsDeliveryAddress.postValue(repoPrefs.getAddress())
     }
 
 

@@ -4,10 +4,19 @@ import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.common.SharedPreferenceHelper
 import com.tekkr.data.models.Order
 import com.tekkr.data.models.User
+import com.tekkr.data.roomDatabase.Address
 
 class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
 
     private val mSpHelper: SharedPreferenceHelper by lazy { SharedPreferenceHelper.getInstance() }
+
+    override fun saveAddress(address: Address) = mSpHelper.putObject(SP_ADDRESS, address)
+    override fun getAddress(): Address? = mSpHelper.getObject(SP_ADDRESS)
+    override fun clearAddress() = mSpHelper.remove(SP_ADDRESS)
+
+    override fun saveTempAddress(address: Address) = mSpHelper.putObject(SP_TEMP_ADDRESS, address)
+    override fun getTempAddress(): Address? = mSpHelper.getObject(SP_TEMP_ADDRESS)
+    override fun clearTempAddress() = mSpHelper.remove(SP_TEMP_ADDRESS)
 
     override fun saveLoggedInUser(user: User) = mSpHelper.putObject(SP_LOGGED_IN_USER, user)
     override fun getLoggedInUser(): User? = mSpHelper.getObject(SP_LOGGED_IN_USER)
@@ -32,6 +41,8 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
 
     companion object {
 
+        private const val SP_TEMP_ADDRESS: String = "SP_TEMP_ADDRESS"
+        private const val SP_ADDRESS: String = "SP_ADDRESS"
         private const val SP_LOGGED_IN_USER: String = "SP_LOGGED_IN_USER"
         private const val SP_SELECTED_RUNSHEET_ID: String = "SP_SELECTED_RUNSHEET_ID"
         private const val SP_SELECTED_PICKUP_ID: String = "SP_SELECTED_PICKUP_ID"

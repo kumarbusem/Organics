@@ -67,4 +67,9 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
         mViewModel.updateItemNumber(cartItem, price, type)
     }
 
+    override fun onResume() {
+        mViewModel.getDeliveryAddress()
+        super.onResume()
+    }
+
 }

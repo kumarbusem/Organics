@@ -1,0 +1,203 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.address.newAddress.NewAddressFragment">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tekkr.organics.features.newAddress.NewAddressViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clProjectDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/milky_green"
+        android:fitsSystemWindows="false">
+
+
+        <fragment
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/tvName"/>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:elevation="5dp"
+            android:foreground="?selectableItemBackground"
+            app:cardCornerRadius="23dp"
+            app:cardElevation="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/map">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/colorGrey900" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/ivPickupCentreMarker"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/green_marker"
+            app:layout_constraintBottom_toBottomOf="@id/map"
+            app:layout_constraintEnd_toEndOf="@id/map"
+            app:layout_constraintStart_toStartOf="@id/map"
+            app:layout_constraintTop_toTopOf="@id/map" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/ivFlat"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_baseline_my_location_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:tint="@color/colorGrey700" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/Text.B3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@{viewModel.obsTempAddress.name == null ? @string/address : viewModel.obsTempAddress.name}"
+            tools:text="Madhapur Colony"
+            android:lines="1"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey900"
+            app:layout_constraintStart_toEndOf="@id/ivFlat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvLocationAddress"/>
+        <TextView
+            android:id="@+id/tvLocationAddress"
+            style="@style/Text.M4"
+            android:layout_width="match_parent"
+            android:paddingEnd="8dp"
+            android:lines="2"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{viewModel.obsTempAddress.address == null ? @string/select_here : viewModel.obsTempAddress.address}"
+            tools:text="8-11/2, Eshika Building, Madhapur, Hyderabd, 500082"
+            android:textColor="@color/colorGrey700"
+            app:layout_constraintBottom_toTopOf="@id/tvGuide"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/colorPrimary"
+            style="@style/Text.M4"
+            android:id="@+id/tvGuide"
+            android:layout_margin="14dp"
+            app:layout_constraintBottom_toTopOf="@id/etAddress"
+            android:text="A detailed address will help our delivery executive reach your doorstep easily"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etAddress"
+            style="@style/Text.M4"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/white"
+            android:elevation="1dp"
+            android:gravity="top"
+            android:hint="House / Flat / Block No...."
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="5dp"
+            android:minHeight="80dp"
+            android:padding="12dp"
+            android:textColor="@color/colorGrey700"
+            android:textSize="14dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/cvPin"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:elevation="1dp"
+            android:id="@+id/cvPin"
+            android:layout_marginBottom="14dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tvDeliverHere">
+
+            <EditText
+                android:id="@+id/etPin"
+                style="@style/Text.B3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="PinCode"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/colorGrey700"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvCity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCity"
+                style="@style/Text.M3"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginVertical="6dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="Hyderabad, Telangana"
+                android:textColor="@color/colorGrey700"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvDeliverHere"
+            style="@style/Text.B3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Deliver Here"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

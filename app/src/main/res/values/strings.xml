@@ -23,6 +23,8 @@
     <string name="gps_enable">GPS enable</string>
     <string name="please_turn_on_gps">Please turn on GPS</string>
     <string name="ok">Ok</string>
+    <string name="address">Delivery Address</string>
+    <string name="select_here">Please select here</string>
     <string name="item">Item   |</string>
     <string name="items">Items   |</string>
     <string name="itemi">Items :</string>

@@ -225,12 +225,52 @@
                 android:background="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="wrap_content">
-                <include
-                    android:id="@+id/plProjectDetails"
-                    layout="@layout/item_recent_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:visibility="visible" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/ivRecentAddressItem"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_baseline_apartment_24"
+                    android:layout_height="20dp"
+                    app:tint="@color/colorGrey500" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/tvRecentAddressItemTitle"
+                    tools:text="Next galleria Mall Panjagutta"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Text.M3"
+                    android:textSize="15dp"
+                    android:text="@{viewModel.obsDeliveryAddress.name == null ? @string/address : viewModel.obsDeliveryAddress.name}"
+                    android:layout_marginTop="12dp"
+                    android:lines="1"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/colorGrey900"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:id="@+id/tvRecentAddressItemTag"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Text.R4"
+                    android:text="@{viewModel.obsDeliveryAddress.address == null ? @string/select_here : viewModel.obsDeliveryAddress.address}"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:paddingEnd="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/colorGrey600"
+                    android:layout_marginStart="12dp"
+                    tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
+                    app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     app:layout_constraintTop_toTopOf="parent"

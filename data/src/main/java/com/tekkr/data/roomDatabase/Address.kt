@@ -12,7 +12,7 @@ class Address(
         val name: String,
 
         @ColumnInfo(name = "address")
-        val address: String,
+        var address: String,
 
         @ColumnInfo(name = "city")
         val city: String = "Hyderabad",
@@ -27,6 +27,6 @@ class Address(
         val longitude: Double,
 
         @ColumnInfo(name = "pin")
-        val pin: String = "500001"
+        var pin: String = "500001"
 
 )

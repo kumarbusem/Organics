@@ -17,32 +17,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/layout_recent_address"
-        android:background="@color/white"
         android:paddingHorizontal="14dp"
         android:foreground="?selectableItemBackground"
         android:paddingVertical="13dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="24dp"
+            android:layout_width="20dp"
             android:id="@+id/ivRecentAddressItem"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/location"
-            android:layout_height="24dp"
-            app:tint="@color/colorGrey700" />
+            android:src="@drawable/ic_baseline_apartment_24"
+            android:layout_height="20dp"
+            app:tint="@color/colorGrey500" />
 
         <TextView
             android:layout_width="0dp"
             android:id="@+id/tvRecentAddressItemTitle"
             tools:text="Next galleria Mall Panjagutta"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/Text.R3"
-            android:textSize="15sp"
+            style="@style/Text.M3"
+            android:textSize="15dp"
             android:text="@{data.name}"
             android:textColor="@color/colorGrey900"
-            android:layout_marginStart="8sp"
+            android:layout_marginStart="12dp"
             app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
@@ -56,7 +55,7 @@
             android:text="@{data.address}"
             android:maxLines="1"
             android:textColor="@color/colorGrey600"
-            android:layout_marginStart="8sp"
+            android:layout_marginStart="12dp"
             tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
             app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
             app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"

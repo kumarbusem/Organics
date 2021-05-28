@@ -1,0 +1,116 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.address.selectAddress.SelectAddressFragment">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tekkr.organics.features.selectAddress.SelectAddressViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clProjectDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="false">
+
+      
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/cvSearch"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="?actionBarSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/milky_green">
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="60dp"
+                    android:layout_height="0dp"
+                    app:tint="@color/colorGrey900"
+                    android:paddingHorizontal="22dp"
+                    android:foreground="?selectableItemBackground"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Select Address"
+                    style="@style/Text.B3"
+                    android:textSize="19dp"
+                    android:textColor="@color/colorGrey900"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center"
+                    android:layout_height="?actionBarSize"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/cvSelectFromMap"
+            android:background="@color/colorPrimary"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/cvSearch"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="16dp"
+                android:id="@+id/ivSelectFromMap"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/ic_baseline_map_24"
+                android:layout_height="20dp"
+                app:tint="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                style="@style/Text.B3"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivSelectFromMap"
+                android:text="Add new address"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:elevation="10dp"
+            app:layout_constraintTop_toBottomOf="@id/cvSelectFromMap" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/ll1"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/autocomplete_fragment"
+            android:layout_height="1dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFavAddressList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadingEdge="vertical"
+            tools:itemCount="3"
+            android:background="@color/milky_green"
+            app:layout_constraintTop_toBottomOf="@id/ll1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:requiresFadingEdge="vertical"
+            tools:listitem="@layout/item_recent_address" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
