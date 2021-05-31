@@ -278,6 +278,7 @@
                     <TextView
                         android:id="@+id/tvMeat"
                         style="@style/Text.B3"
+                        android:visibility="gone"
                         android:paddingBottom="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -291,6 +292,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cvMeat"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/tvMeat">

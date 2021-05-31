@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface ItemDao {
 
-    @Query("SELECT * FROM items_table")
+    @Query("SELECT * FROM items_table ORDER BY priority DESC")
     fun getAllItems(): List<BigItem>
 
     @Query("SELECT * FROM items_table WHERE number != 0 AND is_in_stock")

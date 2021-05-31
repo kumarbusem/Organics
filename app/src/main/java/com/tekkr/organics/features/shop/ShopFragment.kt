@@ -2,6 +2,7 @@ package com.tekkr.organics.features.shop
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -122,6 +123,8 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
 
     override fun onResume() {
         mViewModel.getItems()
+        mViewModel.getUser()
+        Log.e("USER::", repoPrefs.getLoggedInUser()?.phone_number.toString())
         super.onResume()
     }
 }

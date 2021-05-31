@@ -65,7 +65,7 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
 
     private fun setUpTimer() {
         tvResend.hide()
-        cTimer = object : CountDownTimer(6000, 1000) {
+        cTimer = object : CountDownTimer(20000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 try {
                     tvTimer.setText("You can resend OTP in " + millisUntilFinished / 1000 + " sec")

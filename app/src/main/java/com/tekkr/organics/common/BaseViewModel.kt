@@ -50,14 +50,13 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
 
     fun getUser() {
         val user = repoPrefs.getLoggedInUser()
-        if(user != null && !user.access.isNullOrEmpty()){
-            obsIsUserAuthenticated.postValue(true)
-        }
+        obsIsUserAuthenticated.postValue(user != null && !user.access.isEmpty())
     }
+
     fun verifyOtp(phone: String, otp: String, res: (SimpleResponse) -> Unit) {
         ioScope.launch {
             try {
-                repoUser.verifyOTP(phone, otp){ user->
+                repoUser.verifyOTP(phone, otp) { user ->
                     if (user == null || user.access.isEmpty())
                         res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Access token not available"))
                     else {
@@ -66,7 +65,7 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
                         res(SimpleResponse(SimpleResponse.STATUS_SUCCESS, ""))
                     }
                 }
-            }catch (e: ApiException) {
+            } catch (e: ApiException) {
                 Log.e("API:::", e.printStackTrace().toString())
                 res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
             } catch (e: SocketTimeoutException) {
@@ -74,7 +73,7 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
             } catch (e: Exception) {
                 if (e.message.toString().contains("Unable to resolve"))
                     res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
-                else  res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                else res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
                 Log.e("EXC:::", e.printStackTrace().toString())
             }
         }
@@ -83,17 +82,17 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
     fun sendOtp(phone: String, res: (SimpleResponse) -> Unit) {
         ioScope.launch {
             try {
-                repoUser.sendOTP(phone){ responce->
+                repoUser.sendOTP(phone) { responce ->
                     res(responce)
                 }
-            }catch (e: ApiException) {
+            } catch (e: ApiException) {
                 res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
             } catch (e: SocketTimeoutException) {
                 res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network!\nPlease ty again"))
             } catch (e: Exception) {
                 if (e.message.toString().contains("Unable to resolve"))
                     res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
-                else  res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                else res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
             }
         }
     }

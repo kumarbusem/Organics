@@ -20,7 +20,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
     }
 
     private val contactDetailsDialog: ContactDetailsDialog by lazy {
-        ContactDetailsDialog(onSaveContactDetails ={ name, phone ->
+        ContactDetailsDialog(onSaveContactDetails = { name, phone ->
             repoPrefs.saveContactDetails(ContactDetails(name, phone))
             mViewModel.getContactDetails()
         })
@@ -49,7 +49,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
             loginOTPDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
         }
         cvAddress.setOnClickListener {
-            if(mPermissionManager.areAllPermissionsGranted())
+            if (mPermissionManager.areAllPermissionsGranted())
                 navigateById(R.id.action_cartFragment_to_selectAddressFragment)
             else
                 mPermissionManager.requestAllPermissions()
@@ -64,11 +64,13 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
     private fun placeOrder() {
 
-        if(repoPrefs.getContactDetails() == null || repoPrefs.getContactDetails()?.name.isNullOrEmpty())
+        if (repoPrefs.getContactDetails() == null || repoPrefs.getContactDetails()?.name.isNullOrEmpty())
             showToast("Please enter contact details")
-        else if(repoPrefs.getAddress() == null || repoPrefs.getAddress()?.address.isNullOrEmpty())
+        else if (repoPrefs.getAddress() == null || repoPrefs.getAddress()?.address.isNullOrEmpty())
             showToast("Please select address")
-        else{
+        else if (mViewModel.obsCartCount.value == null || mViewModel.obsCartCount.value == 0)
+            showToast("Not items in the cart")
+        else {
 
             repoPrefs.clearTempAddress()
             repoPrefs.clearAddress()
