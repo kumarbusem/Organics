@@ -20,7 +20,6 @@
         android:background="@color/milky_green"
         android:fitsSystemWindows="false">
 
-
         <fragment
             android:id="@+id/map"
             class="com.google.android.gms.maps.SupportMapFragment"
@@ -102,10 +101,10 @@
             android:paddingEnd="8dp"
             android:maxLines="2"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@{viewModel.obsTempAddress.address == null ? @string/select_here : viewModel.obsTempAddress.address}"
+            android:text="@{viewModel.obsTempAddress.line2 == null ? @string/select_here : viewModel.obsTempAddress.line2}"
             tools:text="8-11/2, Eshika Building, Madhapur, Hyderabd, 500082"
             android:textColor="@color/colorGrey700"
             app:layout_constraintBottom_toTopOf="@id/tvMessage"/>
@@ -115,6 +114,7 @@
             style="@style/Text.M4"
             android:id="@+id/tvMessage"
             android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toTopOf="@id/tvGuide"
             android:text="Currently we are delivering only in Hyderabad"
             android:layout_height="wrap_content"/>
@@ -124,31 +124,27 @@
             style="@style/Text.M4"
             android:id="@+id/tvGuide"
             android:layout_margin="14dp"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toTopOf="@id/etAddress"
             android:text="A detailed address will help our delivery executive reach your doorstep easily"
             android:layout_height="wrap_content"/>
 
         <EditText
-            android:id="@+id/etAddress"
-            style="@style/Text.M4"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="10dp"
+            android:id="@+id/etAddress"
             android:background="@color/white"
             android:elevation="1dp"
-            android:gravity="top"
-            android:hint="House / Flat / Block No...."
-            android:inputType="textMultiLine"
-            android:lineSpacingExtra="5dp"
-            android:minHeight="80dp"
-            android:padding="12dp"
-            android:textColor="@color/colorGrey700"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            style="@style/Text.M4"
+            android:nextFocusForward="@id/etPin"
+            android:inputType="textPostalAddress"
             android:textSize="14dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@id/cvPin"/>
+            android:textColor="@color/colorGrey700"
+            android:hint="House / Flat / Full Address..."
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toTopOf="@id/cvPin"
+            android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -157,19 +153,20 @@
             android:layout_margin="10dp"
             android:elevation="1dp"
             android:id="@+id/cvPin"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/tvDeliverHere">
+            app:layout_constraintBottom_toTopOf="@id/etPlaceName">
 
             <EditText
                 android:id="@+id/etPin"
-                style="@style/Text.B3"
+                style="@style/Text.M3"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="16dp"
                 android:hint="PinCode"
+                android:nextFocusForward="@id/etPlaceName"
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/colorGrey700"
@@ -183,19 +180,35 @@
                 android:id="@+id/tvCity"
                 style="@style/Text.M3"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginVertical="6dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="12dp"
                 android:gravity="center"
                 android:text="Hyderabad, Telangana"
                 android:textColor="@color/colorGrey700"
-                android:textSize="17dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/etPlaceName"
+            android:background="@color/white"
+            android:elevation="1dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            style="@style/Text.M4"
+            android:inputType="textCapWords"
+            android:nextFocusForward="@id/tvDeliverHere"
+            android:textSize="14dp"
+            android:textColor="@color/colorGrey700"
+            android:hint="Save adddress as, ex: Home, Office "
+            android:layout_marginBottom="14dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintBottom_toTopOf="@id/tvDeliverHere"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tvDeliverHere"

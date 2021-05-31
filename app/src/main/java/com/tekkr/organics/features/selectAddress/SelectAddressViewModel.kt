@@ -21,7 +21,7 @@ class SelectAddressViewModel(context: Application) : BaseViewModel(context) {
             try {
                 val allRecentAddresses: List<Address> = roomRepository.getAddresses()
                 allRecentAddresses.forEach {
-                    Log.e("WORDS::", it.address.toString())
+                    Log.e("WORDS::", it.line1.toString())
                 }
                 obsSavedAddressList.postValue(allRecentAddresses)
             } catch (e: Exception) {
@@ -29,13 +29,6 @@ class SelectAddressViewModel(context: Application) : BaseViewModel(context) {
                 obsSavedAddressList.postValue(null)
                 e.printStackTrace()
             }
-        }
-    }
-
-    fun setSavedAddress(place: Place){
-        ioScope.launch {
-            roomRepository.insertAddress(Address(name = place.name.toString(), address = place.address.toString(),
-                    latitude = place.latLng?.latitude!!, longitude = place.latLng?.longitude!!))
         }
     }
 

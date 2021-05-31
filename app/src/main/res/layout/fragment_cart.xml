@@ -334,7 +334,7 @@
                     android:id="@+id/tvRecentAddressItemTag"
                     app:layout_constraintEnd_toEndOf="parent"
                     style="@style/Text.R4"
-                    android:text="@{viewModel.obsDeliveryAddress.address == null ? @string/select_here : viewModel.obsDeliveryAddress.address}"
+                    android:text="@{viewModel.obsDeliveryAddress.line1 == null ? @string/select_here : viewModel.obsDeliveryAddress.line1}"
                     android:maxLines="1"
                     android:lines="1"
                     android:paddingEnd="8dp"

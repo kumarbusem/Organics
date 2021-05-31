@@ -18,6 +18,7 @@ import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
 import com.tekkr.organics.common.ViewModelFactory
 import com.tekkr.organics.databinding.FragmentNewAddressBinding
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -58,26 +59,29 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
     }
 
     private fun getAddressFromLocation(latLng: LatLng) {
-        val geocoder = Geocoder(requireContext(), Locale.ENGLISH)
-        try {
-            val addresses: MutableList<Address>? = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            if (addresses?.isNotEmpty()!!) {
-                Log.e("ADDRESSES:::", addresses.toString())
-                val address = addresses[0].getAddressLine(0).toString()
-                repoPrefs.saveTempAddress(
-                        com.tekkr.data.roomDatabase.Address(
-                                name = address.substring(0, address.indexOf(",")),
-                                address = address,
-                                latitude = latLng.latitude,
-                                longitude = latLng.longitude
-                        )
-                )
-                mViewModel.getAddress()
+        ioScope.launch {
+            val geocoder = Geocoder(requireContext(), Locale.ENGLISH)
+            try {
+                val addresses: MutableList<Address>? = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+                if (!addresses.isNullOrEmpty()) {
+                    Log.e("Address From Location::", addresses.toString())
+                    val address = addresses[0].getAddressLine(0).toString()
+                    repoPrefs.saveTempAddress(
+                            com.tekkr.data.roomDatabase.Address(
+                                    name = address.substring(0, address.indexOf(",")),
+                                    line2 = address,
+                                    latitude = latLng.latitude,
+                                    longitude = latLng.longitude
+                            )
+                    )
+                    mViewModel.getAddress()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e("ERROR::", e.printStackTrace().toString())
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e("ERROR::", e.printStackTrace().toString())
         }
+
     }
 
     private fun doBasicThings() {
@@ -85,9 +89,9 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
             return
         }
         googleMap.isMyLocationEnabled = true
-        googleMap.uiSettings?.isCompassEnabled = true
-        googleMap.uiSettings?.isMyLocationButtonEnabled = true
-        googleMap.uiSettings?.isZoomControlsEnabled = false
+        googleMap.uiSettings.isCompassEnabled = true
+        googleMap.uiSettings.isMyLocationButtonEnabled = true
+        googleMap.uiSettings.isZoomControlsEnabled = false
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.style_json))
 
     }
@@ -95,7 +99,7 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
     private fun showMylocationOnCamera() {
 
         val address = repoPrefs.getTempAddress()
-        if (address == null || address.address.isNullOrEmpty()) {
+        if (address == null || address.line2.isNullOrEmpty()) {
             com.tekkr.organics.common.getLocation(requireContext()) {
                 if (it != null)
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), 16f))
@@ -123,12 +127,21 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
             else -> {
                 val tempAddress = repoPrefs.getTempAddress()
                 Log.e("TEMP ADDRESS::", tempAddress.toString())
-                tempAddress?.address = "${mBinding.etAddress.text.toString().trim()}, ${tempAddress?.address}"
-                tempAddress?.pin = mBinding.etPin.text.toString().trim()
-                repoPrefs.saveAddress(tempAddress!!)
-                mViewModel.setSavedAddress(tempAddress)
-                repoPrefs.clearTempAddress()
-                navigateById(R.id.action_newAddressFragment_to_cartFragment)
+                if(tempAddress != null){
+                    if(!mBinding.etPlaceName.text.isNullOrEmpty())  tempAddress?.name = mBinding.etPlaceName.text.toString()
+                    tempAddress.line1 = mBinding.etAddress.text.toString().trim()
+                    tempAddress.pincode = mBinding.etPin.text.toString().trim()
+                    repoPrefs.saveAddress(tempAddress)
+                    mViewModel.setSavedAddress(tempAddress)
+                    repoPrefs.clearTempAddress()
+                    navigateById(R.id.action_newAddressFragment_to_cartFragment)
+                } else{
+                    val address = com.tekkr.data.roomDatabase.Address(name = mBinding.etPlaceName.text.toString(), line1 = mBinding.etAddress.text.toString().trim(), pincode = mBinding.etPin.text.toString().trim())
+                    repoPrefs.saveAddress(address)
+                    mViewModel.setSavedAddress(address)
+                    repoPrefs.clearTempAddress()
+                    navigateById(R.id.action_newAddressFragment_to_cartFragment)
+                }
             }
         }
     }

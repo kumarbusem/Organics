@@ -66,7 +66,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
         if (repoPrefs.getContactDetails() == null || repoPrefs.getContactDetails()?.name.isNullOrEmpty())
             showToast("Please enter contact details")
-        else if (repoPrefs.getAddress() == null || repoPrefs.getAddress()?.address.isNullOrEmpty())
+        else if (repoPrefs.getAddress() == null || repoPrefs.getAddress()?.line2.isNullOrEmpty())
             showToast("Please select address")
         else if (mViewModel.obsCartCount.value == null || mViewModel.obsCartCount.value == 0)
             showToast("Not items in the cart")

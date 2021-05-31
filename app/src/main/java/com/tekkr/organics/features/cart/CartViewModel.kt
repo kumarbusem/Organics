@@ -1,6 +1,7 @@
 package com.tekkr.organics.features.cart
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
@@ -95,6 +96,7 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
 
     fun getDeliveryAddress() {
         obsDeliveryAddress.postValue(repoPrefs.getAddress())
+        Log.e("DELIVERY ADDRESSL::", repoPrefs.getAddress().toString())
     }
 
     fun placeOrder() {

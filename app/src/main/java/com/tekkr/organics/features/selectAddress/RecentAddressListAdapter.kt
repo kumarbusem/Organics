@@ -39,7 +39,7 @@ class RecentAddressListAdapter(private val callback: ItemSelectionCallback) : Li
 
         val DIFF_UTILS: DiffUtil.ItemCallback<Address> = object : DiffUtil.ItemCallback<Address>() {
             override fun areItemsTheSame(old: Address, new: Address): Boolean {
-                return old.address == new.address
+                return old.line2 == new.line2
             }
 
             override fun areContentsTheSame(old: Address, new: Address): Boolean {

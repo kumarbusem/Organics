@@ -58,7 +58,7 @@ class SelectAddressFragment :  BaseAbstractFragment<SelectAddressViewModel, Frag
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                repoPrefs.saveTempAddress(Address(place.name.toString(), place.address.toString(), latitude = place.latLng?.latitude!!, longitude = place.latLng?.longitude!!))
+                repoPrefs.saveTempAddress(Address(name = place.name.toString(), line2 = place.name + ", " +place.address.toString(), latitude = place.latLng?.latitude!!, longitude = place.latLng?.longitude!!))
                 repoPrefs.clearAddress()
                 navigateById(R.id.action_selectAddressFragment_to_newAddressFragment)
             }
