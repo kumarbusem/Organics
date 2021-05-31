@@ -20,7 +20,7 @@
         tools:ignore="UnusedAttribute">
 
         <ImageView
-            android:id="@+id/tvName"
+            android:id="@+id/ivLogo"
             style="@style/Text.M3"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -45,9 +45,9 @@
             android:visibility="gone"
             app:cardCornerRadius="18dp"
             app:cardElevation="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/ivLogo"
             app:layout_constraintEnd_toStartOf="@id/mcvProfile"
-            app:layout_constraintTop_toTopOf="@id/tvName">
+            app:layout_constraintTop_toTopOf="@id/ivLogo">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -96,9 +96,9 @@
             android:outlineSpotShadowColor="@color/colorPrimary"
             app:cardCornerRadius="18dp"
             app:cardElevation="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/ivLogo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvName">
+            app:layout_constraintTop_toTopOf="@id/ivLogo">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -117,7 +117,7 @@
             app:layout_constraintBottom_toTopOf="@id/cvCart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName">
+            app:layout_constraintTop_toBottomOf="@id/ivLogo">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/layoutRider"

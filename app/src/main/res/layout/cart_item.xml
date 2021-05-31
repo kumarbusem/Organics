@@ -11,7 +11,6 @@
 
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +19,11 @@
         tools:ignore="ContentDescription,UnusedAttribute">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             app:setItemImage='@{item}'
             android:id="@+id/ivMango1"
+            android:layout_marginStart="2dp"
+            app:layout_constraintDimensionRatio="1:1"
             android:adjustViewBounds="true"
             tools:src="@drawable/pineapple"
             app:layout_constraintTop_toTopOf="@id/tvMango1"
@@ -41,12 +42,12 @@
             android:text="@{item.name + '('  + item.quantity + item.unit + ')'}"
             android:textColor="@color/colorGrey900"
             android:textSize="13dp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:paddingEnd="5dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/mcvButtons"
             app:layout_constraintStart_toEndOf="@+id/ivMango1"
-            tools:text="Mangoes (3Kg)" />
+            tools:text="Organic Banaganapalli Tasty Mangoes (3Kg) Mini Pack" />
 
         <TextView
             android:id="@+id/tvMangoPrice1"
@@ -65,6 +66,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="4dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:strokeWidth="2px"

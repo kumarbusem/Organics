@@ -1,5 +1,6 @@
 package com.tekkr.data.dataSources.definitions
 
+import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.models.Order
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
@@ -13,6 +14,10 @@ abstract class DataSourceSharedPreferences {
     abstract fun saveAddress(address: Address)
     abstract fun getAddress(): Address?
     abstract fun clearAddress()
+
+    abstract fun saveContactDetails(contactDetails: ContactDetails)
+    abstract fun getContactDetails(): ContactDetails?
+    abstract fun clearContactDetails()
 
     abstract fun saveTempAddress(address: Address)
     abstract fun getTempAddress(): Address?

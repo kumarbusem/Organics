@@ -1,5 +1,7 @@
 package com.tekkr.organics.features.shop
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +13,8 @@ import com.tekkr.organics.common.hide
 import com.tekkr.organics.common.show
 import com.tekkr.organics.databinding.FragmentShopBinding
 import com.tekkr.organics.features.cart.CartFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.partial_blocked_version.view.*
 
 class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.layout.fragment_shop), ItemsListAdapter.ItemCallback {
 
@@ -51,11 +55,18 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
         cvCart.setOnClickListener { navigateById(R.id.action_shopFragment_to_cartFragment) }
 
         mcvProfile.setOnClickListener {
-            if(mViewModel.obsIsUserAuthenticated.value == true){
+            if (mViewModel.obsIsUserAuthenticated.value == true) {
                 navigateById(R.id.action_shopFragment_to_profileFragment)
-            }else{
+            } else {
                 loginOTPDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
             }
+        }
+
+       ivLogo.setOnClickListener {
+            startActivity(Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://tekkrorganics.in/")
+            ))
         }
 
     }
@@ -64,10 +75,10 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
     override fun setupObservers(): ShopViewModel.() -> Unit = {
 
         obsVegetablesList.observe(viewLifecycleOwner, Observer {
-            if(it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 mBinding.ivVegetables.show()
                 mBinding.rvVegetables.hide()
-            }else{
+            } else {
                 mBinding.ivVegetables.hide()
                 mBinding.rvVegetables.show()
                 mVegetablesAdapter.submitList(it)
@@ -76,10 +87,10 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
 
         })
         obsFruitsList.observe(viewLifecycleOwner, Observer {
-            if(it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 mBinding.ivFruits.show()
                 mBinding.rvFruits.hide()
-            }else{
+            } else {
                 mBinding.ivFruits.hide()
                 mBinding.rvFruits.show()
                 mFruitsAdapter.submitList(it)
@@ -87,15 +98,19 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
 
         })
         obsMeatList.observe(viewLifecycleOwner, Observer {
-            if(it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 mBinding.ivMeat.show()
                 mBinding.rvMeat.hide()
-            }else{
+            } else {
                 mBinding.ivMeat.hide()
                 mBinding.rvMeat.show()
                 mMeatAdapter.submitList(it)
             }
 
+        })
+
+        obsItemsList.observe(viewLifecycleOwner, Observer {
+            mBinding.swipeRefreshLayout.isRefreshing = false
         })
 
 

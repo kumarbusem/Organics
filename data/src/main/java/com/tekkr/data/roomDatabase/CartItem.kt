@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "cart_items_table")
-class CartItem(
+data class CartItem(
 
         @PrimaryKey
         @ColumnInfo(name = "id")

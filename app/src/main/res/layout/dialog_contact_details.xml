@@ -1,0 +1,154 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tekkr.organics.features.dialogs.ContactDetailsDialog">
+
+    <data>
+
+        <variable
+            name="host"
+            type="com.tekkr.organics.features.dialogs.ContactDetailsDialog" />
+
+    </data>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="16dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingBottom="32dp"
+                tools:ignore="ContentDescription,UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/ivFruitBowl"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="22dp"
+                    android:src="@drawable/fruit_bowl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvLogin"
+                    style="@style/Text.B2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="start"
+                    android:text="Contact Details"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@id/ivFruitBowl" />
+
+                <TextView
+                    android:id="@+id/tvError"
+                    style="@style/Text.M4"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Something went wrong, please try again"
+                    android:textColor="@color/orangeRed"
+                    android:textSize="12dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLogin"/>
+
+                <ImageView
+                    android:id="@+id/btnClose"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingStart="16dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="16dp"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorGrey500" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cvSendOtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvError">
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        style="@style/Text.M3"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="#D2DDDD"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:paddingVertical="14dp"
+                        android:paddingHorizontal="18dp"
+                        android:textColor="@color/colorGrey700"
+                        android:textSize="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        style="@style/Text.M3"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="#D2DDDD"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingVertical="14dp"
+                        android:paddingHorizontal="18dp"
+                        android:textColor="@color/colorGrey700"
+                        android:textSize="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+                    <TextView
+                        android:id="@+id/btnSave"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/edit_text_round_gray_empty_background"
+                        android:backgroundTint="@color/colorAccent"
+                        android:paddingVertical="14dp"
+                        android:text="Save"
+                        android:textAllCaps="true"
+                        style="@style/Text.B3"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        app:cornerRadius="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+</layout>

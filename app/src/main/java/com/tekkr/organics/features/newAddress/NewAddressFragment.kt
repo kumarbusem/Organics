@@ -123,7 +123,7 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
             else -> {
                 val tempAddress = repoPrefs.getTempAddress()
                 Log.e("TEMP ADDRESS::", tempAddress.toString())
-                tempAddress?.address = "${mBinding.etAddress.text.toString().trim()},\n\n${tempAddress?.address}"
+                tempAddress?.address = "${mBinding.etAddress.text.toString().trim()}, ${tempAddress?.address}"
                 tempAddress?.pin = mBinding.etPin.text.toString().trim()
                 repoPrefs.saveAddress(tempAddress!!)
                 mViewModel.setSavedAddress(tempAddress)

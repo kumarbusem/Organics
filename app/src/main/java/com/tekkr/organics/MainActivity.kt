@@ -40,8 +40,9 @@ class MainActivity : AppCompatActivity() {
                         .setFontAttrId(R.attr.fontPath)
                         .build())
                 ).build())
-
         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+
     }
 
 

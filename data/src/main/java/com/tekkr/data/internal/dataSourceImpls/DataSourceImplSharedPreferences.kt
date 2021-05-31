@@ -2,6 +2,7 @@ package com.tekkr.data.internal.dataSourceImpls
 
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.common.SharedPreferenceHelper
+import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.models.Order
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
@@ -13,6 +14,10 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
     override fun saveAddress(address: Address) = mSpHelper.putObject(SP_ADDRESS, address)
     override fun getAddress(): Address? = mSpHelper.getObject(SP_ADDRESS)
     override fun clearAddress() = mSpHelper.remove(SP_ADDRESS)
+
+    override fun saveContactDetails(contactDetails: ContactDetails) = mSpHelper.putObject(SP_CONTACT_DETAILS, contactDetails)
+    override fun getContactDetails(): ContactDetails? = mSpHelper.getObject(SP_CONTACT_DETAILS)
+    override fun clearContactDetails() = mSpHelper.remove(SP_CONTACT_DETAILS)
 
     override fun saveTempAddress(address: Address) = mSpHelper.putObject(SP_TEMP_ADDRESS, address)
     override fun getTempAddress(): Address? = mSpHelper.getObject(SP_TEMP_ADDRESS)
@@ -41,6 +46,7 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
 
     companion object {
 
+        private const val SP_CONTACT_DETAILS: String = "SP_CONTACT_DETAILS"
         private const val SP_TEMP_ADDRESS: String = "SP_TEMP_ADDRESS"
         private const val SP_ADDRESS: String = "SP_ADDRESS"
         private const val SP_LOGGED_IN_USER: String = "SP_LOGGED_IN_USER"

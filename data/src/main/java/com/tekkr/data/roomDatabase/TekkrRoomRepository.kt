@@ -16,13 +16,18 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
         var message: String = ""
 
         try {
-            repoBasic.getItems(){ onlineItems = it!! }
+            repoBasic.getItems(){
+                onlineItems = it!!
+                Log.e("Room Repo Online::", it.toString())
+            }
         }catch (e: Exception){
             message = e.message.toString()
         }
-        val offlineItems = itemsDao.getAllItems()
 
         if(onlineItems.isNullOrEmpty()){
+
+            val offlineItems = itemsDao.getAllItems()
+
             if(offlineItems.isNullOrEmpty()){
                 throw ApiException("Items Not Available\n$message")
             }
@@ -32,14 +37,13 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
         }else{
 
             onlineItems.forEach {item ->
-
                 val items: List<BigItem?>? = itemsDao.getItemById(item.id)
                 if (items.isNullOrEmpty())
                     itemsDao.insert(item.toBigItem())
                 else
                     itemsDao.update(item)
             }
-            return offlineItems
+            return itemsDao.getAllItems()
         }
 
         return itemsDao.getAllItems()

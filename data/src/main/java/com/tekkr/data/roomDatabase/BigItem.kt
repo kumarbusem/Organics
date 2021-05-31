@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "items_table")
-class BigItem(
+data class BigItem(
 
         @PrimaryKey
         @ColumnInfo(name = "id")

@@ -100,7 +100,7 @@
             style="@style/Text.M4"
             android:layout_width="match_parent"
             android:paddingEnd="8dp"
-            android:lines="2"
+            android:maxLines="2"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="12dp"
@@ -108,8 +108,16 @@
             android:text="@{viewModel.obsTempAddress.address == null ? @string/select_here : viewModel.obsTempAddress.address}"
             tools:text="8-11/2, Eshika Building, Madhapur, Hyderabd, 500082"
             android:textColor="@color/colorGrey700"
-            app:layout_constraintBottom_toTopOf="@id/tvGuide"/>
-
+            app:layout_constraintBottom_toTopOf="@id/tvMessage"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/orangeRed"
+            style="@style/Text.M4"
+            android:id="@+id/tvMessage"
+            android:layout_marginHorizontal="14dp"
+            app:layout_constraintBottom_toTopOf="@id/tvGuide"
+            android:text="Currently we are delivering only in Hyderabad"
+            android:layout_height="wrap_content"/>
         <TextView
             android:layout_width="match_parent"
             android:textColor="@color/colorPrimary"

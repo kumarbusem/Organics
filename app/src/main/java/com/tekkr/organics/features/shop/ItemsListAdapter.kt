@@ -72,8 +72,8 @@ fun ImageView.setItemImage(data: BigItem?) {
     if (data == null) return
 
     if(data.name.contains("orange", true)) this.setImageResource(R.drawable.orange)
-    else if(data.name.contains("alphonso", true) && data.quantity == 3) this.setImageResource(R.drawable.mango2)
-    else if(data.name.contains("alphonso", true) && data.quantity == 5) this.setImageResource(R.drawable.mangos)
+    else if(data.name.contains("alphonso", true) && data.quantity == 5) this.setImageResource(R.drawable.mango2)
+    else if(data.name.contains("alphonso", true) && data.quantity == 12) this.setImageResource(R.drawable.mangos)
     else if(data.name.contains("KIwi", true)) this.setImageResource(R.drawable.kiwi)
     else if(data.name.contains("Broccoli", true)) this.setImageResource(R.drawable.braccoli     )
     else if(data.name.contains("Tomato", true)) this.setImageResource(R.drawable.tomato)

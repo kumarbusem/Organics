@@ -1,6 +1,7 @@
 package com.tekkr.organics.features.shop
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
@@ -20,7 +21,6 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
     val obsMeatList: MutableLiveData<List<BigItem>> = MutableLiveData()
 
     init {
-        getItems()
         getUser()
     }
 
@@ -29,6 +29,8 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
         ioScope.launch {
             try {
                 val items = roomRepository.getAllItems()
+
+                Log.e("SHOP VIEWMODEL::", items.toString())
 
                 var fruits: ArrayList<BigItem> = ArrayList()
                 var vegetables: ArrayList<BigItem> = ArrayList()
@@ -42,8 +44,10 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
                         2 -> vegetables.add(it)
                         3 -> meat.add(it)
                     }
-                    cartCount += it.number
-                    cartPrice += (it.number * it.item_price)
+                    if(it.is_in_stock){
+                        cartCount += it.number
+                        cartPrice += (it.number * it.item_price)
+                    }
                 }
 
                 obsCartCount.postValue(cartCount)

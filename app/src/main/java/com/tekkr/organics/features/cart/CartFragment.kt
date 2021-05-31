@@ -3,10 +3,12 @@ package com.tekkr.organics.features.cart
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.FragmentCartBinding
+import com.tekkr.organics.features.dialogs.ContactDetailsDialog
 import com.tekkr.organics.features.dialogs.OTPDialog
 
 class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback {
@@ -17,6 +19,12 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
         CartListAdapter(this@CartFragment)
     }
 
+    private val contactDetailsDialog: ContactDetailsDialog by lazy {
+        ContactDetailsDialog(onSaveContactDetails ={ name, phone ->
+            repoPrefs.saveContactDetails(ContactDetails(name, phone))
+            mViewModel.getContactDetails()
+        })
+    }
 
     override fun setViewModel(): CartViewModel =
             ViewModelProvider(this@CartFragment, ViewModelFactory {
@@ -49,11 +57,14 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
         tvPlaceOrder.setOnClickListener {
             placeOrder()
         }
+        cvContactDetails.setOnClickListener {
+            contactDetailsDialog.show(childFragmentManager, CartFragment::class.java.simpleName)
+        }
     }
 
     private fun placeOrder() {
 
-        if(mBinding.etPhone.text.toString().isNullOrEmpty() || mBinding.etname.text.toString().isNullOrEmpty())
+        if(repoPrefs.getContactDetails() == null || repoPrefs.getContactDetails()?.name.isNullOrEmpty())
             showToast("Please enter contact details")
         else if(repoPrefs.getAddress() == null || repoPrefs.getAddress()?.address.isNullOrEmpty())
             showToast("Please select address")

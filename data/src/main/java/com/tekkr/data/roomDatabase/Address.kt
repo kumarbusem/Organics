@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "address_table")
-class Address(
+data class Address(
 
         @PrimaryKey
         @ColumnInfo(name = "name")
