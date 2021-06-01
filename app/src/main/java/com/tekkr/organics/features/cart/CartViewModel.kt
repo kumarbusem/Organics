@@ -5,13 +5,16 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
+import com.tekkr.data.models.CartData
 import com.tekkr.data.models.ContactDetails
+import com.tekkr.data.models.OrderBody
 import com.tekkr.data.roomDatabase.Address
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.common.BaseViewModel
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
+
 
 class CartViewModel(context: Application) : BaseViewModel(context) {
 
@@ -28,24 +31,16 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     }
 
 
-
     fun getItems() {
         obsIsDataLoading.postValue(true)
         ioScope.launch {
             try {
                 val items = roomRepository.getCartItems()
 
-                var cartCount = 0
-                var cartPrice = 0
-
-                items.forEach {
-
-                    cartCount += it.number
-                    cartPrice += (it.number * it.item_price)
+                items.getCounts() { count, price ->
+                    obsCartCount.postValue(count)
+                    obsCartPrice.postValue(price)
                 }
-
-                obsCartCount.postValue(cartCount)
-                obsCartPrice.postValue(cartPrice)
 
                 obsItemsList.postValue(items)
                 obsIsDataLoading.postValue(false)
@@ -80,13 +75,13 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
             roomRepository.updateCartItem(cartItem)
             var count: Int = obsCartCount.value!!
             var cartPrice: Int = obsCartPrice.value!!
-            if(type){
-                count ++
+            if (type) {
+                count++
                 cartPrice += itemPrice
                 obsCartCount.postValue(count)
                 obsCartPrice.postValue(cartPrice)
-            }else{
-                count --
+            } else {
+                count--
                 cartPrice -= itemPrice
                 obsCartCount.postValue(count)
                 obsCartPrice.postValue(cartPrice)
@@ -99,11 +94,65 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
         Log.e("DELIVERY ADDRESSL::", repoPrefs.getAddress().toString())
     }
 
-    fun placeOrder() {
+    fun List<BigItem>.getCounts(res: (Int, Int) -> Unit) {
+        var cartCount = 0
+        var cartPrice = 0
 
+        this.forEach {
+            cartCount += it.number
+            cartPrice += (it.number * it.item_price)
+        }
+        res(cartCount, cartPrice)
     }
 
     fun getContactDetails() {
         obsContactDetails.postValue(repoPrefs.getContactDetails())
     }
+    fun generateOrderBody(res: () -> Unit) {
+
+        val address = repoPrefs.getAddress()
+        val contact = repoPrefs.getContactDetails()
+        address?.name = contact?.name!!
+        address?.phone_number = contact.phone
+
+        val cartData = obsItemsList.value!!
+                .sortedBy { it.priority }
+                .map { CartData(item = it.id, quantity = it.number) }
+
+        val orderBody = OrderBody(
+                is_new_address = true,
+                delivery_address = address!!,
+                customer_id = repoPrefs.getLoggedInUser()?.id!!,
+                order_items = cartData
+        )
+
+        repoPrefs.saveOrderBody(orderBody)
+        res()
+    }
+//    fun generateOrderBody2(res: () -> Unit) {
+//
+//        val address = repoPrefs.getAddress()
+//        val contact = repoPrefs.getContactDetails()
+//        address?.name = contact?.name!!
+//        address?.phone_number = contact.phone
+//
+//        val cartData = obsItemsList.value!!
+//                .sortedBy { it.priority }
+//                .map { CartData(item = it.id, quantity = it.number) }
+//
+//        val orderBody = JsonObject()
+//        orderBody.addProperty("is_new_address", true)
+//        orderBody.add("delivery_address", address!!.toJsonObject().asJsonObject)
+//        orderBody.addProperty("customer_id", repoPrefs.getLoggedInUser()?.id)
+//
+//        val element: JsonElement = Gson().toJsonTree(cartData, object : TypeToken<List<CartData?>?>() {}.type)
+//        orderBody.add("order_items", element.asJsonArray)
+//
+//        Log.e("BODYYYY::", orderBody.toString())
+//        Log.e("BODYYYY::", orderBody.toString())
+//        Log.e("BODYYYY::", orderBody.toString())
+//
+//        repoPrefs.saveOrderBody(orderBody)
+//        res()
+//    }
 }

@@ -13,4 +13,6 @@ class RepoBasic : DataSourceBasic() {
     private val mRunsheetDataSource: DataSourceBasic by lazy { DataSourceImplBasic() }
 
     override suspend fun getItems(res: (List<Item>?) -> Unit) = mRunsheetDataSource.getItems(res)
+
+    override suspend fun placeOrder(res: (String) -> Unit) = mRunsheetDataSource.placeOrder(res)
 }

@@ -3,6 +3,9 @@ package com.tekkr.data.roomDatabase
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import org.json.JSONObject
 
 @Entity(tableName = "address_table")
 data class Address(
@@ -36,3 +39,20 @@ data class Address(
         var pincode: String = "500001"
 
 )
+
+
+fun Address.toJsonObject(): JsonObject {
+
+        val addressObject = JsonObject()
+        addressObject.addProperty("name", this.name)
+        addressObject.addProperty("phone_number", this.phone_number)
+        addressObject.addProperty("line1", this.line1)
+        addressObject.addProperty("line2", this.line2)
+        addressObject.addProperty("city", this.city)
+        addressObject.addProperty("state", this.state)
+        addressObject.addProperty("latitude", this.latitude)
+        addressObject.addProperty("longitude", this.longitude)
+        addressObject.addProperty("pincode", this.pincode)
+        return addressObject
+
+}

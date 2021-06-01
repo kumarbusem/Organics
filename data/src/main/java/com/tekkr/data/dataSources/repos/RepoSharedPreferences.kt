@@ -4,8 +4,10 @@ import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.dataSourceImpls.DataSourceImplSharedPreferences
 import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.models.Order
+import com.tekkr.data.models.OrderBody
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
+import org.json.JSONObject
 
 class RepoSharedPreferences : DataSourceSharedPreferences() {
 
@@ -41,6 +43,10 @@ class RepoSharedPreferences : DataSourceSharedPreferences() {
     override fun saveSelectedOrder(order: Order) = mSpDS.saveSelectedOrder(order)
     override fun getSelectedOrder(): Order? = mSpDS.getSelectedOrder()
     override fun clearSelectedOrder() = mSpDS.clearSelectedOrder()
+
+    override fun saveOrderBody(body: OrderBody) = mSpDS.saveOrderBody(body)
+    override fun getOrderBody(): OrderBody? = mSpDS.getOrderBody()
+    override fun clearOrderBody() = mSpDS.clearOrderBody()
 
     override fun deleteAllPrefs() = mSpDS.deleteAllPrefs()
 }

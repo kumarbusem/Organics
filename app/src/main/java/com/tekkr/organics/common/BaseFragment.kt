@@ -39,7 +39,6 @@ open class BaseFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-
     protected fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }

@@ -4,8 +4,10 @@ import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.common.SharedPreferenceHelper
 import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.models.Order
+import com.tekkr.data.models.OrderBody
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
+import org.json.JSONObject
 
 class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
 
@@ -42,10 +44,15 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
     override fun clearSelectedOrder() = mSpHelper.remove(SP_SELECTED_ORDER)
     override fun getSelectedOrder(): Order? = mSpHelper.getObject(SP_SELECTED_ORDER)
 
+    override fun saveOrderBody(body: OrderBody) = mSpHelper.putObject(SP_ORDER_BODY, body)
+    override fun clearOrderBody() = mSpHelper.remove(SP_ORDER_BODY)
+    override fun getOrderBody(): OrderBody? = mSpHelper.getObject(SP_ORDER_BODY)
+
     override fun deleteAllPrefs() = mSpHelper.clear()
 
     companion object {
 
+        private const val SP_ORDER_BODY: String = "SP_ORDER_BODY"
         private const val SP_CONTACT_DETAILS: String = "SP_CONTACT_DETAILS"
         private const val SP_TEMP_ADDRESS: String = "SP_TEMP_ADDRESS"
         private const val SP_ADDRESS: String = "SP_ADDRESS"

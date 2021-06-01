@@ -10,4 +10,5 @@ abstract class DataSourceBasic : BaseDataSource() {
 
     abstract suspend fun getItems(res: (List<Item>?) -> Unit)
 
+    abstract suspend fun placeOrder(res: (String) -> Unit)
 }

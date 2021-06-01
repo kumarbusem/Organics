@@ -1,18 +1,23 @@
 package com.tekkr.organics.features.cart
 
+import android.app.Activity
+import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.razorpay.Checkout
 import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.roomDatabase.CartItem
+import com.tekkr.organics.MainActivity
+import com.tekkr.organics.OrganicsApplication
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.FragmentCartBinding
 import com.tekkr.organics.features.dialogs.ContactDetailsDialog
-import com.tekkr.organics.features.dialogs.OTPDialog
+import org.json.JSONObject
 
-class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback {
 
+class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback{
 
     private val mPermissionManager: PermissionManager by lazy { PermissionManager(this@CartFragment) }
     private val mCartAdapter: CartListAdapter by lazy {
@@ -72,10 +77,10 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
             showToast("Not items in the cart")
         else {
 
-            repoPrefs.clearTempAddress()
-            repoPrefs.clearAddress()
+            mViewModel.generateOrderBody(){
+                navigateById(R.id.action_cartFragment_to_paymentFragment)
+            }
 
-            navigateBack()
         }
 
     }
@@ -104,5 +109,8 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
         mViewModel.getDeliveryAddress()
         super.onResume()
     }
+
+
+
 
 }

@@ -2,6 +2,7 @@ package com.tekkr.organics
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
+import com.razorpay.Checkout
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -18,6 +19,9 @@ class OrganicsApplication : Application() {
                         .build())
                 ).build())
         FirebaseApp.initializeApp(this)
+
+
+
     }
 
     companion object {

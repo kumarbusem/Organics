@@ -2,8 +2,10 @@ package com.tekkr.data.dataSources.definitions
 
 import com.tekkr.data.models.ContactDetails
 import com.tekkr.data.models.Order
+import com.tekkr.data.models.OrderBody
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
+import org.json.JSONObject
 
 abstract class DataSourceSharedPreferences {
 
@@ -37,6 +39,11 @@ abstract class DataSourceSharedPreferences {
     abstract fun saveSelectedOrder(order: Order)
     abstract fun clearSelectedOrder()
     abstract fun getSelectedOrder(): Order?
+
+
+    abstract fun saveOrderBody(body: OrderBody)
+    abstract fun clearOrderBody()
+    abstract fun getOrderBody(): OrderBody?
 
 
     abstract fun deleteAllPrefs()

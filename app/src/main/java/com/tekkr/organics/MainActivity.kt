@@ -1,6 +1,5 @@
 package com.tekkr.organics
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +9,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.razorpay.PaymentData
+import com.razorpay.PaymentResultListener
+import com.razorpay.PaymentResultWithDataListener
 import com.tekkr.data.dataSources.definitions.DataSourceFirestore
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.dataSources.repos.RepoFirestore
@@ -22,8 +24,10 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.partial_blocked_version.view.*
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity(), PaymentResultWithDataListener {
+
+    var paymentListener: PaymentListener? = null
     protected val repoFirestore: DataSourceFirestore by lazy { RepoFirestore() }
     protected val repoPrefs: DataSourceSharedPreferences by lazy { RepoSharedPreferences() }
 
@@ -44,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     private fun getAppSettings() {
 
@@ -119,6 +122,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(browserIntent)
         }
 
+    }
+
+    fun setPaymentsListener(listener: PaymentListener) {
+        paymentListener = listener
+    }
+
+    interface PaymentListener {
+        fun onPaymentSuccess(razorpayPaymentId: String?)
+        fun onPaymentError(errorCode: Int, response: String?)
+    }
+
+    override fun onPaymentSuccess(rzpPaymentId: String?, paymentData: PaymentData?) {
+        paymentListener?.onPaymentSuccess(rzpPaymentId)
+    }
+
+    override fun onPaymentError(errorCode: Int, errorDescription: String?, paymentData: PaymentData?) {
+        paymentListener?.onPaymentError(errorCode, errorDescription)
+        Log.e("TAG","onError: $errorCode : $errorDescription : ${paymentData?.data.toString()}")
     }
 
 }
