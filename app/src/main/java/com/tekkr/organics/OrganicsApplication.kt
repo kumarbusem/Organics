@@ -19,9 +19,6 @@ class OrganicsApplication : Application() {
                         .build())
                 ).build())
         FirebaseApp.initializeApp(this)
-
-
-
     }
 
     companion object {

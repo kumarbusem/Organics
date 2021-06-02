@@ -3,7 +3,6 @@ package com.tekkr.data.internal.dataSourceImpls
 import android.util.Log
 import com.tekkr.data.dataSources.definitions.DataSourceImage
 import com.tekkr.data.internal.common.ApiException
-import com.tekkr.data.models.ProfilePicResponse
 import com.tekkr.data.models.SimpleResponse
 import com.tekkr.data.models.User
 import okhttp3.RequestBody

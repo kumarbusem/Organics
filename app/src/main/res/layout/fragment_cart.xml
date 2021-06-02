@@ -259,7 +259,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             tools:text="Kumar Busem, 9393895298"
-                            android:text="@{viewModel.obsContactDetails.name == null ? @string/not_available : viewModel.obsContactDetails.name + ',' + ' ' + viewModel.obsContactDetails.phone}"
+                            android:text="@{viewModel.obsCustomer.name == null ? @string/not_available : viewModel.obsCustomer.name + ',' + ' ' + viewModel.obsCustomer.phone_number}"
                             style="@style/Text.M3"
                             android:id="@+id/tvContact"
                             android:layout_marginStart="12dp"
@@ -356,8 +356,8 @@
                 style="@style/Text.B3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:alpha='@{viewModel.obsDeliveryAddress.name == null || viewModel.obsContactDetails.name == null ? 0.45f : 1f}'
-                android:clickable='@{viewModel.obsDeliveryAddress.name == null || viewModel.obsContactDetails.name == null ? false : true}'
+                android:alpha="@{viewModel.obsDeliveryAddress.name == null || viewModel.obsCustomer.name == null ? 0.45f : 1f}"
+                android:clickable="@{viewModel.obsDeliveryAddress.name == null || viewModel.obsCustomer.name == null ? false : true}"
                 android:background="@color/colorPrimary"
                 android:foreground="?selectableItemBackground"
                 android:gravity="center"

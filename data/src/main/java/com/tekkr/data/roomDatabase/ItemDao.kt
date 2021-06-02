@@ -11,6 +11,9 @@ interface ItemDao {
     @Query("SELECT * FROM items_table WHERE number != 0 AND is_in_stock")
     fun getCartItems(): List<BigItem>
 
+    @Query("UPDATE items_table SET number = 0")
+    fun clearCartItems(): Int
+
     @Query("SELECT * from items_table WHERE id= :id")
     fun getItemById(id: Int): List<BigItem?>?
 

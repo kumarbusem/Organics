@@ -23,4 +23,7 @@
     <string name="items">Items   |</string>
     <string name="itemi">Items :</string>
     <string name="api_key">AIzaSyBBLsUXHsJE6kru8h4_6WH6PBDTBGoCulY</string>
+    <string name="order_success">Successful</string>
+    <string name="order_success_message">Please check the order details in profile page</string>
+    <string name="order">ORDER:</string>
 </resources>

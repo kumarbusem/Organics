@@ -11,6 +11,9 @@
         <variable
             name="viewModel"
             type="com.tekkr.organics.features.payment.PaymentViewModel" />
+        <variable
+            name="response"
+            type="com.tekkr.data.models.Order" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,9 +33,20 @@
             android:layout_height="?actionBarSize"
             app:tint="@color/colorGrey900" />
 
+        <ProgressBar
+            android:id="@+id/pbIsDataLoading"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="14sp"
+            android:visibility='@{viewModel.obsIsDataLoading == true ? View.VISIBLE : View.GONE}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
         <TextView
             android:layout_width="match_parent"
-            android:text="Payment"
+            android:text="Placing Order"
             style="@style/Text.B3"
             android:textSize="19dp"
             android:textColor="@color/colorGrey900"
@@ -40,14 +54,136 @@
             android:gravity="center"
             android:layout_height="?actionBarSize"/>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:id="@+id/tvStatus"
-            android:text="@{viewModel.obsMessage}"
-            android:gravity="center"
-            style="@style/Text.B2"
-            android:textColor="@color/colorPrimary"
-            android:layout_height="match_parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="32dp"
+            android:elevation="32dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/mcvPlaceOrder"
+            app:layout_constraintBottom_toTopOf="@id/cvPayment"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="60dp"
+                tools:background="@drawable/grad2"
+                android:background='@{viewModel.obsPlaceOrderResponse.status.equals(response.STATUS_CREATED) ? @drawable/grad2 : @drawable/grad1}'
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvStatusHead"
+                    android:gravity="center"
+                    style="@style/Text.B3"
+                    android:textSize="17dp"
+                    android:text="Order Status"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvStatus"
+                    android:text="@{viewModel.obsPlaceOrderResponse.status.equals(response.STATUS_CREATED) ? @string/order_success : viewModel.obsPlaceOrderResponse.detail}"
+                    android:gravity="center"
+                    style="@style/Text.B2"
+                    android:textSize="21dp"
+                    tools:text="Status"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@id/tvStatusHead"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvSubStatus"
+                    android:text="@{viewModel.obsPlaceOrderResponse.status.equals(response.STATUS_CREATED) ? @string/order_success_message : viewModel.obsPlaceOrderResponse.code}"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    style="@style/Text.M4"
+                    tools:text="Status"
+                    android:layout_marginTop="14dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvStatus"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvPlaceOrder"
+                    style="@style/Text.B3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:visibility='@{viewModel.obsPlaceOrderResponse.status.equalsIgnoreCase(response.STATUS_CREATED) ? View.GONE : View.VISIBLE}'
+                    android:background="@drawable/edit_text_round_gray_empty_background"
+                    android:backgroundTint="@color/milky_green"
+                    android:foreground="?selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Try Again"
+                    android:layout_marginTop="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@id/tvSubStatus"
+                    tools:layout_editor_absoluteX="0dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/cvPayment"
+            app:layout_constraintTop_toBottomOf="@id/mcvPlaceOrder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tvPaymentHead"
+                android:gravity="center"
+                style="@style/Text.M3"
+                android:textSize="17dp"
+                android:text="Payment"
+                android:textColor="@color/colorGrey900"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tvPayment"
+                android:gravity="center"
+                style="@style/Text.B3"
+                android:layout_marginTop="14dp"
+                android:layout_marginHorizontal="15dp"
+                android:textSize="15dp"
+                android:text="Webview JS Error: Uncaught ReferenceError: otpPermissionCallback is not defined"
+                android:textColor="@color/colorGrey900"
+                app:layout_constraintTop_toBottomOf="@id/tvPaymentHead"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/btnPayment"
+                style="@style/Text.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:visibility='@{viewModel.obsPlaceOrderResponse.status.equalsIgnoreCase(response.STATUS_CREATED) ? View.GONE : View.VISIBLE}'
+                android:background="@drawable/edit_text_round_gray_empty_background"
+                android:backgroundTint="@color/colorPrimary"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:text="Try Again"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="40dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPayment"
+                tools:layout_editor_absoluteX="0dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

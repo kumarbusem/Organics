@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.order.OrderFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tekkr.organics.features.order.OrderViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DAF3DF"
+        tools:ignore="UnusedAttribute">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Order Details"
+            style="@style/Text.B3"
+            android:background="@color/milky_green"
+            android:textSize="19dp"
+            android:textColor="@color/colorGrey900"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:layout_height="?actionBarSize"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@{@string/itemi + ' ' + Integer.toString(viewModel.obsCartCount)}"
+            style="@style/Text.M3"
+            tools:text="Items : 23"
+            android:id="@+id/tvItemHead"
+            android:paddingVertical="5dp"
+            android:paddingStart="14dp"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="?actionBarSize"
+            android:id="@+id/btnBack"
+            android:padding="20dp"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="?actionBarSize"
+            app:tint="@color/colorGrey900" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/tvItemHead"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/layoutRider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdge="vertical"
+                android:fillViewport="true"
+                android:requiresFadingEdge="vertical"
+                tools:ignore="ContentDescription,UnusedAttribute">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:paddingBottom="20dp"
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCartItems"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="4"
+                        tools:layout_editor_absoluteX="-1dp"
+                        tools:listitem="@layout/cart_item" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cvBillDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/white"
+                        android:padding="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/rvCartItems"
+                        tools:layout_editor_absoluteX="0dp">
+
+                        <TextView
+                            android:id="@+id/tvBillDetails"
+                            style="@style/Text.M3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bill Details"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="15dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvItemsTotalHead"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Items Total"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvBillDetails" />
+
+                        <TextView
+                            android:id="@+id/tvItemsTotal"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="@{'₹' + Integer.toString(viewModel.obsCartPrice)}"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvBillDetails"
+                            tools:text="₹590" />
+
+                        <TextView
+                            android:id="@+id/tvDeliveryHead"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Delivery Fee"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvItemsTotal" />
+
+                        <TextView
+                            android:id="@+id/tvDelivery"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="₹00"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvItemsTotal" />
+
+                        <TextView
+                            android:id="@+id/tvTaxHead"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Taxes and Charges"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvDeliveryHead" />
+
+                        <TextView
+                            android:id="@+id/tvTax"
+                            style="@style/Text.R3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="₹00"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="13dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvDeliveryHead" />
+
+                        <LinearLayout
+                            android:id="@+id/line"
+                            android:layout_width="match_parent"
+                            android:layout_height="2px"
+                            android:layout_marginTop="12dp"
+                            android:background="#CEE6D3"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/tvTax" />
+
+                        <TextView
+                            android:id="@+id/tvTotalHead"
+                            style="@style/Text.M3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Total Bill"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="14dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/line" />
+
+                        <TextView
+                            android:id="@+id/tvTotal"
+                            style="@style/Text.B3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="@{'₹' + Integer.toString(viewModel.obsCartPrice)}"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="17dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/line"
+                            tools:text="₹630" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/white"
+                        android:id="@+id/cvContactDetails"
+                        android:paddingVertical="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/cvBillDetails"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:id="@+id/ivContact"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:src="@drawable/ic_person_black_24dp"
+                            android:layout_height="0dp"
+                            app:tint="@color/colorGrey500" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Contact Details"
+                            style="@style/Text.M4"
+                            android:id="@+id/tvContactHead"
+                            android:layout_marginStart="12dp"
+                            android:textColor="@color/colorGrey900"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            app:layout_constraintBottom_toTopOf="@id/tvContact"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivContact"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            tools:text="Kumar Busem, 9393895298"
+                            android:text="@{viewModel.obsCustomer.name == null ? @string/not_available : viewModel.obsCustomer.name + ',' + ' ' + viewModel.obsCustomer.phone_number}"
+                            style="@style/Text.M3"
+                            android:id="@+id/tvContact"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            android:textColor="@color/colorGrey600"
+                            app:layout_constraintTop_toBottomOf="@id/tvContactHead"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivContact"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/cvAddress"
+                        android:background="@color/white"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/cvContactDetails"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_marginStart="12dp"
+                            android:id="@+id/ivRecentAddressItem"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:src="@drawable/ic_baseline_apartment_24"
+                            android:layout_height="20dp"
+                            app:tint="@color/colorGrey500" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:id="@+id/tvRecentAddressItemTitle"
+                            tools:text="Next galleria Mall Panjagutta"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            style="@style/Text.M3"
+                            android:textSize="15dp"
+                            android:text="@{viewModel.obsDeliveryAddress.name == null ? @string/address : viewModel.obsDeliveryAddress.name}"
+                            android:layout_marginTop="12dp"
+                            android:lines="1"
+                            android:paddingEnd="8dp"
+                            android:textColor="@color/colorGrey900"
+                            android:layout_marginStart="12dp"
+                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:id="@+id/tvRecentAddressItemTag"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            style="@style/Text.R4"
+                            android:text="@{viewModel.obsDeliveryAddress.line1 == null ? @string/select_here : viewModel.obsDeliveryAddress.line1}"
+                            android:maxLines="1"
+                            android:lines="1"
+                            android:paddingEnd="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:textColor="@color/colorGrey600"
+                            android:layout_marginStart="12dp"
+                            tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
+                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                            app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

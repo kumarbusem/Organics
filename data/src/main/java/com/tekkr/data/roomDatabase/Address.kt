@@ -3,9 +3,9 @@ package com.tekkr.data.roomDatabase
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import org.json.JSONObject
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Entity(tableName = "address_table")
 data class Address(
@@ -15,7 +15,7 @@ data class Address(
         var name: String = "",
 
         @ColumnInfo(name = "phone_number")
-        var phone_number: String  = "",
+        var phone_number: String = "",
 
         @ColumnInfo(name = "line1")
         var line1: String = "",
@@ -29,30 +29,40 @@ data class Address(
         @ColumnInfo(name = "state")
         val state: String = "Telangana",
 
+        @ColumnInfo(name = "pincode")
+        var pincode: String = "500001",
+
+        @ColumnInfo(name = "landmark")
+        var landmark: String = "",
+
         @ColumnInfo(name = "latitude")
-        val latitude: Double = 0.0,
+        var latitude: Double = 0.0,
 
         @ColumnInfo(name = "longitude")
-        val longitude: Double = 0.0,
+        var longitude: Double = 0.0
 
-        @ColumnInfo(name = "pincode")
-        var pincode: String = "500001"
 
 )
 
+fun Address.to10DigitAddress(): Address{
+        this.latitude = Math.round(this.latitude * 10000000) / 10000000.0
+        this.longitude = Math.round(this.longitude * 10000000) / 10000000.0
+        return this
+}
+
 
 fun Address.toJsonObject(): JsonObject {
-
+        val address = this.to10DigitAddress()
         val addressObject = JsonObject()
-        addressObject.addProperty("name", this.name)
-        addressObject.addProperty("phone_number", this.phone_number)
-        addressObject.addProperty("line1", this.line1)
-        addressObject.addProperty("line2", this.line2)
-        addressObject.addProperty("city", this.city)
-        addressObject.addProperty("state", this.state)
-        addressObject.addProperty("latitude", this.latitude)
-        addressObject.addProperty("longitude", this.longitude)
-        addressObject.addProperty("pincode", this.pincode)
+        addressObject.addProperty("name", address.name)
+        addressObject.addProperty("phone_number", address.phone_number)
+        addressObject.addProperty("line1", address.line1)
+        addressObject.addProperty("line2", address.line2)
+        addressObject.addProperty("city", address.city)
+        addressObject.addProperty("state", address.state)
+        addressObject.addProperty("latitude", address.latitude)
+        addressObject.addProperty("longitude", address.longitude)
+        addressObject.addProperty("pincode", address.pincode)
         return addressObject
 
 }

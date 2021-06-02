@@ -1,0 +1,113 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tekkr.organics.features.dialogs.OTPDialog">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="order"
+            type="com.tekkr.data.models.Order" />
+        <import type="com.tekkr.organics.common.DateUtils" />
+
+    </data>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:id="@+id/cvParent"
+            android:layout_marginVertical="4dp"
+            android:elevation="1dp"
+            android:padding="14dp"
+            tools:ignore="ContentDescription,UnusedAttribute">
+
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/tvOrderId"
+                tools:text="ORDER:T000134"
+                android:text="@{@string/order + order.order_id}"
+                style="@style/Text.M3"
+                android:textSize="13dp"
+                android:gravity="center"
+                android:textColor="@color/colorGrey900"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/tvStatus"
+                tools:text="Created"
+                android:text="@{order.status}"
+                style="@style/Text.M3"
+                android:textSize="13dp"
+                android:gravity="center"
+                android:textColor="@color/colorGrey700"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@id/ivChecked"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="16dp"
+                android:src="@drawable/checked"
+                android:id="@+id/ivChecked"
+                android:visibility='@{order.status.equalsIgnoreCase(order.STATUS_PACKED) ? View.VISIBLE : View.GONE}'
+                app:layout_constraintTop_toTopOf="@id/tvStatus"
+                app:layout_constraintBottom_toBottomOf="@id/tvStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="16dp"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/tvDate"
+                tools:text="16-05-2021"
+                android:text="@{DateUtils.INSTANCE.getDateTimeToDisplay(order.order_created_time)}"
+                style="@style/Text.R4"
+                android:gravity="center"
+                android:textColor="@color/colorGrey600"
+                app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/tvAmount"
+                tools:text="₹599"
+                android:text="@{'₹' + Float.toString(order.total)}"
+                style="@style/Text.B3"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="@color/colorGrey900"
+                app:layout_constraintTop_toBottomOf="@id/tvDate"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAmount"
+                android:background="@drawable/dotted"
+                android:layout_marginTop="12dp"
+                android:id="@+id/llDotted"
+                android:orientation="vertical"
+                android:backgroundTint="@color/colorGrey500"
+                android:layout_height="2dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/llDotted"
+                android:layout_marginTop="12dp"
+                tools:text="Mangoes"
+                style="@style/Text.M4"
+                android:textColor="@color/colorGrey900"
+                app:setItemsText='@{order}'
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

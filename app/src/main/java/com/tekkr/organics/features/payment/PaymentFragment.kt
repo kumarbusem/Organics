@@ -1,12 +1,10 @@
 package com.tekkr.organics.features.payment
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.razorpay.Checkout
-import com.tekkr.data.roomDatabase.CartItem
+import com.tekkr.data.models.Order
 import com.tekkr.organics.MainActivity
 import com.tekkr.organics.OrganicsApplication
 import com.tekkr.organics.R
@@ -14,12 +12,7 @@ import com.tekkr.organics.common.BaseAbstractFragment
 import com.tekkr.organics.common.ViewModelFactory
 import com.tekkr.organics.common.hide
 import com.tekkr.organics.common.show
-import com.tekkr.organics.databinding.FragmentCartBinding
 import com.tekkr.organics.databinding.FragmentPaymentBinding
-import com.tekkr.organics.databinding.FragmentProfileBinding
-import com.tekkr.organics.features.cart.CartFragment
-import com.tekkr.organics.features.dialogs.InfoDialog
-import com.tekkr.organics.features.dialogs.OTPDialog
 import org.json.JSONObject
 
 class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBinding>(R.layout.fragment_payment), MainActivity.PaymentListener {
@@ -36,15 +29,27 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
             navigateBack()
         }
 
+        tvPlaceOrder.setOnClickListener {
+            mViewModel.placeOrder()
+        }
+
         mViewModel.placeOrder()
 
     }
 
     override fun setupObservers(): PaymentViewModel.() -> Unit = {
 
+        mViewModel.obsPlaceOrderResponse.observe(viewLifecycleOwner, Observer { response ->
+            if (response.status == Order.STATUS_CREATED) {
+                startPayment(response.razorpay_order_id)
+                mViewModel.clearCartItems()
+            }
+            mBinding.mcvPlaceOrder.show()
+        })
+
     }
 
-    private fun startPayment() {
+    private fun startPayment(razorpayOrderId: String) {
         /*
         *  You need to pass current activity in order to let Razorpay create CheckoutActivity
         * */
@@ -60,8 +65,13 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
 
             options.put("theme.color", "#3ab54a")
             options.put("currency", "INR")
+            options.put("order_id", razorpayOrderId)
             options.put("amount", "100")
             options.put("send_sms_hash", false)
+
+            val retryObj = JSONObject()
+            retryObj.put("enabled", true)
+            options.put("retry", retryObj)
 
             val prefill = JSONObject()
             prefill.put("email", "busem.kumar@gmail.com")
@@ -76,22 +86,13 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
     }
 
     override fun onPaymentSuccess(razorpayPaymentId: String?) {
-        mBinding.tvStatus.text = razorpayPaymentId
+        mBinding.tvPayment.text = "Completed"
+        mBinding.btnPayment.hide()
     }
 
     override fun onPaymentError(errorCode: Int, response: String?) {
-        mBinding.tvStatus.text = response
+
     }
 
-    fun showInfoDialogueFor(title: String, message: String, subMessage: String, onConfirmation: () -> Unit) {
-        InfoDialog.Builder()
-                .setTitle(title)
-                .setMessage(message)
-                .setSubMessage(subMessage)
-                .onPrimaryAction(onConfirmation)
-                .dismissOnClick()
-                .build()
-                .show(childFragmentManager, CartFragment::class.java.simpleName)
-    }
 
 }

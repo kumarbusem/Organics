@@ -1,13 +1,12 @@
 package com.tekkr.data.internal.dataSourceImpls
 
+import com.google.gson.JsonObject
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
 import com.tekkr.data.internal.common.SharedPreferenceHelper
-import com.tekkr.data.models.ContactDetails
+import com.tekkr.data.models.Customer
 import com.tekkr.data.models.Order
-import com.tekkr.data.models.OrderBody
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
-import org.json.JSONObject
 
 class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
 
@@ -17,8 +16,8 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
     override fun getAddress(): Address? = mSpHelper.getObject(SP_ADDRESS)
     override fun clearAddress() = mSpHelper.remove(SP_ADDRESS)
 
-    override fun saveContactDetails(contactDetails: ContactDetails) = mSpHelper.putObject(SP_CONTACT_DETAILS, contactDetails)
-    override fun getContactDetails(): ContactDetails? = mSpHelper.getObject(SP_CONTACT_DETAILS)
+    override fun saveContactDetails(customer: Customer) = mSpHelper.putObject(SP_CONTACT_DETAILS, customer)
+    override fun getContactDetails(): Customer? = mSpHelper.getObject(SP_CONTACT_DETAILS)
     override fun clearContactDetails() = mSpHelper.remove(SP_CONTACT_DETAILS)
 
     override fun saveTempAddress(address: Address) = mSpHelper.putObject(SP_TEMP_ADDRESS, address)
@@ -44,9 +43,9 @@ class DataSourceImplSharedPreferences : DataSourceSharedPreferences() {
     override fun clearSelectedOrder() = mSpHelper.remove(SP_SELECTED_ORDER)
     override fun getSelectedOrder(): Order? = mSpHelper.getObject(SP_SELECTED_ORDER)
 
-    override fun saveOrderBody(body: OrderBody) = mSpHelper.putObject(SP_ORDER_BODY, body)
+    override fun saveOrderBody(body: JsonObject) = mSpHelper.putObject(SP_ORDER_BODY, body)
     override fun clearOrderBody() = mSpHelper.remove(SP_ORDER_BODY)
-    override fun getOrderBody(): OrderBody? = mSpHelper.getObject(SP_ORDER_BODY)
+    override fun getOrderBody(): JsonObject? = mSpHelper.getObject(SP_ORDER_BODY)
 
     override fun deleteAllPrefs() = mSpHelper.clear()
 

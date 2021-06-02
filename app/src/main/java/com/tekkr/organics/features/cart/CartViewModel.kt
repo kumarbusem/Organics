@@ -3,14 +3,18 @@ package com.tekkr.organics.features.cart
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
 import com.tekkr.data.models.CartData
-import com.tekkr.data.models.ContactDetails
-import com.tekkr.data.models.OrderBody
+import com.tekkr.data.models.Customer
 import com.tekkr.data.roomDatabase.Address
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
+import com.tekkr.data.roomDatabase.toJsonObject
 import com.tekkr.organics.common.BaseViewModel
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
@@ -21,7 +25,7 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     val obsCartCount: MutableLiveData<Int> = MutableLiveData()
     val obsCartPrice: MutableLiveData<Int> = MutableLiveData()
     val obsDeliveryAddress: MutableLiveData<Address> = MutableLiveData()
-    val obsContactDetails: MutableLiveData<ContactDetails> = MutableLiveData()
+    val obsCustomer: MutableLiveData<Customer> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
 
     init {
@@ -106,28 +110,7 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     }
 
     fun getContactDetails() {
-        obsContactDetails.postValue(repoPrefs.getContactDetails())
-    }
-    fun generateOrderBody(res: () -> Unit) {
-
-        val address = repoPrefs.getAddress()
-        val contact = repoPrefs.getContactDetails()
-        address?.name = contact?.name!!
-        address?.phone_number = contact.phone
-
-        val cartData = obsItemsList.value!!
-                .sortedBy { it.priority }
-                .map { CartData(item = it.id, quantity = it.number) }
-
-        val orderBody = OrderBody(
-                is_new_address = true,
-                delivery_address = address!!,
-                customer_id = repoPrefs.getLoggedInUser()?.id!!,
-                order_items = cartData
-        )
-
-        repoPrefs.saveOrderBody(orderBody)
-        res()
+        obsCustomer.postValue(repoPrefs.getContactDetails())
     }
 //    fun generateOrderBody2(res: () -> Unit) {
 //
@@ -140,19 +123,36 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
 //                .sortedBy { it.priority }
 //                .map { CartData(item = it.id, quantity = it.number) }
 //
-//        val orderBody = JsonObject()
-//        orderBody.addProperty("is_new_address", true)
-//        orderBody.add("delivery_address", address!!.toJsonObject().asJsonObject)
-//        orderBody.addProperty("customer_id", repoPrefs.getLoggedInUser()?.id)
-//
-//        val element: JsonElement = Gson().toJsonTree(cartData, object : TypeToken<List<CartData?>?>() {}.type)
-//        orderBody.add("order_items", element.asJsonArray)
-//
-//        Log.e("BODYYYY::", orderBody.toString())
-//        Log.e("BODYYYY::", orderBody.toString())
-//        Log.e("BODYYYY::", orderBody.toString())
+//        val orderBody = OrderBody(
+//                is_new_address = true,
+//                delivery_address = address!!,
+//                customer_id = repoPrefs.getLoggedInUser()?.id!!,
+//                order_items = cartData
+//        )
 //
 //        repoPrefs.saveOrderBody(orderBody)
 //        res()
 //    }
+    fun generateOrderBody(res: () -> Unit) {
+
+        val address = repoPrefs.getAddress()
+        val contact = repoPrefs.getContactDetails()
+        address?.name = contact?.name!!
+        address?.phone_number = contact.phone_number
+
+        val cartData = obsItemsList.value!!
+                .sortedBy { it.priority }
+                .map { CartData(item = it.id, quantity = it.number) }
+
+        val orderBody = JsonObject()
+        orderBody.addProperty("is_new_address", true)
+        orderBody.add("delivery_address", address!!.toJsonObject().asJsonObject)
+        orderBody.addProperty("customer_id", repoPrefs.getLoggedInUser()?.id)
+
+        val element: JsonElement = Gson().toJsonTree(cartData, object : TypeToken<List<CartData?>?>() {}.type)
+        orderBody.add("order_items", element.asJsonArray)
+
+        repoPrefs.saveOrderBody(orderBody)
+        res()
+    }
 }

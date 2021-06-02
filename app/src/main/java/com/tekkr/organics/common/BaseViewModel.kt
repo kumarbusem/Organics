@@ -14,6 +14,7 @@ import com.tekkr.data.dataSources.repos.RepoSharedPreferences
 import com.tekkr.data.dataSources.repos.RepoUser
 import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.models.SimpleResponse
+import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.TekkrRoomDatabase
 import com.tekkr.data.roomDatabase.TekkrRoomRepository
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +29,7 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
     val obsMessage = MutableLiveData<String>()
     var isUserLogout = MutableLiveData<Boolean>()
     val obsIsUserAuthenticated: MutableLiveData<Boolean> = MutableLiveData()
+    var obsUser = MutableLiveData<User>()
 
     protected val TAG: String = javaClass.simpleName
 
@@ -50,7 +52,14 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
 
     fun getUser() {
         val user = repoPrefs.getLoggedInUser()
-        obsIsUserAuthenticated.postValue(user != null && !user.access.isEmpty())
+        if(user != null && user.access.isNotEmpty()){
+            obsIsUserAuthenticated.postValue(true)
+            obsUser.postValue(user!!)
+        }
+        else{
+            obsIsUserAuthenticated.postValue(false)
+        }
+
     }
 
     fun verifyOtp(phone: String, otp: String, res: (SimpleResponse) -> Unit) {

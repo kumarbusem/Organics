@@ -19,9 +19,10 @@ interface MyApi {
     suspend fun placeOrder(
             @Body request: JsonObject,
             @Header("Authorization") token: String?
-    ): Response<String>
+    ): Response<Order>
 
-    @GET("api/v1/get_orders/")
+
+    @GET("api/orders/")
     suspend fun getOrders(
             @Header("Authorization") token: String?
     ): Response<List<Order>>
@@ -36,11 +37,13 @@ interface MyApi {
             @Query("phone_number") phone_number: String?
     ): Response<SimpleResponse>
 
+
     @GET("api/verifyotp")
     suspend fun verifyOtp(
             @Query("phone_number") phone_number: String?,
             @Query("otp") otp: String?
     ): Response<User>
+
 
     companion object {
         operator fun invoke(): MyApi {
@@ -54,5 +57,4 @@ interface MyApi {
                     .create(MyApi::class.java)
         }
     }
-
 }

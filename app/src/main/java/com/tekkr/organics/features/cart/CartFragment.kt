@@ -1,32 +1,26 @@
 package com.tekkr.organics.features.cart
 
-import android.app.Activity
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.razorpay.Checkout
-import com.tekkr.data.models.ContactDetails
+import com.tekkr.data.models.Customer
 import com.tekkr.data.roomDatabase.CartItem
-import com.tekkr.organics.MainActivity
-import com.tekkr.organics.OrganicsApplication
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.FragmentCartBinding
 import com.tekkr.organics.features.dialogs.ContactDetailsDialog
-import org.json.JSONObject
 
 
 class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback{
 
     private val mPermissionManager: PermissionManager by lazy { PermissionManager(this@CartFragment) }
     private val mCartAdapter: CartListAdapter by lazy {
-        CartListAdapter(this@CartFragment)
+        CartListAdapter(this@CartFragment, CartListAdapter.TYPE_CART)
     }
 
     private val contactDetailsDialog: ContactDetailsDialog by lazy {
         ContactDetailsDialog(onSaveContactDetails = { name, phone ->
-            repoPrefs.saveContactDetails(ContactDetails(name, phone))
+            repoPrefs.saveContactDetails(Customer(name, phone))
             mViewModel.getContactDetails()
         })
     }

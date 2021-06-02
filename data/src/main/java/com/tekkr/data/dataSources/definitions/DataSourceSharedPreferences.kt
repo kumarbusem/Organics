@@ -1,11 +1,10 @@
 package com.tekkr.data.dataSources.definitions
 
-import com.tekkr.data.models.ContactDetails
+import com.google.gson.JsonObject
+import com.tekkr.data.models.Customer
 import com.tekkr.data.models.Order
-import com.tekkr.data.models.OrderBody
 import com.tekkr.data.models.User
 import com.tekkr.data.roomDatabase.Address
-import org.json.JSONObject
 
 abstract class DataSourceSharedPreferences {
 
@@ -17,8 +16,8 @@ abstract class DataSourceSharedPreferences {
     abstract fun getAddress(): Address?
     abstract fun clearAddress()
 
-    abstract fun saveContactDetails(contactDetails: ContactDetails)
-    abstract fun getContactDetails(): ContactDetails?
+    abstract fun saveContactDetails(customer: Customer)
+    abstract fun getContactDetails(): Customer?
     abstract fun clearContactDetails()
 
     abstract fun saveTempAddress(address: Address)
@@ -40,10 +39,10 @@ abstract class DataSourceSharedPreferences {
     abstract fun clearSelectedOrder()
     abstract fun getSelectedOrder(): Order?
 
-
-    abstract fun saveOrderBody(body: OrderBody)
+    abstract fun saveOrderBody(body: JsonObject)
     abstract fun clearOrderBody()
-    abstract fun getOrderBody(): OrderBody?
+    abstract fun getOrderBody(): JsonObject?
+
 
 
     abstract fun deleteAllPrefs()

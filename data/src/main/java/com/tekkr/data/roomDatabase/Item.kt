@@ -45,4 +45,7 @@ data class Item(
         @ColumnInfo(name = "priority")
         val priority: Int,
 
+        @ColumnInfo(name = "active")
+        val active: Boolean,
+
 )

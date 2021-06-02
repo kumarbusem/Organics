@@ -9,7 +9,8 @@ object DateUtils {
 
     private const val TAG: String = "DateUtils"
 
-    const val DB_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    const val DB_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
 
     private const val DISPLAY_DATE_FORMAT: String = "dd MMM YY"
     private const val DISPLAY_SHORT_DATE_FORMAT: String = "dd MMMM"
@@ -58,7 +59,7 @@ object DateUtils {
         val timeStamp = this
 
         return try {
-
+            Log.e("TIME: ", timeStamp.toString())
             val fromFormat = SimpleDateFormat(DB_DATE_FORMAT, Locale.getDefault())
             fromFormat.timeZone = TimeZone.getTimeZone("UTC")
             fromFormat.parse(timeStamp)?.let { fromDate ->

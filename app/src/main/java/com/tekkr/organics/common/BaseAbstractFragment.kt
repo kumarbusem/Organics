@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.location.*
 import com.tekkr.organics.BR
 import com.tekkr.organics.R
+import com.tekkr.organics.features.cart.CartFragment
+import com.tekkr.organics.features.dialogs.InfoDialog
 import com.tekkr.organics.features.dialogs.OTPDialog
 
 abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
@@ -48,7 +50,9 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
             })
             isUserLogout.observe(viewLifecycleOwner, Observer {
                 if (it == true) {
-                    navigateById(R.id.splashFragment)
+                    showInfoDialogueFor("Alert", "Login session expired", "Please login"){
+                        navigateById(R.id.splashFragment)
+                    }
                 }
             })
 
@@ -111,6 +115,16 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
             loginOTPDialog.isOtpSent.postValue(it)
         }
 
+    }
+    fun showInfoDialogueFor(title: String, message: String, subMessage: String, onConfirmation: () -> Unit) {
+        InfoDialog.Builder()
+                .setTitle(title)
+                .setMessage(message)
+                .setSubMessage(subMessage)
+                .onPrimaryAction(onConfirmation)
+                .dismissOnClick()
+                .build()
+                .show(childFragmentManager, CartFragment::class.java.simpleName)
     }
 
 

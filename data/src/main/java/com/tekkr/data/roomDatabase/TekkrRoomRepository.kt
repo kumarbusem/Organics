@@ -53,6 +53,11 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
         return itemsDao.getCartItems()
     }
 
+    suspend fun clearCartItems(){
+         itemsDao.clearCartItems()
+    }
+
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun getAddresses(): List<Address>{

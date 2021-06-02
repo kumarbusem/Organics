@@ -45,6 +45,9 @@ data class BigItem(
         @ColumnInfo(name = "priority")
         val priority: Int,
 
+        @ColumnInfo(name = "active")
+        val active: Boolean,
+
         @ColumnInfo(name = "number")
         var number: Int
 
@@ -63,6 +66,7 @@ fun Item.toBigItem() = BigItem(
         vendor = vendor,
         vendor_name = vendor_name,
         priority = priority,
+        active = active,
         number = 0
 )
 

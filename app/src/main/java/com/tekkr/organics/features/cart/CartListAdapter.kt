@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
+import com.tekkr.organics.common.hide
 import com.tekkr.organics.databinding.CartItemBinding
 import com.tekkr.organics.databinding.ItemBinding
 
-class CartListAdapter(private val callback: ItemCallback) : ListAdapter<BigItem, CartListAdapter.ItemsViewHolder>(DIFF_UTILS) {
+class CartListAdapter(private val callback: ItemCallback, val type: String) : ListAdapter<BigItem, CartListAdapter.ItemsViewHolder>(DIFF_UTILS) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
         return ItemsViewHolder(CartItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -42,6 +43,9 @@ class CartListAdapter(private val callback: ItemCallback) : ListAdapter<BigItem,
                     callback.onItemChanged(CartItem(tempItem.id, i), tempItem.item_price, false)
                 }
             }
+
+            if(type == TYPE_ORDER) item.mcvButtons.hide()
+
         }
 
         fun bind(data: BigItem) {
@@ -56,6 +60,9 @@ class CartListAdapter(private val callback: ItemCallback) : ListAdapter<BigItem,
     companion object {
 
         val TAG: String = CartListAdapter::class.java.name
+
+        const val TYPE_ORDER: String = "TYPE_ORDER"
+        const val TYPE_CART: String = "TYPE_CART"
 
         val DIFF_UTILS: DiffUtil.ItemCallback<BigItem> = object : DiffUtil.ItemCallback<BigItem>() {
             override fun areItemsTheSame(old: BigItem, new: BigItem): Boolean {
