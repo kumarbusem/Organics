@@ -24,10 +24,10 @@ import java.net.SocketTimeoutException
 
 class OrderViewModel(context: Application) : BaseViewModel(context) {
 
+    val obsOrder: MutableLiveData<Order> = MutableLiveData()
     val obsCartCount: MutableLiveData<Int> = MutableLiveData()
     val obsCartPrice: MutableLiveData<Int> = MutableLiveData()
     val obsDeliveryAddress: MutableLiveData<Address> = MutableLiveData()
-    val obsCustomer: MutableLiveData<Customer> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
 
     init {
@@ -38,6 +38,7 @@ class OrderViewModel(context: Application) : BaseViewModel(context) {
     fun getOrder() {
 
         val order = repoPrefs.getSelectedOrder()
+        obsOrder.postValue(order)
         order?.order_items?.getCounts() { count, price ->
             obsCartCount.postValue(count)
             obsCartPrice.postValue(price)
@@ -45,15 +46,18 @@ class OrderViewModel(context: Application) : BaseViewModel(context) {
         val items = order?.order_items!!
                 .sortedBy { it.item_details.priority }
                 .map {
-
-                    it.item_details
+                    it.getOrderItem()
                 }
 
         obsItemsList.postValue(items)
-        obsCustomer.postValue(order.customer)
         obsDeliveryAddress.postValue(order.delivery_address)
     }
 
+    fun OrderItem.getOrderItem(): BigItem {
+        val item = this.item_details
+        item.number = this.quantity
+        return item
+    }
 
     public fun List<OrderItem>.getCounts(res: (Int, Int) -> Unit) {
         var cartCount = 0

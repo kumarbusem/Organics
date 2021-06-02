@@ -26,9 +26,9 @@
             app:layout_constraintDimensionRatio="1:1"
             android:adjustViewBounds="true"
             tools:src="@drawable/pineapple"
-            app:layout_constraintTop_toTopOf="@id/tvMango1"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvMangoPrice1"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="0dp"/>
 
         <TextView
@@ -45,7 +45,7 @@
             android:maxLines="2"
             android:paddingEnd="5dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/mcvButtons"
+            app:layout_constraintEnd_toStartOf="@id/cvButtons"
             app:layout_constraintStart_toEndOf="@+id/ivMango1"
             tools:text="Organic Banaganapalli Tasty Mangoes (3Kg) Mini Pack" />
 
@@ -63,53 +63,95 @@
             app:layout_constraintTop_toBottomOf="@id/tvMango1"
             tools:text="₹599" />
 
-        <com.google.android.material.card.MaterialCardView
+        <TextView
+            android:id="@+id/tvCalculatePrice"
+            style="@style/Text.R3"
+            android:textSize="13dp"
+            android:visibility="gone"
+            android:layout_marginStart="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="4dp"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(item.number) + ' ' + 'x' + ' ' + '₹'  + Integer.toString(item.item_price)}"
+            android:textColor="@color/colorGrey600"
+            app:layout_constraintStart_toEndOf="@+id/ivMango1"
+            app:layout_constraintTop_toBottomOf="@id/tvMango1"
+            tools:text="2 x ₹599" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/cvButtons"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:strokeWidth="2px"
-            android:id="@+id/mcvButtons"
-            app:cardCornerRadius="8dp"
-            app:strokeColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tvCalculatedPrice"
+                style="@style/Text.M3"
+                android:gravity="center"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:background="@color/milky_green"
-                android:layout_height="28dp">
-                <ImageView
-                    android:layout_width="28dp"
-                    android:padding="6dp"
-                    android:foreground="?selectableItemBackground"
-                    android:id="@+id/tvMangoMinus1"
-                    android:src="@drawable/ic_baseline_remove_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_height="match_parent"
-                    app:tint="@color/colorPrimary" />
-                <TextView
-                    android:id="@+id/tvMangoCount1"
-                    style="@style/Text.M2"
-                    android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@{'₹'  + Integer.toString(item.number*item.item_price)}"
+                android:textColor="@color/colorGrey900"
+                android:textSize="15dp"
+                tools:text="0" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:strokeWidth="2px"
+                android:id="@+id/mcvButtons"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="@color/colorPrimary"
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="4dp"
-                    app:layout_constraintStart_toEndOf="@id/tvMangoMinus1"
-                    android:text="@{Integer.toString(item.number)}"
-                    android:textColor="@color/colorGrey900"
-                    android:textSize="13dp"
-                    tools:text="0" />
-                <ImageView
-                    android:layout_width="28dp"
-                    android:padding="6dp"
-                    android:id="@+id/tvMangoPlus1"
-                    android:foreground="?selectableItemBackground"
-                    android:src="@drawable/ic_baseline_add_24"
-                    app:layout_constraintStart_toEndOf="@id/tvMangoCount1"
-                    android:layout_height="match_parent"
-                    app:tint="@color/colorPrimary" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:background="@color/milky_green"
+                    android:layout_height="28dp">
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:padding="6dp"
+                        android:foreground="?selectableItemBackground"
+                        android:id="@+id/tvMangoMinus1"
+                        android:src="@drawable/ic_baseline_remove_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_height="match_parent"
+                        app:tint="@color/colorPrimary" />
+                    <TextView
+                        android:id="@+id/tvMangoCount1"
+                        style="@style/Text.M2"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="4dp"
+                        app:layout_constraintStart_toEndOf="@id/tvMangoMinus1"
+                        android:text="@{Integer.toString(item.number)}"
+                        android:textColor="@color/colorGrey900"
+                        android:textSize="13dp"
+                        tools:text="0" />
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:padding="6dp"
+                        android:id="@+id/tvMangoPlus1"
+                        android:foreground="?selectableItemBackground"
+                        android:src="@drawable/ic_baseline_add_24"
+                        app:layout_constraintStart_toEndOf="@id/tvMangoCount1"
+                        android:layout_height="match_parent"
+                        app:tint="@color/colorPrimary" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 

@@ -70,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fadingEdge="vertical"
+            android:background="#DAF3DF"
             android:requiresFadingEdge="vertical"
             app:layout_constraintTop_toBottomOf="@id/tvItemHead"
             app:layout_constraintBottom_toTopOf="@id/btnLogout"

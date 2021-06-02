@@ -11,62 +11,90 @@
         <variable
             name="viewModel"
             type="com.tekkr.organics.features.order.OrderViewModel" />
+
+        <import type="com.tekkr.organics.common.DateUtils" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DAF3DF"
         tools:ignore="UnusedAttribute">
 
 
         <TextView
-            android:layout_width="match_parent"
-            android:text="Order Details"
             style="@style/Text.B3"
-            android:background="@color/milky_green"
-            android:textSize="19dp"
-            android:textColor="@color/colorGrey900"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center"
-            android:layout_height="?actionBarSize"/>
-        <TextView
             android:layout_width="match_parent"
-            android:text="@{@string/itemi + ' ' + Integer.toString(viewModel.obsCartCount)}"
-            style="@style/Text.M3"
-            tools:text="Items : 23"
-            android:id="@+id/tvItemHead"
-            android:paddingVertical="5dp"
-            android:paddingStart="14dp"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/milky_green"
+            android:gravity="center"
+            android:id="@+id/tvHeading"
+            tools:text="ORDER:T000134"
+            android:text="@{@string/order + viewModel.obsOrder.order_id}"
+            android:textColor="@color/colorGrey900"
+            android:textSize="19dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
+
+
 
         <ImageView
-            android:layout_width="?actionBarSize"
             android:id="@+id/btnBack"
-            android:padding="20dp"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
             android:foreground="?selectableItemBackground"
-            app:layout_constraintTop_toTopOf="parent"
+            android:padding="20dp"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/colorGrey900" />
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/tvItemHead"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cvTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="14dp"
+            app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+            <TextView
+                android:id="@+id/tvOrderId"
+                style="@style/Text.M3"
+                android:textSize="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="16-05-2021"
+                android:text="@{DateUtils.INSTANCE.getDateTimeToDisplay(viewModel.obsOrder.order_created_time)}"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                style="@style/Text.M3"
+                android:textSize="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.obsOrder.status}"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="CREATED" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/layoutRider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:background="#DAF3DF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvTop"
                 android:fadingEdge="vertical"
                 android:fillViewport="true"
                 android:requiresFadingEdge="vertical"
@@ -74,8 +102,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:paddingBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCartItems"
                         android:layout_width="match_parent"
@@ -216,112 +245,149 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cvContactDetails"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@color/white"
-                        android:id="@+id/cvContactDetails"
                         android:paddingVertical="12dp"
-                        app:layout_constraintTop_toBottomOf="@id/cvBillDetails"
-                        android:layout_height="wrap_content">
+                        app:layout_constraintTop_toBottomOf="@id/cvBillDetails">
+
                         <ImageView
-                            android:layout_width="20dp"
                             android:id="@+id/ivContact"
-                            android:layout_marginStart="12dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/ic_person_black_24dp"
+                            android:layout_width="20dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@drawable/ic_person_black_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:tint="@color/colorGrey500" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:text="Contact Details"
-                            style="@style/Text.M4"
                             android:id="@+id/tvContactHead"
-                            android:layout_marginStart="12dp"
-                            android:textColor="@color/colorGrey900"
-                            app:layout_constraintVertical_chainStyle="packed"
-                            app:layout_constraintBottom_toTopOf="@id/tvContact"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/ivContact"
-                            android:layout_height="wrap_content"/>
-                        <TextView
+                            style="@style/Text.M4"
                             android:layout_width="wrap_content"
-                            tools:text="Kumar Busem, 9393895298"
-                            android:text="@{viewModel.obsCustomer.name == null ? @string/not_available : viewModel.obsCustomer.name + ',' + ' ' + viewModel.obsCustomer.phone_number}"
-                            style="@style/Text.M3"
-                            android:id="@+id/tvContact"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            app:layout_constraintVertical_chainStyle="packed"
+                            android:text="Contact Details"
+                            android:textColor="@color/colorGrey900"
+                            app:layout_constraintBottom_toTopOf="@id/tvContact"
+                            app:layout_constraintStart_toEndOf="@id/ivContact"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/tvContact"
+                            style="@style/Text.M3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="@{viewModel.obsDeliveryAddress.name == null ? @string/not_available : viewModel.obsDeliveryAddress.name + ',' + ' ' + viewModel.obsDeliveryAddress.phone_number}"
                             android:textColor="@color/colorGrey600"
-                            app:layout_constraintTop_toBottomOf="@id/tvContactHead"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@id/ivContact"
-                            android:layout_height="wrap_content"/>
+                            app:layout_constraintTop_toBottomOf="@id/tvContactHead"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="Kumar Busem, 9393895298" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/white"
+                        app:layout_constraintTop_toBottomOf="@id/cvContactDetails">
+
+
+                        <ImageView
+                            android:id="@+id/ivRecentAddressItem"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="12dp"
+                            android:src="@drawable/ic_baseline_apartment_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/colorGrey500" />
+
+                        <TextView
+                            android:id="@+id/tvRecentAddressItemTitle"
+                            style="@style/Text.M3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            android:lines="1"
+                            android:paddingEnd="8dp"
+                            android:text="@{viewModel.obsDeliveryAddress.name == null ? @string/address : viewModel.obsDeliveryAddress.name}"
+                            android:textColor="@color/colorGrey900"
+                            android:textSize="15dp"
+                            app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="Next galleria Mall Panjagutta" />
+
+                        <TextView
+                            android:id="@+id/tvRecentAddressItemTag"
+                            style="@style/Text.R4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:paddingEnd="8dp"
+                            android:text="@{viewModel.obsDeliveryAddress.line1 == null ? @string/select_here : viewModel.obsDeliveryAddress.line1}"
+                            android:textColor="@color/colorGrey600"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
+                            app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
+                            tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:id="@+id/cvAddress"
-                        android:background="@color/white"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/cvContactDetails"
+                        android:background="@color/white"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/cvAddress"
                         android:layout_height="wrap_content">
-
 
                         <ImageView
                             android:layout_width="20dp"
-                            android:layout_marginStart="12dp"
-                            android:id="@+id/ivRecentAddressItem"
-                            app:layout_constraintStart_toStartOf="parent"
+                            tools:src="@drawable/checked"
+                            android:id="@+id/ivPayment"
+                            android:background='@{viewModel.obsOrder.payment_verified == true ? @drawable/checked : @drawable/ic_baseline_error_24}'
+                            android:backgroundTint='@{viewModel.obsOrder.payment_verified == true ? @color/colorPrimary : @color/orangeRed}'
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:src="@drawable/ic_baseline_apartment_24"
-                            android:layout_height="20dp"
-                            app:tint="@color/colorGrey500" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_height="20dp" />
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:id="@+id/tvRecentAddressItemTitle"
-                            tools:text="Next galleria Mall Panjagutta"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            style="@style/Text.M3"
+                            android:layout_width="wrap_content"
+                            app:layout_constraintTop_toTopOf="@id/ivPayment"
+                            app:layout_constraintBottom_toBottomOf="@id/ivPayment"
+                            app:layout_constraintStart_toEndOf="@id/ivPayment"
+                            android:layout_marginStart="12dp"
+                            tools:text="Mangoes"
+                            android:text="@{viewModel.obsOrder.payment_verified == true ? @string/payment_verified : @string/payment_failed}"
+                            style="@style/Text.M4"
                             android:textSize="15dp"
-                            android:text="@{viewModel.obsDeliveryAddress.name == null ? @string/address : viewModel.obsDeliveryAddress.name}"
-                            android:layout_marginTop="12dp"
-                            android:lines="1"
-                            android:paddingEnd="8dp"
-                            android:textColor="@color/colorGrey900"
-                            android:layout_marginStart="12dp"
-                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed"
-                            app:layout_constraintBottom_toTopOf="@id/tvRecentAddressItemTag"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:id="@+id/tvRecentAddressItemTag"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            style="@style/Text.R4"
-                            android:text="@{viewModel.obsDeliveryAddress.line1 == null ? @string/select_here : viewModel.obsDeliveryAddress.line1}"
-                            android:maxLines="1"
-                            android:lines="1"
-                            android:paddingEnd="8dp"
-                            android:layout_marginBottom="12dp"
-                            android:textColor="@color/colorGrey600"
-                            android:layout_marginStart="12dp"
-                            tools:text="Next galleria Mall Panjagutta, Hyderabad, Banjara Hills, Telangana, 500032"
-                            app:layout_constraintStart_toEndOf="@id/ivRecentAddressItem"
-                            app:layout_constraintTop_toBottomOf="@id/tvRecentAddressItemTitle"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor='@{viewModel.obsOrder.payment_verified == true ? @color/colorGrey900 : @color/orangeRed}'
                             android:layout_height="wrap_content"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

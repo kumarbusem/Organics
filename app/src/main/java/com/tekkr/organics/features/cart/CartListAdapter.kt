@@ -11,6 +11,7 @@ import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
 import com.tekkr.organics.common.hide
+import com.tekkr.organics.common.show
 import com.tekkr.organics.databinding.CartItemBinding
 import com.tekkr.organics.databinding.ItemBinding
 
@@ -44,7 +45,12 @@ class CartListAdapter(private val callback: ItemCallback, val type: String) : Li
                 }
             }
 
-            if(type == TYPE_ORDER) item.mcvButtons.hide()
+            if(type == TYPE_ORDER){
+                item.mcvButtons.hide()
+                item.tvCalculatePrice.show()
+                item.tvCalculatedPrice.show()
+                item.tvMangoPrice1.hide()
+            }
 
         }
 
