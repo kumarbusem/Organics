@@ -99,7 +99,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
             if (response.status == Order.STATUS_CREATED) {
                 mViewModel.clearCartItems()
                 repoPrefs.saveSelectedOrder(response)
-                navigateById(R.id.action_cartFragment_to_paymentFragment)
+                navigateById(R.id.action_cartFragment_to_orderFragment)
             }
 
         })

@@ -2,7 +2,7 @@ package com.tekkr.data.models
 
 
 data class SimpleResponse(
-        var status: String = STATUS_FAILED,
+        var status: String = "",
         var message: String = ""
 ){
     companion object {

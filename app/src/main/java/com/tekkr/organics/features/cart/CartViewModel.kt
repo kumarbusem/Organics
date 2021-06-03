@@ -31,8 +31,10 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     val obsPlaceOrderResponse: MutableLiveData<Order> = MutableLiveData()
 
     init {
+
+            getUser()
+
         getItems()
-        getUser()
         getContactDetails()
     }
 

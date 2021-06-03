@@ -26,6 +26,6 @@
     <string name="order_success">Successful</string>
     <string name="order_success_message">Please check the order details in profile page</string>
     <string name="order">ORDER:</string>
-    <string name="payment_verified">Paid Order</string>
-    <string name="payment_failed">Payment Not Completed</string>
+    <string name="payment_verified">Payment Verified</string>
+    <string name="payment_failed">Please complete the payment</string>
 </resources>

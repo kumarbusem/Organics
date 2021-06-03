@@ -33,9 +33,10 @@ class OrderFragment : BaseAbstractFragment<OrderViewModel, FragmentOrderBinding>
         }
 
         btnMakePayment.setOnClickListener {
-            navigateById(R.id.action_orderFragment_to_paymentFragment)
+            showInfoDialogueFor("Payment", "Do not press back button while making payment", "Don't close the application", "PAY", false){
+                navigateById(R.id.action_orderFragment_to_paymentFragment)
+            }
         }
-
 
         btnBack.setOnClickListener {
             navigateBack()
@@ -63,6 +64,7 @@ class OrderFragment : BaseAbstractFragment<OrderViewModel, FragmentOrderBinding>
     }
 
     override fun onResume() {
+        mViewModel.getOrder()
         super.onResume()
     }
 

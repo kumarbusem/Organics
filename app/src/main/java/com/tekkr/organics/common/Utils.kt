@@ -44,6 +44,10 @@ fun String.isStatusSuccess(): Boolean {
     return this == "success"
 }
 
+fun String.isAlreadyPaid(): Boolean {
+    return this == "STATUS_ALREADY_PAID"
+}
+
 fun getCurrentAppVersion(context: Context): String {
     val manager = context.packageManager
     val info = manager.getPackageInfo(context.packageName, 0)

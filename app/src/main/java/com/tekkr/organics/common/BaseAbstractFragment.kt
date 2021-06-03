@@ -55,7 +55,7 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
             })
             isUserLogout.observe(viewLifecycleOwner, Observer {
                 if (it == true) {
-                    showInfoDialogueFor("Alert", "Login session expired", "Please login"){
+                    showInfoDialogueFor("Alert", "Login session expired", "Please login", "Login", false){
                         navigateById(R.id.splashFragment)
                     }
                 }
@@ -124,13 +124,15 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
         }
 
     }
-    fun showInfoDialogueFor(title: String, message: String, subMessage: String, onConfirmation: () -> Unit) {
+    fun showInfoDialogueFor(title: String, message: String, subMessage: String, button: String, cancel: Boolean, onConfirmation: () -> Unit) {
         InfoDialog.Builder()
                 .setTitle(title)
                 .setMessage(message)
                 .setSubMessage(subMessage)
                 .onPrimaryAction(onConfirmation)
+                .setPrimaryButtonText(button)
                 .dismissOnClick()
+                .setCancelable(cancel)
                 .build()
                 .show(childFragmentManager, CartFragment::class.java.simpleName)
     }

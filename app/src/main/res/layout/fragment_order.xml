@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="#DAF3DF"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnMakePayment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvTop"
@@ -352,58 +352,60 @@
                         tools:layout_editor_absoluteX="-1dp"
                         tools:listitem="@layout/cart_item" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="16dp"
-                        android:background='@{viewModel.obsOrder.payment_verified == true ? @color/colorPrimary : @color/orangeRed}'
-                        android:paddingHorizontal="12dp"
-                        android:id="@+id/btnMakePayment"
-                        tools:background="@color/colorPrimary"
-                        android:paddingVertical="16dp"
-                        android:clickable="@{viewModel.obsOrder.payment_verified == true ? false : true}"
-                        app:layout_constraintTop_toBottomOf="@id/cvBillDetails"
-                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            tools:background="@drawable/checked"
-                            android:id="@+id/ivPayment"
-                            android:background='@{viewModel.obsOrder.payment_verified == true ? @drawable/checked : @drawable/ic_baseline_error_24}'
-                            android:backgroundTint="@color/white"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_height="20dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/ivPayment"
-                            app:layout_constraintBottom_toBottomOf="@id/ivPayment"
-                            app:layout_constraintStart_toEndOf="@id/ivPayment"
-                            android:layout_marginStart="12dp"
-                            tools:text="Mangoes"
-                            android:text="@{viewModel.obsOrder.payment_verified == true ? @string/payment_verified : @string/payment_failed}"
-                            style="@style/Text.M4"
-                            android:textSize="16dp"
-                            android:textColor="@color/white"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:text="RETRY"
-                            style="@style/Text.B4"
-                            android:gravity="center"
-                            android:visibility='@{viewModel.obsOrder.payment_verified == true ? View.GONE : View.VISIBLE}'
-                            android:textColor="@color/milky_green"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:background='@{viewModel.obsOrder.payment_verified == true ? @color/colorPrimary : @color/orangeRed}'
+            android:paddingHorizontal="12dp"
+            android:id="@+id/btnMakePayment"
+            tools:background="@color/colorPrimary"
+            android:paddingVertical="16dp"
+            android:clickable="@{viewModel.obsOrder.payment_verified == true ? false : true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="65dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                tools:background="@drawable/checked"
+                android:id="@+id/ivPayment"
+                android:background='@{viewModel.obsOrder.payment_verified == true ? @drawable/checked : @drawable/ic_baseline_error_24}'
+                android:backgroundTint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/ivPayment"
+                app:layout_constraintBottom_toBottomOf="@id/ivPayment"
+                app:layout_constraintStart_toEndOf="@id/ivPayment"
+                android:layout_marginStart="12dp"
+                tools:text="Payment Verified"
+                android:text="@{viewModel.obsOrder.payment_verified == true ? @string/payment_verified : @string/payment_failed}"
+                style="@style/Text.M4"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="PAY"
+                style="@style/Text.B4"
+                android:gravity="center"
+                android:visibility='@{viewModel.obsOrder.payment_verified == true ? View.GONE : View.VISIBLE}'
+                android:textColor="@color/milky_green"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

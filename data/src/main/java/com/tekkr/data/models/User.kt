@@ -6,7 +6,7 @@ data class User(
         val username: String = "",
         val phone_number: String = "",
         val refresh: String = "",
-        val access: String,
+        var access: String,
         val new_user: String = "",
         val name: String = "",
         val email: String = ""

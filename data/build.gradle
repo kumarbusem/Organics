@@ -73,4 +73,7 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:2.3.1"
     implementation "androidx.room:room-runtime:2.4.0-alpha02"
     kapt "androidx.room:room-compiler:2.4.0-alpha02"
+
+    //Payments
+    implementation 'com.razorpay:checkout:1.6.6'
 }

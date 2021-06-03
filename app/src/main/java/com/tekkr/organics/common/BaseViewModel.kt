@@ -53,14 +53,12 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
 
     fun getUser() {
         val user = repoPrefs.getLoggedInUser()
-        if(user != null && user.access.isNotEmpty()){
+        if (user != null && user.access.isNotEmpty()) {
             obsIsUserAuthenticated.postValue(true)
             obsUser.postValue(user!!)
-        }
-        else{
+        } else {
             obsIsUserAuthenticated.postValue(false)
         }
-
     }
 
     fun verifyOtp(phone: String, otp: String, res: (SimpleResponse) -> Unit) {

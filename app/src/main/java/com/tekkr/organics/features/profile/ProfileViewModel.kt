@@ -20,7 +20,9 @@ class ProfileViewModel(context: Application) : BaseViewModel(context) {
 
     init {
         getOrders()
-        getUser()
+
+            getUser()
+
     }
 
 

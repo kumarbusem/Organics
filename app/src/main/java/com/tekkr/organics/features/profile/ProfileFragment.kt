@@ -37,19 +37,27 @@ class ProfileFragment : BaseAbstractFragment<ProfileViewModel, FragmentProfileBi
             navigateBack()
         }
         btnLogout.setOnClickListener {
-            repoPrefs.clearLoggedInUser()
-            navigateBack()
+            showInfoDialogueFor("Logout", "Do you want to Logout", "", "Yes", false) {
+                repoPrefs.clearLoggedInUser()
+                navigateBack()
+            }
+        }
+
+        srl.setOnRefreshListener {
+            mViewModel.getOrders()
         }
 
     }
 
     override fun setupObservers(): ProfileViewModel.() -> Unit = {
         obsOrdersList.observe(viewLifecycleOwner, Observer {
-
+            mBinding.srl.isRefreshing = false
             if (it.isNullOrEmpty()) {
                 mBinding.rvOrders.hide()
+                mBinding.tvSrl.show()
             } else {
                 mBinding.rvOrders.show()
+                mBinding.tvSrl.hide()
                 mOrderAdapter.submitList(it)
             }
         })
@@ -57,10 +65,13 @@ class ProfileFragment : BaseAbstractFragment<ProfileViewModel, FragmentProfileBi
     }
 
     override fun onOrderSelected(order: Order) {
-
         repoPrefs.saveSelectedOrder(order)
         navigateById(R.id.action_profileFragment_to_orderFragment)
+    }
 
+    override fun onResume() {
+        mViewModel.getOrders()
+        super.onResume()
     }
 
 }

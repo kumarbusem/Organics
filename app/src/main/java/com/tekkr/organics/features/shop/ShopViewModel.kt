@@ -21,7 +21,9 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
     val obsMeatList: MutableLiveData<List<BigItem>> = MutableLiveData()
 
     init {
-        getUser()
+
+            getUser()
+
     }
 
     fun getItems() {

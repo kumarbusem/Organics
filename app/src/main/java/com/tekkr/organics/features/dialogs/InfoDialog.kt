@@ -31,6 +31,7 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
         dialog?.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
+        dialog?.setCancelable(dialogueData.cancelable)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,6 +54,9 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
                 dialogueData.onPrimaryAction.invoke()
                 if (dialogueData.dismissOnClick) dismiss()
             }
+            btnClose.setOnClickListener {
+                dialog?.dismiss()
+            }
 
         }
     }
@@ -67,6 +71,7 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
         private var onPrimaryAction: () -> Unit = {}
         private var onSecondaryAction: () -> Unit = {}
         private var dismissOnClick: Boolean = false
+        private var cancelable: Boolean = false
 
         fun setTitle(title: String): Builder {
             this.title = title
@@ -85,6 +90,11 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
 
         fun setPrimaryButtonText(primaryButtonText: String): Builder {
             this.primaryButtonText = primaryButtonText
+            return this
+        }
+
+        fun setCancelable(cancel: Boolean): Builder {
+            this.cancelable = cancel
             return this
         }
 
@@ -115,7 +125,8 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
                     subMessage = subMessage,
                     primaryButtonText = primaryButtonText,
                     onPrimaryAction = onPrimaryAction,
-                    dismissOnClick = dismissOnClick)
+                    dismissOnClick = dismissOnClick,
+                    cancelable = cancelable)
 
             return InfoDialog(dialogueData)
         }
@@ -127,5 +138,6 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
             val subMessage: String,
             val primaryButtonText: String,
             val onPrimaryAction: () -> Unit,
-            val dismissOnClick: Boolean)
+            val dismissOnClick: Boolean,
+            val cancelable: Boolean)
 }

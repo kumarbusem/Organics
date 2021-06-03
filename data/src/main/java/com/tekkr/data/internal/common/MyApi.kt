@@ -5,7 +5,6 @@ import com.tekkr.data.models.*
 import com.tekkr.data.roomDatabase.Item
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,11 +13,16 @@ import retrofit2.http.*
 
 interface MyApi {
 
+    @POST("api/token/refresh/")
+    suspend fun refreshToken(
+            @Body request: RequestBody
+    ): Response<TokenResponse>
+
     @POST("api/payments/")
     suspend fun verifyPayment(
             @Body request: RequestBody,
             @Header("Authorization") token: String?
-    ): Response<PaymentVerifyResponse>
+    ): Response<SimpleResponse>
 
     @POST("api/orders/")
     suspend fun placeOrder(

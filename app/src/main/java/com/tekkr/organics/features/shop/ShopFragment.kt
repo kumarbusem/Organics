@@ -16,6 +16,7 @@ import com.tekkr.organics.databinding.FragmentShopBinding
 import com.tekkr.organics.features.cart.CartFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.partial_blocked_version.view.*
+import kotlinx.coroutines.launch
 
 class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.layout.fragment_shop), ItemsListAdapter.ItemCallback {
 
