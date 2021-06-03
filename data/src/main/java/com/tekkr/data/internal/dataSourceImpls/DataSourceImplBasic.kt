@@ -24,4 +24,8 @@ internal class DataSourceImplBasic : DataSourceBasic() {
         res(apiRequest { API.getOrders(" Bearer " + repoPrefs.getLoggedInUser()?.access!!) })
     }
 
+    override suspend fun verifyPayment(requestBody: RequestBody, res: (PaymentVerifyResponse?) -> Unit) {
+        res(apiRequest { API.verifyPayment(requestBody, " Bearer " + repoPrefs.getLoggedInUser()?.access!!) })
+    }
+
 }

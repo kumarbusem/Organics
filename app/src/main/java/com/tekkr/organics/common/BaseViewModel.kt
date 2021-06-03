@@ -26,6 +26,7 @@ import java.net.SocketTimeoutException
 open class BaseViewModel(context: Application) : AndroidViewModel(context) {
 
     val obsIsDataLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val obsProgressDialog: MutableLiveData<Boolean> = MutableLiveData()
     val obsMessage = MutableLiveData<String>()
     var isUserLogout = MutableLiveData<Boolean>()
     val obsIsUserAuthenticated: MutableLiveData<Boolean> = MutableLiveData()

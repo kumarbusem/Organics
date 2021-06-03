@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.razorpay.PaymentData
-import com.razorpay.PaymentResultListener
 import com.razorpay.PaymentResultWithDataListener
 import com.tekkr.data.dataSources.definitions.DataSourceFirestore
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences
@@ -23,6 +22,7 @@ import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.partial_blocked_version.view.*
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity(), PaymentResultWithDataListener {
@@ -129,17 +129,16 @@ class MainActivity : AppCompatActivity(), PaymentResultWithDataListener {
     }
 
     interface PaymentListener {
-        fun onPaymentSuccess(razorpayPaymentId: String?)
-        fun onPaymentError(errorCode: Int, response: String?)
+        fun onPaymentSuccess(razorpayPaymentId: String?, paymentData: PaymentData?)
+        fun onPaymentError(errorCode: Int, errorDescription: String?, paymentData: PaymentData?)
     }
 
     override fun onPaymentSuccess(rzpPaymentId: String?, paymentData: PaymentData?) {
-        paymentListener?.onPaymentSuccess(rzpPaymentId)
+        paymentListener?.onPaymentSuccess(rzpPaymentId, paymentData)
     }
 
     override fun onPaymentError(errorCode: Int, errorDescription: String?, paymentData: PaymentData?) {
-        paymentListener?.onPaymentError(errorCode, errorDescription)
-        Log.e("TAG","onError: $errorCode : $errorDescription : ${paymentData?.data.toString()}")
+        paymentListener?.onPaymentError(errorCode, errorDescription, paymentData)
     }
 
 }

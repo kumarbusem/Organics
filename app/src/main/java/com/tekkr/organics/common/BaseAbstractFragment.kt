@@ -1,6 +1,7 @@
 package com.tekkr.organics.common
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,7 @@ import com.tekkr.organics.features.dialogs.OTPDialog
 
 abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
 (@LayoutRes private val layoutId: Int) : BaseFragment() {
-
+    private lateinit var dialog: ProgressDialog
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     protected lateinit var mBinding: BT
     protected val mViewModel: VT by lazy { setViewModel() }
@@ -36,6 +37,9 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        dialog = ProgressDialog(activity)
+        dialog.setMessage("Loading, Please Wait...")
+        dialog.setCancelable(false)
         mBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             setVariable(BR.viewModel, mViewModel)
@@ -45,6 +49,7 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
             obsMessage.observe(viewLifecycleOwner, Observer {
                 if (!it.isNullOrEmpty()) {
                     showToast(it)
+                    Log.e("obsMessage::", it.toString())
                     obsMessage.postValue("")
                 }
             })
@@ -55,7 +60,10 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
                     }
                 }
             })
-
+            obsProgressDialog.observe(viewLifecycleOwner, Observer {
+               if(it == true) dialog.show()
+                else dialog.dismiss()
+            })
         }
 
         return mBinding.root

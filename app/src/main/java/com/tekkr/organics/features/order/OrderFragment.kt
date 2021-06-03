@@ -32,6 +32,10 @@ class OrderFragment : BaseAbstractFragment<OrderViewModel, FragmentOrderBinding>
             adapter = mOrderAdapter
         }
 
+        btnMakePayment.setOnClickListener {
+            navigateById(R.id.action_orderFragment_to_paymentFragment)
+        }
+
 
         btnBack.setOnClickListener {
             navigateBack()

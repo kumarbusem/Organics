@@ -17,7 +17,7 @@ data class Order(
         val referral_code: String,
         val razorpay_order_id: String,
         val razorpay_payment_link_id: String,
-        val payment_verified: Boolean,
+        var payment_verified: Boolean,
 
         var detail: String = "",
         var code: String = ""

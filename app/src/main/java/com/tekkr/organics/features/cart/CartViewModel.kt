@@ -11,6 +11,7 @@ import com.tekkr.data.internal.common.ApiException
 import com.tekkr.data.internal.common.RiderLoginException
 import com.tekkr.data.models.CartData
 import com.tekkr.data.models.Customer
+import com.tekkr.data.models.Order
 import com.tekkr.data.roomDatabase.Address
 import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.data.roomDatabase.CartItem
@@ -27,6 +28,7 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     val obsDeliveryAddress: MutableLiveData<Address> = MutableLiveData()
     val obsCustomer: MutableLiveData<Customer> = MutableLiveData()
     val obsItemsList: MutableLiveData<List<BigItem>> = MutableLiveData()
+    val obsPlaceOrderResponse: MutableLiveData<Order> = MutableLiveData()
 
     init {
         getItems()
@@ -34,9 +36,8 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
         getContactDetails()
     }
 
-
     fun getItems() {
-        obsIsDataLoading.postValue(true)
+        obsProgressDialog.postValue(true)
         ioScope.launch {
             try {
                 val items = roomRepository.getCartItems()
@@ -47,23 +48,23 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
                 }
 
                 obsItemsList.postValue(items)
-                obsIsDataLoading.postValue(false)
+                obsProgressDialog.postValue(false)
 
             } catch (e: ApiException) {
                 obsMessage.postValue(e.message!!)
                 obsItemsList.postValue(null)
-                obsIsDataLoading.postValue(false)
+                obsProgressDialog.postValue(false)
             } catch (e: SocketTimeoutException) {
                 obsMessage.postValue("Slow Network!\nPlease ty again")
                 obsItemsList.postValue(null)
-                obsIsDataLoading.postValue(false)
+                obsProgressDialog.postValue(false)
             } catch (e: RiderLoginException) {
                 repoPrefs.clearLoggedInUser()
                 isUserLogout.postValue(true)
                 obsItemsList.postValue(null)
-                obsIsDataLoading.postValue(false)
+                obsProgressDialog.postValue(false)
             } catch (e: Exception) {
-                obsIsDataLoading.postValue(false)
+                obsProgressDialog.postValue(false)
                 obsItemsList.postValue(null)
                 e.printStackTrace()
                 if (e.message.toString().contains("Unable to resolve")) obsMessage.postValue("Network Issue\nUnable to resolve host")
@@ -112,28 +113,43 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
     fun getContactDetails() {
         obsCustomer.postValue(repoPrefs.getContactDetails())
     }
-//    fun generateOrderBody2(res: () -> Unit) {
-//
-//        val address = repoPrefs.getAddress()
-//        val contact = repoPrefs.getContactDetails()
-//        address?.name = contact?.name!!
-//        address?.phone_number = contact.phone
-//
-//        val cartData = obsItemsList.value!!
-//                .sortedBy { it.priority }
-//                .map { CartData(item = it.id, quantity = it.number) }
-//
-//        val orderBody = OrderBody(
-//                is_new_address = true,
-//                delivery_address = address!!,
-//                customer_id = repoPrefs.getLoggedInUser()?.id!!,
-//                order_items = cartData
-//        )
-//
-//        repoPrefs.saveOrderBody(orderBody)
-//        res()
-//    }
-    fun generateOrderBody(res: () -> Unit) {
+
+    fun placeOrder() {
+        obsProgressDialog.postValue(true)
+        ioScope.launch {
+            try {
+                generateOrderBody()
+                repoBasic.placeOrder {
+                    Log.e("PLACE ORDER:::", it.toString())
+                    obsPlaceOrderResponse.postValue(it)
+                }
+                obsProgressDialog.postValue(false)
+            } catch (e: ApiException) {
+                obsMessage.postValue(e.message!!)
+                obsProgressDialog.postValue(false)
+            } catch (e: SocketTimeoutException) {
+                obsMessage.postValue("Slow Network!\nPlease ty again")
+                obsProgressDialog.postValue(false)
+            } catch (e: RiderLoginException) {
+                repoPrefs.clearLoggedInUser()
+                isUserLogout.postValue(true)
+                obsProgressDialog.postValue(false)
+            } catch (e: Exception) {
+                obsProgressDialog.postValue(false)
+                e.printStackTrace()
+                if (e.message.toString().contains("Unable to resolve")) obsMessage.postValue("Network Issue\nUnable to resolve host")
+                else obsMessage.postValue(e.message)
+            }
+        }
+    }
+
+    fun clearCartItems() {
+        ioScope.launch {
+            roomRepository.clearCartItems()
+        }
+    }
+
+    fun generateOrderBody() {
 
         val address = repoPrefs.getAddress()
         val contact = repoPrefs.getContactDetails()
@@ -153,6 +169,5 @@ class CartViewModel(context: Application) : BaseViewModel(context) {
         orderBody.add("order_items", element.asJsonArray)
 
         repoPrefs.saveOrderBody(orderBody)
-        res()
     }
 }

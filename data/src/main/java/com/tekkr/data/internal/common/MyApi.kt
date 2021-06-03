@@ -14,6 +14,11 @@ import retrofit2.http.*
 
 interface MyApi {
 
+    @POST("api/payments/")
+    suspend fun verifyPayment(
+            @Body request: RequestBody,
+            @Header("Authorization") token: String?
+    ): Response<PaymentVerifyResponse>
 
     @POST("api/orders/")
     suspend fun placeOrder(

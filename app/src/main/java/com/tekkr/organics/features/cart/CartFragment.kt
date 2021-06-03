@@ -1,9 +1,11 @@
 package com.tekkr.organics.features.cart
 
+import android.app.ProgressDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tekkr.data.models.Customer
+import com.tekkr.data.models.Order
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
@@ -12,6 +14,7 @@ import com.tekkr.organics.features.dialogs.ContactDetailsDialog
 
 
 class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.layout.fragment_cart), CartListAdapter.ItemCallback{
+
 
     private val mPermissionManager: PermissionManager by lazy { PermissionManager(this@CartFragment) }
     private val mCartAdapter: CartListAdapter by lazy {
@@ -65,15 +68,13 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
         if (repoPrefs.getContactDetails() == null || repoPrefs.getContactDetails()?.name.isNullOrEmpty())
             showToast("Please enter contact details")
-        else if (repoPrefs.getAddress() == null || repoPrefs.getAddress()?.line2.isNullOrEmpty())
+        else if (repoPrefs.getAddress() == null || repoPrefs.getAddress()?.line1.isNullOrEmpty())
             showToast("Please select address")
         else if (mViewModel.obsCartCount.value == null || mViewModel.obsCartCount.value == 0)
             showToast("Not items in the cart")
         else {
 
-            mViewModel.generateOrderBody(){
-                navigateById(R.id.action_cartFragment_to_paymentFragment)
-            }
+            mViewModel.placeOrder()
 
         }
 
@@ -93,6 +94,16 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
             }
 
         })
+
+        mViewModel.obsPlaceOrderResponse.observe(viewLifecycleOwner, Observer { response ->
+            if (response.status == Order.STATUS_CREATED) {
+                mViewModel.clearCartItems()
+                repoPrefs.saveSelectedOrder(response)
+                navigateById(R.id.action_cartFragment_to_paymentFragment)
+            }
+
+        })
+
     }
 
     override fun onItemChanged(cartItem: CartItem, price: Int, type: Boolean) {

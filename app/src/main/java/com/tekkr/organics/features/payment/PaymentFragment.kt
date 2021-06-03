@@ -1,17 +1,18 @@
 package com.tekkr.organics.features.payment
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.razorpay.Checkout
-import com.tekkr.data.models.Order
+import com.razorpay.PaymentData
+import com.tekkr.data.models.PaymentVerifyResponse
 import com.tekkr.organics.MainActivity
 import com.tekkr.organics.OrganicsApplication
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
 import com.tekkr.organics.common.ViewModelFactory
-import com.tekkr.organics.common.hide
-import com.tekkr.organics.common.show
+import com.tekkr.organics.common.isStatusSuccess
 import com.tekkr.organics.databinding.FragmentPaymentBinding
 import org.json.JSONObject
 
@@ -29,24 +30,27 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
             navigateBack()
         }
 
-        tvPlaceOrder.setOnClickListener {
-            mViewModel.placeOrder()
-        }
-
-        mViewModel.placeOrder()
-
     }
 
     override fun setupObservers(): PaymentViewModel.() -> Unit = {
 
-        mViewModel.obsPlaceOrderResponse.observe(viewLifecycleOwner, Observer { response ->
-            if (response.status == Order.STATUS_CREATED) {
-                startPayment(response.razorpay_order_id)
-                mViewModel.clearCartItems()
+        obsOrder.observe(viewLifecycleOwner, Observer {
+
+            if(it.payment_verified) navigateById(R.id.action_paymentFragment_to_orderFragment)
+            else{
+                startPayment(it.razorpay_order_id)
             }
-            mBinding.mcvPlaceOrder.show()
         })
 
+        obsPaymentVerifyResponse.observe(viewLifecycleOwner, Observer {
+            Log.e("PaymentVerifyResponse::", "$it")
+            val order = mViewModel.obsOrder.value
+
+            order?.payment_verified = it!=null && it.status.isStatusSuccess()
+
+            repoPrefs.saveSelectedOrder(order!!)
+            navigateById(R.id.action_paymentFragment_to_orderFragment)
+        })
     }
 
     private fun startPayment(razorpayOrderId: String) {
@@ -79,20 +83,19 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
 
             options.put("prefill", prefill)
             co.open(activity, options)
+
         }catch (e: Exception){
-            mBinding.tvStatus.text = e.message.toString()
+            mViewModel.onVerifyPayment(PaymentVerifyResponse.STATUS_FAILED, null, "Error in starting Razorpay Checkout", e.message.toString())
             e.printStackTrace()
         }
     }
 
-    override fun onPaymentSuccess(razorpayPaymentId: String?) {
-        mBinding.tvPayment.text = "Completed"
-        mBinding.btnPayment.hide()
+    override fun onPaymentSuccess(razorpayPaymentId: String?, paymentData: PaymentData?) {
+        mViewModel.onVerifyPayment(PaymentVerifyResponse.STATUS_SUCCESS, paymentData, "", "")
     }
 
-    override fun onPaymentError(errorCode: Int, response: String?) {
-
+    override fun onPaymentError(errorCode: Int, errorDescription: String?, paymentData: PaymentData?) {
+        mViewModel.onVerifyPayment(PaymentVerifyResponse.STATUS_FAILED, paymentData, "$errorCode", errorDescription.toString())
     }
-
 
 }
