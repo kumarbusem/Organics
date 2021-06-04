@@ -14,10 +14,7 @@ import com.tekkr.data.models.SimpleResponse
 import com.tekkr.organics.MainActivity
 import com.tekkr.organics.OrganicsApplication
 import com.tekkr.organics.R
-import com.tekkr.organics.common.BaseAbstractFragment
-import com.tekkr.organics.common.ViewModelFactory
-import com.tekkr.organics.common.isAlreadyPaid
-import com.tekkr.organics.common.isStatusSuccess
+import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.FragmentPaymentBinding
 import org.json.JSONObject
 
@@ -46,20 +43,28 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
             Log.e("VERIFY::", "$it")
             when {
                 it.status.isStatusSuccess() -> {
-                    val order = mViewModel.obsOrder.value
-                    order?.payment_verified = true
-                    repoPrefs.saveSelectedOrder(order!!)
-                    navigateBack()
-                }
-                mViewModel.obsRazorPayStatus.value?.paymentData?.signature.toString().isNullOrEmpty() -> {
-                    val order = mViewModel.obsOrder.value
-                    order?.payment_verified = false
-                    repoPrefs.saveSelectedOrder(order!!)
-                    navigateBack()
+                    verifyGoBack(true)
                 }
                 else -> {
                     showInfoDialogueFor("Alert", "Payment verification failed", "${it.message}\nPlease try again", "TRY AGAIN", false) {
                         mViewModel.verifyPayment()
+                    }
+                }
+            }
+        })
+        obsPaymentVerifyWithOrder.observe(viewLifecycleOwner,{
+            when {
+                it.status.isStatusSuccess() -> {
+                    verifyGoBack(true)
+                }
+                it.status.isStatusFailed() -> {
+                    showInfoDialogueFor("Payment Issue", "Payment verification is failing", "Please contact customer care", "OK", false) {
+                        navigateBack()
+                    }
+                }
+                else -> {
+                    showInfoDialogueFor("Alert", "Payment verification failed", "${it.message}\nPlease try again", "TRY AGAIN", false) {
+                        mViewModel.verifyPaymentWithOrder()
                     }
                 }
             }
@@ -71,9 +76,7 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
                     verifyPayment()
                 }
                 razorPayStatus.status.isAlreadyPaid() -> {
-                    showInfoDialogueFor("Payment Issue", "Your payment is not verified for this order", "Please contact our customer care", "CALL", false) {
-                        navigateBack()
-                    }
+                        mViewModel.verifyPaymentWithOrder()
                 }
                 else -> {
                     showInfoDialogueFor("Payment Failed", razorPayStatus.error.description,  "Please try again", "TRY AGAIN", false) {
@@ -129,6 +132,14 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
             mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, Error(description = error.description)))
         else
             mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, error.error))
+    }
+
+
+    private fun verifyGoBack(isVerified: Boolean){
+        val order = mViewModel.obsOrder.value
+        order?.payment_verified = isVerified
+        repoPrefs.saveSelectedOrder(order!!)
+        navigateBack()
     }
 
 }

@@ -19,4 +19,6 @@ class RepoBasic : DataSourceBasic() {
 
     override suspend fun verifyPayment(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) = mRunsheetDataSource.verifyPayment(requestBody, res)
 
+    override suspend fun verifyPaymentWithOrder(res: (SimpleResponse?) -> Unit) = mRunsheetDataSource.verifyPaymentWithOrder(res)
+
 }

@@ -43,6 +43,9 @@ fun String.searchWordsFilter(filter: String): Boolean {
 fun String.isStatusSuccess(): Boolean {
     return this == "success"
 }
+fun String.isStatusFailed(): Boolean {
+    return this == "failed"
+}
 
 fun String.isAlreadyPaid(): Boolean {
     return this == "STATUS_ALREADY_PAID"

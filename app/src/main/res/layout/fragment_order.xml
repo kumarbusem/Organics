@@ -120,9 +120,6 @@
                     android:paddingBottom="20dp">
 
 
-
-
-
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cvContactDetails"
                         android:layout_width="match_parent"
@@ -253,7 +250,7 @@
                             style="@style/Text.R3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{'₹' + Integer.toString(viewModel.obsCartPrice)}"
+                            android:text="@{'₹' + Float.toString(viewModel.obsOrder.total)}"
                             android:textColor="@color/colorGrey900"
                             android:textSize="13dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -335,7 +332,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
-                            android:text="@{'₹' + Integer.toString(viewModel.obsCartPrice)}"
+                            android:text="@{'₹' + Float.toString(viewModel.obsOrder.total)}"
                             android:textColor="@color/colorGrey900"
                             android:textSize="17dp"
                             app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@ package com.tekkr.data.internal.dataSourceImpls
 import android.util.Log
 import com.tekkr.data.dataSources.definitions.DataSourceBasic
 import com.tekkr.data.internal.common.RiderLoginException
+import com.tekkr.data.internal.common.baseUrl
 import com.tekkr.data.models.*
 import com.tekkr.data.roomDatabase.Item
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -30,6 +31,12 @@ internal class DataSourceImplBasic : DataSourceBasic() {
     override suspend fun verifyPayment(requestBody: RequestBody, res: (SimpleResponse?) -> Unit) {
         retryOnTokenExpiry {
             res(apiRequest { API.verifyPayment(requestBody, " Bearer " + repoPrefs.getLoggedInUser()?.access!!) })
+        }
+    }
+
+    override suspend fun verifyPaymentWithOrder(res: (SimpleResponse?) -> Unit) {
+        retryOnTokenExpiry {
+            res(apiRequest { API.verifyPaymentWithOrder(repoPrefs.getSelectedOrder()?.id.toString(), " Bearer " + repoPrefs.getLoggedInUser()?.access!!) })
         }
     }
 

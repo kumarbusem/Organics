@@ -97,9 +97,11 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
         mViewModel.obsPlaceOrderResponse.observe(viewLifecycleOwner, Observer { response ->
             if (response.status == Order.STATUS_CREATED) {
-                mViewModel.clearCartItems()
-                repoPrefs.saveSelectedOrder(response)
-                navigateById(R.id.action_cartFragment_to_orderFragment)
+
+                    mViewModel.clearCartItems()
+                    repoPrefs.saveSelectedOrder(response)
+                    navigateById(R.id.action_cartFragment_to_orderFragment)
+
             }
 
         })

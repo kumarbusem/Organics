@@ -9,6 +9,7 @@ data class SimpleResponse(
 
         const val STATUS_SUCCESS: String = "success"
         const val STATUS_FAILED: String = "failed"
+        const val STATUS_RETRY: String = "retry"
         const val MESSAGE: String = "message"
     }
 }

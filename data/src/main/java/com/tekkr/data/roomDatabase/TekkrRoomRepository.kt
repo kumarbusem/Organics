@@ -35,7 +35,11 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
                 return offlineItems
             }
         }else{
+            try {
+                itemsDao.makeOfflineItemsInactive()
+            }catch (e: java.lang.Exception){
 
+            }
             onlineItems.forEach {item ->
                 val items: List<BigItem?>? = itemsDao.getItemById(item.id)
                 if (items.isNullOrEmpty())

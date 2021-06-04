@@ -12,6 +12,7 @@ import com.tekkr.data.models.Order
 import com.tekkr.data.models.RazorPayResponse
 import com.tekkr.data.models.SimpleResponse
 import com.tekkr.organics.common.BaseViewModel
+import com.tekkr.organics.common.isStatusSuccess
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -23,6 +24,7 @@ class PaymentViewModel(context: Application) : BaseViewModel(context) {
     val obsOrder: MutableLiveData<Order> = MutableLiveData()
     val obsPaymentVerify: MutableLiveData<SimpleResponse> = MutableLiveData()
     val obsRazorPayStatus: MutableLiveData<RazorPayResponse> = MutableLiveData()
+    val obsPaymentVerifyWithOrder: MutableLiveData<SimpleResponse> = MutableLiveData()
 
     init {
         getOrder()
@@ -34,33 +36,63 @@ class PaymentViewModel(context: Application) : BaseViewModel(context) {
 
     fun verifyPayment() {
 
-        val json = JSONObject()
-        json.put("order", obsOrder.value?.id)
-        json.put("razorpay_payment_id", obsRazorPayStatus.value?.paymentData?.paymentId.toString())
-        json.put("razorpay_order_id", obsOrder.value?.razorpay_order_id.toString())
-        json.put("razorpay_signature", obsRazorPayStatus.value?.paymentData?.signature.toString())
+        if(obsRazorPayStatus.value?.paymentData?.signature.isNullOrEmpty()){
 
-        Log.e("VERIFY BODY::", json.toString())
+            verifyPaymentWithOrder()
 
-        val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), json.toString())
+        }else{
+            val json = JSONObject()
+            json.put("order", obsOrder.value?.id)
+            json.put("razorpay_payment_id", obsRazorPayStatus.value?.paymentData?.paymentId.toString())
+            json.put("razorpay_order_id", obsOrder.value?.razorpay_order_id.toString())
+            json.put("razorpay_signature", obsRazorPayStatus.value?.paymentData?.signature.toString())
+
+            Log.e("VERIFY BODY::", json.toString())
+
+            val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), json.toString())
+            ioScope.launch {
+                try {
+                    repoBasic.verifyPayment(requestBody) {
+                        obsPaymentVerify.postValue(it)
+                    }
+                } catch (e: ApiException) {
+                    obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                } catch (e: SocketTimeoutException) {
+                    obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network, Socket Timeout"))
+                } catch (e: RiderLoginException) {
+                    repoPrefs.clearLoggedInUser()
+                    isUserLogout.postValue(true)
+                } catch (e: Exception) {
+                    obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network, Socket Timeout"))
+                    e.printStackTrace()
+                    if (e.message.toString().contains("Unable to resolve"))
+                        obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
+                    else obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                }
+            }
+        }
+    }
+
+    fun verifyPaymentWithOrder() {
         ioScope.launch {
             try {
-                repoBasic.verifyPayment(requestBody) {
-                    obsPaymentVerify.postValue(it)
+                repoBasic.verifyPaymentWithOrder {
+                    Log.e("VERIFY WITH ORDER::", it.toString())
+                    obsPaymentVerifyWithOrder.postValue(it)
                 }
             } catch (e: ApiException) {
-                obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                obsPaymentVerifyWithOrder.postValue(SimpleResponse(SimpleResponse.STATUS_RETRY, e.message.toString()))
             } catch (e: SocketTimeoutException) {
-                obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network, Socket Timeout"))
+                obsPaymentVerifyWithOrder.postValue(SimpleResponse(SimpleResponse.STATUS_RETRY, "Slow Network, Socket Timeout"))
             } catch (e: RiderLoginException) {
                 repoPrefs.clearLoggedInUser()
                 isUserLogout.postValue(true)
             } catch (e: Exception) {
-                obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network, Socket Timeout"))
+                obsPaymentVerifyWithOrder.postValue(SimpleResponse(SimpleResponse.STATUS_RETRY, "Slow Network, Socket Timeout"))
                 e.printStackTrace()
                 if (e.message.toString().contains("Unable to resolve"))
-                obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
-                else obsPaymentVerify.postValue(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
+                    obsPaymentVerifyWithOrder.postValue(SimpleResponse(SimpleResponse.STATUS_RETRY, "Network Issue\nUnable to resolve host"))
+                else obsPaymentVerifyWithOrder.postValue(SimpleResponse(SimpleResponse.STATUS_RETRY, e.message.toString()))
             }
         }
     }

@@ -355,7 +355,7 @@
                 android:id="@+id/tvPlaceOrder"
                 style="@style/Text.B3"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:alpha="@{viewModel.obsDeliveryAddress.name == null || viewModel.obsCustomer.name == null ? 0.45f : 1f}"
                 android:clickable="@{viewModel.obsDeliveryAddress.name == null || viewModel.obsCustomer.name == null ? false : true}"
                 android:background="@color/colorPrimary"

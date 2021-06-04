@@ -30,6 +30,11 @@ interface MyApi {
             @Header("Authorization") token: String?
     ): Response<Order>
 
+    @GET("api/orders/verify_payment")
+    suspend fun verifyPaymentWithOrder(
+        @Query("order_id") order_id: String?,
+        @Header("Authorization") token: String?
+    ): Response<SimpleResponse>
 
     @GET("api/orders/")
     suspend fun getOrders(

@@ -15,4 +15,6 @@ abstract class DataSourceBasic : BaseDataSource() {
 
     abstract suspend fun verifyPayment(requestBody: RequestBody, res: (SimpleResponse?) -> Unit)
 
+    abstract suspend fun verifyPaymentWithOrder(res: (SimpleResponse?) -> Unit)
+
 }
