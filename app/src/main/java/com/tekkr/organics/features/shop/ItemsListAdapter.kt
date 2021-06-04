@@ -91,6 +91,8 @@ fun ImageView.setItemImage(data: BigItem?) {
     else if(data.name.contains("chicken", true)) this.setImageResource(R.drawable.chicken)
     else if(data.name.contains("mutton", true)) this.setImageResource(R.drawable.mutton)
     else if(data.name.contains("fish", true)) this.setImageResource(R.drawable.fish)
+    else if(data.name.contains("mango", true)) this.setImageResource(R.drawable.mangos)
+    else if(data.name.contains("potato", true)) this.setImageResource(R.drawable.potato)
     else  this.setImageResource(R.drawable.logo_fresh)
 
 }

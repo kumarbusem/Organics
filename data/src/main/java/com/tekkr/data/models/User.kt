@@ -9,7 +9,8 @@ data class User(
         var access: String,
         val new_user: String = "",
         val name: String = "",
-        val email: String = ""
+        val email: String = "",
+        val message: String = ""
 ) {
     companion object {
 

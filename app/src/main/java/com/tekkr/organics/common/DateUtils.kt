@@ -9,7 +9,7 @@ object DateUtils {
 
     private const val TAG: String = "DateUtils"
 
-    const val DB_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    const val DB_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm"
 
 
     private const val DISPLAY_DATE_FORMAT: String = "dd MMM YY"
@@ -41,7 +41,7 @@ object DateUtils {
 
     fun getDateTimeToDisplay(timeStamp: String?): String? {
         if (timeStamp.isNullOrBlank()) return null
-        return timeStamp.formatWith(DISPLAY_DATE_TIME_FORMAT)
+        return timeStamp.substring(0, 16).formatWith(DISPLAY_DATE_TIME_FORMAT)
     }
 
     fun getReportTitleDateToDisplay(timeStamp: String?): String? {
@@ -61,11 +61,11 @@ object DateUtils {
         return try {
             Log.e("TIME: ", timeStamp.toString())
             val fromFormat = SimpleDateFormat(DB_DATE_FORMAT, Locale.getDefault())
-            fromFormat.timeZone = TimeZone.getTimeZone("UTC")
+            fromFormat.timeZone = TimeZone.getTimeZone("IST")
             fromFormat.parse(timeStamp)?.let { fromDate ->
 
                 val toFormat = SimpleDateFormat(format, Locale.getDefault())
-                toFormat.timeZone = TimeZone.getDefault()
+                toFormat.timeZone = TimeZone.getTimeZone("IST")
                 return toFormat.format(fromDate)
             } ?: return null
 

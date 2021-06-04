@@ -2,7 +2,9 @@ package com.tekkr.organics.common
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Intent
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import com.google.android.gms.location.*
 import com.tekkr.organics.BR
 import com.tekkr.organics.R
 import com.tekkr.organics.features.cart.CartFragment
+import com.tekkr.organics.features.dialogs.HelpDialog
 import com.tekkr.organics.features.dialogs.InfoDialog
 import com.tekkr.organics.features.dialogs.OTPDialog
 
@@ -35,6 +38,16 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
                     verifyOtp(phone, otp)
                 })
     }
+
+    protected val helpDialog: HelpDialog by lazy {
+        HelpDialog(
+            onCallSupportCLicked = {
+                val callIntent = Intent(Intent.ACTION_CALL)
+                callIntent.data = Uri.parse("tel:9513261696")
+                startActivity(callIntent)
+            })
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         dialog = ProgressDialog(activity)

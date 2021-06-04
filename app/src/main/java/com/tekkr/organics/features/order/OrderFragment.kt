@@ -42,6 +42,10 @@ class OrderFragment : BaseAbstractFragment<OrderViewModel, FragmentOrderBinding>
             navigateBack()
         }
 
+        btnHelp.setOnClickListener {
+            helpDialog.show(childFragmentManager, OrderFragment::class.java.simpleName)
+        }
+
     }
 
 

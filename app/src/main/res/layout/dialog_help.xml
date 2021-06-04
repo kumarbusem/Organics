@@ -11,87 +11,103 @@
     </data>
 
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/milky_white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="16dp"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="14dp"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="32dp"
             android:paddingTop="14dp"
             tools:ignore="ContentDescription,UnusedAttribute">
 
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/mcvMail"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="14dp"
-                app:cardBackgroundColor="@color/milky_white"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
-                app:layout_constraintStart_toStartOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/btnMail"
+                android:foreground="?selectableItemBackground"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/colorGrey300"
-                app:strokeWidth="1dp">
+                android:layout_height="wrap_content">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcvMail"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    app:cardBackgroundColor="@color/milky_green"
+                    android:layout_marginEnd="14dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/colorGrey300"
+                    app:strokeWidth="1dp">
 
 
-                <ImageView
-                    android:id="@+id/ivProfilePic"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:foreground="?selectableItemBackground"
-                    android:padding="14dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_email_24"
-                    app:tint="@color/colorGrey700" />
+                    <ImageView
+                        android:id="@+id/ivProfilePic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:foreground="?selectableItemBackground"
+                        android:padding="14dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_email_24"
+                        app:tint="@color/colorPrimary" />
 
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tvMailHeading"
-                style="@style/Text.M3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Email Us"
-                android:textColor="@color/colorGrey900"
-                app:layout_constraintBottom_toTopOf="@id/tvMail"
-                app:layout_constraintStart_toEndOf="@id/mcvMail"
-                app:layout_constraintTop_toTopOf="@id/mcvMail"
-                app:layout_constraintVertical_chainStyle="packed" />
+                <TextView
+                    android:id="@+id/tvMailHeading"
+                    style="@style/Text.B4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Email Us"
+                    android:textColor="@color/colorGrey900"
+                    app:layout_constraintBottom_toTopOf="@id/tvMail"
+                    app:layout_constraintStart_toEndOf="@id/mcvMail"
+                    app:layout_constraintTop_toTopOf="@id/mcvMail"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
-                android:id="@+id/tvMail"
-                style="@style/Text.B4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="developer@sendfast.in"
-                android:textColor="@color/colorGrey900"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@id/mcvMail"
-                app:layout_constraintStart_toEndOf="@id/mcvMail"
-                app:layout_constraintTop_toBottomOf="@id/tvMailHeading"
-                app:layout_constraintVertical_chainStyle="packed" />
+                <TextView
+                    android:id="@+id/tvMail"
+                    style="@style/Text.R3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="hello@tekkrexim.in"
+                    android:textColor="@color/colorGrey700"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/mcvMail"
+                    app:layout_constraintStart_toEndOf="@id/mcvMail"
+                    app:layout_constraintTop_toBottomOf="@id/tvMailHeading"
+                    app:layout_constraintVertical_chainStyle="packed" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/btnPhone"
+            android:layout_marginTop="16dp"
+            android:foreground="?selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/btnMail"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mcvPhone"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="14dp"
-                app:cardBackgroundColor="@color/milky_white"
+                app:cardBackgroundColor="@color/milky_green"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mcvMail"
+                app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/colorGrey300"
                 app:strokeWidth="1dp">
 
@@ -104,13 +120,13 @@
                     android:padding="14dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_call_24"
-                    app:tint="@color/colorGrey700" />
+                    app:tint="@color/colorPrimary" />
 
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvPhoneHeading"
-                style="@style/Text.M3"
+                style="@style/Text.B4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -123,20 +139,23 @@
 
             <TextView
                 android:id="@+id/tvPhone"
-                style="@style/Text.B4"
+                style="@style/Text.R3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="+91 7997567407"
-                android:textColor="@color/colorGrey900"
-                android:textSize="14dp"
+                android:text="+91 9513261696"
+                android:textColor="@color/colorGrey700"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/mcvPhone"
                 app:layout_constraintStart_toEndOf="@id/mcvPhone"
                 app:layout_constraintTop_toBottomOf="@id/tvPhoneHeading"
                 app:layout_constraintVertical_chainStyle="packed" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

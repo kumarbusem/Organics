@@ -43,7 +43,12 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
     protected val repoBasic: DataSourceBasic by lazy { RepoBasic() }
     protected val repoImage: DataSourceImage by lazy { RepoImage() }
 
-    val roomRepository by lazy { TekkrRoomRepository(roomDatabase.itemsDao(), roomDatabase.addressesDao()) }
+    val roomRepository by lazy {
+        TekkrRoomRepository(
+            roomDatabase.itemsDao(),
+            roomDatabase.addressesDao()
+        )
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -65,12 +70,12 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
         ioScope.launch {
             try {
                 repoUser.verifyOTP(phone, otp) { user ->
-                    if (user == null || user.access.isEmpty())
-                        res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Access token not available"))
-                    else {
+                    if (user != null && !user.access.isNullOrEmpty() && user.status.isStatusSuccess()) {
                         repoPrefs.saveLoggedInUser(user)
                         obsIsUserAuthenticated.postValue(true)
                         res(SimpleResponse(SimpleResponse.STATUS_SUCCESS, ""))
+                    } else {
+                        res(SimpleResponse(SimpleResponse.STATUS_FAILED, user?.message.toString()))
                     }
                 }
             } catch (e: ApiException) {
@@ -80,7 +85,12 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
                 res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network!\nPlease ty again"))
             } catch (e: Exception) {
                 if (e.message.toString().contains("Unable to resolve"))
-                    res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
+                    res(
+                        SimpleResponse(
+                            SimpleResponse.STATUS_FAILED,
+                            "Network Issue\nUnable to resolve host"
+                        )
+                    )
                 else res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
                 Log.e("EXC:::", e.printStackTrace().toString())
             }
@@ -99,7 +109,12 @@ open class BaseViewModel(context: Application) : AndroidViewModel(context) {
                 res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Slow Network!\nPlease ty again"))
             } catch (e: Exception) {
                 if (e.message.toString().contains("Unable to resolve"))
-                    res(SimpleResponse(SimpleResponse.STATUS_FAILED, "Network Issue\nUnable to resolve host"))
+                    res(
+                        SimpleResponse(
+                            SimpleResponse.STATUS_FAILED,
+                            "Network Issue\nUnable to resolve host"
+                        )
+                    )
                 else res(SimpleResponse(SimpleResponse.STATUS_FAILED, e.message.toString()))
             }
         }

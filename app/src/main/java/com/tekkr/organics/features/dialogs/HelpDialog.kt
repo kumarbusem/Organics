@@ -60,6 +60,7 @@ class HelpDialog(val onCallSupportCLicked: () -> Unit) : DialogFragment() {
                 dialog?.dismiss()
             }
 
+
         }
     }
 }

@@ -44,14 +44,23 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
         })
         obsPaymentVerify.observe(viewLifecycleOwner, Observer {
             Log.e("VERIFY::", "$it")
-            if (it.status.isStatusSuccess()) {
-                val order = mViewModel.obsOrder.value
-                order?.payment_verified = true
-                repoPrefs.saveSelectedOrder(order!!)
-                navigateBack()
-            } else {
-                showInfoDialogueFor("Alert", "Payment verification failed", "${it.message}\nPlease try again", "TRY AGAIN", false) {
-                    mViewModel.verifyPayment()
+            when {
+                it.status.isStatusSuccess() -> {
+                    val order = mViewModel.obsOrder.value
+                    order?.payment_verified = true
+                    repoPrefs.saveSelectedOrder(order!!)
+                    navigateBack()
+                }
+                mViewModel.obsRazorPayStatus.value?.paymentData?.signature.toString().isNullOrEmpty() -> {
+                    val order = mViewModel.obsOrder.value
+                    order?.payment_verified = false
+                    repoPrefs.saveSelectedOrder(order!!)
+                    navigateBack()
+                }
+                else -> {
+                    showInfoDialogueFor("Alert", "Payment verification failed", "${it.message}\nPlease try again", "TRY AGAIN", false) {
+                        mViewModel.verifyPayment()
+                    }
                 }
             }
         })
@@ -88,7 +97,7 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
 
             options.put("theme.color", "#3ab54a")
             options.put("order_id", mViewModel.obsOrder.value?.razorpay_order_id)
-            options.put("send_sms_hash", false)
+            options.put("send_sms_hash", true)
 
             val retryObj = JSONObject()
             retryObj.put("enabled", true)
