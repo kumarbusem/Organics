@@ -11,7 +11,7 @@ interface AddressDao {
     @Query("SELECT * FROM address_table")
     fun getAddresses(): List<Address>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(address: Address)
 
 }

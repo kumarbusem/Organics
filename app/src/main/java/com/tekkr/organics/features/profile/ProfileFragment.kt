@@ -37,7 +37,7 @@ class ProfileFragment : BaseAbstractFragment<ProfileViewModel, FragmentProfileBi
             navigateBack()
         }
         btnLogout.setOnClickListener {
-            showInfoDialogueFor("Logout", "Do you want to Logout", "", "Yes", false) {
+            showInfoDialogueFor("Logout", "Do you want to Logout", "", "Yes", true) {
                 repoPrefs.clearLoggedInUser()
                 navigateBack()
             }

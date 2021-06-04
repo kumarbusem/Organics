@@ -27,7 +27,7 @@ android {
         release {
             buildConfigField "String", "bucket", "\"prod\""
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-project.txt'
         }
     }
 

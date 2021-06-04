@@ -33,7 +33,7 @@ class OrderFragment : BaseAbstractFragment<OrderViewModel, FragmentOrderBinding>
         }
 
         btnMakePayment.setOnClickListener {
-            showInfoDialogueFor("Payment", "Do not press back button while making payment", "Don't close the application", "PAY", false){
+            showInfoDialogueFor("Payment", "Do not press back button while making payment", "Don't close the application", "PAY", true){
                 navigateById(R.id.action_orderFragment_to_paymentFragment)
             }
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.tekkr.organics.R
+import com.tekkr.organics.common.show
 import com.tekkr.organics.databinding.DialogInfoBinding
 
 class InfoDialog private constructor(private val dialogueData: DialogueData) : DialogFragment() {
@@ -57,6 +58,8 @@ class InfoDialog private constructor(private val dialogueData: DialogueData) : D
             btnClose.setOnClickListener {
                 dialog?.dismiss()
             }
+
+            if(dialogueData.cancelable) btnClose.show()
 
         }
     }
