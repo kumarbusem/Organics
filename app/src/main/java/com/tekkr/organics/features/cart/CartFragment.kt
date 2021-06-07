@@ -1,14 +1,21 @@
 package com.tekkr.organics.features.cart
 
 import android.app.ProgressDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.tekkr.data.models.Customer
 import com.tekkr.data.models.Order
 import com.tekkr.data.roomDatabase.CartItem
+import com.tekkr.organics.BuildConfig
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
+import com.tekkr.organics.common.PermissionManager.Companion.PERMISSION_REQUEST_CODE
 import com.tekkr.organics.databinding.FragmentCartBinding
 import com.tekkr.organics.features.dialogs.ContactDetailsDialog
 
@@ -17,6 +24,7 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
 
 
     private val mPermissionManager: PermissionManager by lazy { PermissionManager(this@CartFragment) }
+    private var snackbarShow: Boolean = false
     private val mCartAdapter: CartListAdapter by lazy {
         CartListAdapter(this@CartFragment, CartListAdapter.TYPE_CART)
     }
@@ -118,6 +126,33 @@ class CartFragment : BaseAbstractFragment<CartViewModel, FragmentCartBinding>(R.
     }
 
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
+        var arePermissionsGranted = true
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            grantResults.forEach { if (it != PackageManager.PERMISSION_GRANTED) arePermissionsGranted = false }
+            if (!arePermissionsGranted) {
+                snackbarShow = true
+                showSettingSnackBar()
+            }
+            navigateById(R.id.action_cartFragment_to_selectAddressFragment)
+        }
+    }
+
+    private fun showSettingSnackBar() {
+        if (snackbarShow)
+            Snackbar.make(requireView(), "Please give location permission for better user experience", Snackbar.LENGTH_LONG)
+                .setAction("Settings") {
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    val uri = Uri.fromParts("package",
+                        BuildConfig.APPLICATION_ID, null)
+                    intent.data = uri
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
+                .show()
+    }
 
 }

@@ -8,6 +8,7 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -173,7 +174,7 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
             })
 
             etPhone.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitPhone.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 10)
+                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitPhone.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 10  && Patterns.PHONE.matcher(s.toString().trim()).matches())
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
             })

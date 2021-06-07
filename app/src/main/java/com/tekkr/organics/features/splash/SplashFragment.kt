@@ -32,13 +32,16 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun checkUserAuth() {
-        val user = repoPrefs.getLoggedInUser()
             navigateById(R.id.action_splashFragment_to_shopFragment)
-
     }
 
     companion object {
         private const val SPLASH_DURATION: Long = 2000
+    }
+
+    override fun onResume() {
+        checkUserAuth()
+        super.onResume()
     }
 
 }

@@ -125,13 +125,21 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
 
     override fun onPaymentError(errorCode: Int, errorDescription: String?, paymentData: PaymentData?) {
         Log.e("PAYMENT Error::", "$errorCode...$errorDescription...$paymentData")
-        val error = Gson().fromJson<RazorPayResponse>(errorDescription, object : TypeToken<RazorPayResponse>() {}.type)
-        if (errorDescription != null && errorDescription.contains("Payment already done"))
+        if (errorDescription != null && errorDescription.contains("Payment already done", true))
             mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_ALREADY_PAID, paymentData, Error()))
-        else if (!error.description.isNullOrEmpty())
-            mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, Error(description = error.description)))
-        else
-            mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, error.error))
+        else{
+            try {
+                val error = Gson().fromJson<RazorPayResponse>(errorDescription, object : TypeToken<RazorPayResponse>() {}.type)
+                if (!error.description.isNullOrEmpty())
+                    mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, Error(description = error.description)))
+                else
+                    mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, error.error))
+            }catch (e: java.lang.Exception){
+                mViewModel.obsRazorPayStatus.postValue(RazorPayResponse(RazorPayResponse.STATUS_FAILED, paymentData, Error(description = errorDescription.toString())))
+            }
+
+        }
+
     }
 
 
