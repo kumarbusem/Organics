@@ -3,9 +3,11 @@ package com.tekkr.organics.features.shop
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.synnapps.carouselview.ImageListener
 import com.tekkr.data.roomDatabase.CartItem
 import com.tekkr.organics.R
 import com.tekkr.organics.common.BaseAbstractFragment
@@ -16,7 +18,7 @@ import com.tekkr.organics.databinding.FragmentShopBinding
 import com.tekkr.organics.features.cart.CartFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.partial_blocked_version.view.*
-import kotlinx.coroutines.launch
+
 
 class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.layout.fragment_shop), ItemsListAdapter.ItemCallback {
 
@@ -71,6 +73,22 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
             ))
         }
 
+        setUpCarousel()
+
+    }
+
+    private fun setUpCarousel() {
+
+        mBinding.carouselView.setImageListener(imageListener)
+        mBinding.carouselView.pageCount = 2
+
+    }
+    private var imageListener: ImageListener = ImageListener { position, imageView ->
+        val sampleImages = intArrayOf(
+            R.drawable.alphanso3,
+            R.drawable.pineapple
+        )
+        imageView.setImageResource(sampleImages[position])
     }
 
 

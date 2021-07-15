@@ -66,7 +66,7 @@ fun TextView.setItemsText(data: Order?) {
     if (data == null) return
     var itemString = ""
     data.order_items.forEach {
-        itemString = itemString + it.item_details.name + " x " + it.quantity + ", "
+        itemString = itemString + it.item_details.name.toString() + " x " + it.quantity + ", "
     }
     this.setText(itemString)
 

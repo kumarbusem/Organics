@@ -122,8 +122,8 @@ class NewAddressFragment : BaseAbstractFragment<NewAddressViewModel, FragmentNew
     private fun setDeliveryAddress() {
 
         when {
-            mBinding.etAddress.text.isNullOrEmpty() || mBinding.etAddress.text.length < 6 -> showToast("Please enter valid address")
-            mBinding.etPin.text.isNullOrEmpty() || mBinding.etPin.text.length != 6 -> showToast("Please enter valid pincode")
+            mBinding.etAddress.text.isNullOrEmpty() || mBinding.etAddress.text.length < 6 -> showToast("Please enter valid address (minimum 6 characters)")
+            mBinding.etPin.text.isNullOrEmpty() || mBinding.etPin.text.length != 6 -> showToast("Please enter valid pincode (minimum 6 digits)")
             else -> {
                 val tempAddress = repoPrefs.getTempAddress()
                 Log.e("TEMP ADDRESS::", tempAddress.toString())

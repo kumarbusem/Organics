@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.cashtek.cpe.dev",
+  "applicationId": "com.tekkr.organics.dev",
   "variantName": "processDebugResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "1.01",
+      "versionCode": 13,
+      "versionName": "1.13",
       "outputFile": "app-debug.apk"
     }
   ]

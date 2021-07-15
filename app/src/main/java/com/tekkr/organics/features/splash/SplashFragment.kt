@@ -20,7 +20,6 @@ class SplashFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigateNext()
     }
 
     private fun navigateNext() {
@@ -36,11 +35,11 @@ class SplashFragment : BaseFragment() {
     }
 
     companion object {
-        private const val SPLASH_DURATION: Long = 2000
+        private const val SPLASH_DURATION: Long = 1000
     }
 
     override fun onResume() {
-        checkUserAuth()
+        navigateNext()
         super.onResume()
     }
 

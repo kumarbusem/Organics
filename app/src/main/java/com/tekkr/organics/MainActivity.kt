@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity(), PaymentResultWithDataListener {
                 ).build())
         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-
     }
 
     private fun getAppSettings() {
@@ -72,15 +71,12 @@ class MainActivity : AppCompatActivity(), PaymentResultWithDataListener {
         }
     }
 
-
     private val networkReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (isNetworkAvailable(this@MainActivity)) plNoInternet.hide()
             else plNoInternet.show()
         }
     }
-
-
 
     override fun onStart() {
         super.onStart()

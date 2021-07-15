@@ -3,6 +3,7 @@ package com.tekkr.data.roomDatabase
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.google.android.gms.common.util.CrashUtils
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tekkr.data.dataSources.definitions.DataSourceBasic
 import com.tekkr.data.dataSources.repos.RepoBasic
 import com.tekkr.data.internal.common.ApiException
@@ -39,7 +40,7 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
             try {
                 itemsDao.makeOfflineItemsInactive()
             }catch (e: java.lang.Exception){
-
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
             onlineItems.forEach {item ->
                 val items: List<BigItem?>? = itemsDao.getItemById(item.id)

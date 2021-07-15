@@ -20,6 +20,8 @@ abstract class SafeApiRequest {
             val message = StringBuilder()
             if (response.code() == 401) {
                 throw RiderLoginException()
+            }else if(response.code() == 400){
+                throw ApiException(error.toString())
             }
             error?.let {
                 try {
@@ -32,7 +34,7 @@ abstract class SafeApiRequest {
                 }
                 message.append("\n")
             }
-            message.append("Error Code: ${response.code()}")
+            message.append("${response.code()}")
             throw ApiException(message.toString())
         }
     }
