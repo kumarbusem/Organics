@@ -146,4 +146,6 @@ class ShopFragment : BaseAbstractFragment<ShopViewModel, FragmentShopBinding>(R.
         Log.e("USER::", repoPrefs.getLoggedInUser()?.phone_number.toString())
         super.onResume()
     }
+
+
 }

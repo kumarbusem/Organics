@@ -18,21 +18,25 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.tekkr.data.models.SimpleResponse
-import com.tekkr.data.roomDatabase.BigItem
 import com.tekkr.organics.R
 import com.tekkr.organics.common.*
 import com.tekkr.organics.databinding.DialogOtpBinding
 import kotlinx.android.synthetic.main.dialog_otp.*
-import java.lang.Exception
 
 
-class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: (String, String) -> Unit) : DialogFragment() {
+class OTPDialog(
+    val onSendOTPCLicked: (String) -> Unit,
+    val onSubmitOTPCLicked: (String, String) -> Unit,
+    val onGetPhoneNumber:() -> Unit,
+) : DialogFragment() {
 
     private lateinit var mBinding: DialogOtpBinding
 
     var cTimer: CountDownTimer? = null
     var isOtpSent: MutableLiveData<SimpleResponse> = MutableLiveData()
     var isOtpVerified: MutableLiveData<SimpleResponse> = MutableLiveData()
+    var obsOTP: MutableLiveData<String> = MutableLiveData()
+    var obsPhone: MutableLiveData<String> = MutableLiveData()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
@@ -53,7 +57,11 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
         dialog?.setCancelable(false)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_otp, container, false)
         mBinding.lifecycleOwner = viewLifecycleOwner
         return mBinding.root
@@ -112,6 +120,8 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
 
         mBinding.apply {
 
+            onGetPhoneNumber()
+
             btnSubmitOTP.disable()
             btnSubmitPhone.disable()
             cvVerifyOtp.hide()
@@ -151,6 +161,14 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
                 }
             })
 
+            obsOTP.observe(viewLifecycleOwner, {
+                mBinding.etOTP.setText(it)
+            })
+            obsPhone.observe(viewLifecycleOwner, {
+                mBinding.etPhone.setText(it)
+            })
+
+
             btnSubmitPhone.setOnClickListener {
                 onSendOTPCLicked(mBinding.etPhone.text.toString().trim())
                 mBinding.btnSubmitPhone.disable()
@@ -159,7 +177,10 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
             }
 
             btnSubmitOTP.setOnClickListener {
-                onSubmitOTPCLicked(mBinding.etPhone.text.toString().trim(), mBinding.etOTP.text.toString().trim())
+                onSubmitOTPCLicked(
+                    mBinding.etPhone.text.toString().trim(),
+                    mBinding.etOTP.text.toString().trim()
+                )
                 mBinding.btnSubmitOTP.disable()
                 mBinding.tvError.hide()
                 mBinding.loginProgress.show()
@@ -168,15 +189,38 @@ class OTPDialog(val onSendOTPCLicked: (String) -> Unit, val onSubmitOTPCLicked: 
 
 
             etOTP.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitOTP.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 4)
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitOTP.enableIf(
+                    !s?.toString().isNullOrEmpty() && s?.toString()?.length == 4
+                )
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                    Unit
             })
 
             etPhone.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitPhone.enableIf(!s?.toString().isNullOrEmpty() && s?.toString()?.length == 10  && Patterns.PHONE.matcher(s.toString().trim()).matches())
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+                override fun afterTextChanged(s: Editable?) = mBinding.btnSubmitPhone.enableIf(
+                    !s?.toString()
+                        .isNullOrEmpty() && s?.toString()?.length == 10 && Patterns.PHONE.matcher(
+                        s.toString().trim()
+                    ).matches()
+                )
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) = Unit
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) =
+                    Unit
             })
         }
     }

@@ -87,6 +87,8 @@ class PaymentFragment : BaseAbstractFragment<PaymentViewModel, FragmentPaymentBi
         })
     }
 
+
+
     private fun startPayment() {
 
         Checkout.preload(OrganicsApplication.application)

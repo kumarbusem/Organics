@@ -49,6 +49,11 @@ open class BaseFragment : Fragment() {
             imm.hideSoftInputFromWindow(requireActivity().currentFocus!!.windowToken, 0)
     }
 
+    protected fun getPhoneNumber() {
+        mActivity.getPhoneNumber()
+    }
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as MainActivity

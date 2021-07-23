@@ -120,4 +120,8 @@ dependencies {
 
     //Payments
     implementation 'com.razorpay:checkout:1.6.6'
+
+    //SMS read
+    implementation "com.google.android.gms:play-services-auth:19.2.0"
+    implementation "com.google.android.gms:play-services-auth-api-phone:17.5.1"
 }

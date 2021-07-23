@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.tekkr.data.dataSources.definitions.DataSourceImage
 import com.tekkr.data.dataSources.definitions.DataSourceBasic
 import com.tekkr.data.dataSources.definitions.DataSourceSharedPreferences

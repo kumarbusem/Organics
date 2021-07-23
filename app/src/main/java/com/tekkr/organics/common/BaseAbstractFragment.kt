@@ -15,8 +15,10 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.location.*
 import com.tekkr.organics.BR
+import com.tekkr.organics.MainActivity
 import com.tekkr.organics.R
 import com.tekkr.organics.features.cart.CartFragment
 import com.tekkr.organics.features.dialogs.HelpDialog
@@ -24,7 +26,8 @@ import com.tekkr.organics.features.dialogs.InfoDialog
 import com.tekkr.organics.features.dialogs.OTPDialog
 
 abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
-(@LayoutRes private val layoutId: Int) : BaseFragment() {
+(@LayoutRes private val layoutId: Int) : BaseFragment(), MainActivity.SMSListener {
+
     private lateinit var dialog: ProgressDialog
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     protected lateinit var mBinding: BT
@@ -32,10 +35,14 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     protected val loginOTPDialog: OTPDialog by lazy {
         OTPDialog(
                 onSendOTPCLicked = { phone ->
+                    val task = SmsRetriever.getClient(requireContext()).startSmsUserConsent(null)
                     sendOtp(phone)
                 },
                 onSubmitOTPCLicked = { phone, otp ->
                     verifyOtp(phone, otp)
+                },
+                onGetPhoneNumber = {
+                    getPhoneNumber()
                 })
     }
 
@@ -120,6 +127,8 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.apply { setupViews().invoke(mBinding) }
+
+        (activity as MainActivity?)?.setSMSListener(this)
     }
 
     private fun verifyOtp(phone: String, otp: String) {
@@ -131,12 +140,17 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
     }
 
     private fun sendOtp(phone: String) {
-
         mViewModel.sendOtp(phone){
             loginOTPDialog.isOtpSent.postValue(it)
         }
-
     }
+    override fun onOTPReceived(otp: String) {
+        loginOTPDialog.obsOTP.postValue(otp)
+    }
+    override fun onPhoneNumberReceived(phone: String) {
+        loginOTPDialog.obsPhone.postValue(phone)
+    }
+
     fun showInfoDialogueFor(title: String, message: String, subMessage: String, button: String, cancel: Boolean, onConfirmation: () -> Unit) {
         InfoDialog.Builder()
                 .setTitle(title)
@@ -149,6 +163,7 @@ abstract class BaseAbstractFragment<VT : BaseViewModel, BT : ViewDataBinding>
                 .build()
                 .show(childFragmentManager, CartFragment::class.java.simpleName)
     }
+
 
 
     abstract fun setViewModel(): VT

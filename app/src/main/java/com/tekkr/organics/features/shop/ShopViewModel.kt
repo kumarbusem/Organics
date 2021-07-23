@@ -32,8 +32,6 @@ class ShopViewModel(context: Application) : BaseViewModel(context) {
             try {
                 val items = roomRepository.getAllItems()
 
-                Log.e("SHOP VIEWMODEL::", items.toString())
-
                 var fruits: ArrayList<BigItem> = ArrayList()
                 var vegetables: ArrayList<BigItem> = ArrayList()
                 var meat: ArrayList<BigItem> = ArrayList()

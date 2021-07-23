@@ -20,7 +20,6 @@ class TekkrRoomRepository(private val itemsDao: ItemDao, private val addressDao:
         try {
             repoBasic.getItems(){
                 onlineItems = it!!
-                Log.e("Room Repo Online::", it.toString())
             }
         }catch (e: Exception){
             message = e.message.toString()

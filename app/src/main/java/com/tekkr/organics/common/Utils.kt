@@ -10,6 +10,8 @@ import android.view.Display
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import kotlin.reflect.KProperty0
 import kotlin.reflect.jvm.isAccessible
 
@@ -23,6 +25,12 @@ fun isNetworkAvailable(context: Context): Boolean {
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }
 
+fun String?.getOtp(): String {
+
+    val matcher: Matcher = Pattern.compile("(\\d{4})").matcher(this)
+    return if (matcher.find()) matcher.group(0) else ""
+
+}
 
 fun isGpsAvailable(context: Context): Boolean {
     val locationManager =
